@@ -811,10 +811,12 @@
             outputElement.innerHTML = '';
             spinnerElement.classList.remove('hidden');
             
-            const apiKey = window.GEMINI_API_KEY || ""; 
+            // >>>>>>>>>> PASTE YOUR ACTUAL GEMINI API KEY HERE <<<<<<<<<<
+            // Example: const apiKey = "AIzaSyB-YOUR-ACTUAL-KEY-GOES-HERE";
+            const apiKey = "AIzaSyBM8UsLH_ubOmP3tTxvXWvdQWnlPPpiOK0"; 
             
-            if (!apiKey) {
-                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please set `GEMINI_API_KEY` as an environment variable on Vercel.</p>';
+            if (!apiKey || apiKey === "AIzaSyBM8UsLH_ubOmP3tTxvXWvdQWnlPPpiOK0") {
+                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please replace "YOUR_ACTUAL_GEMINI_API_KEY_HERE" in the JavaScript with your actual Gemini API key.</p>';
                 spinnerElement.classList.add('hidden');
                 return;
             }
@@ -849,7 +851,7 @@
                     // 2. Markdown to HTML conversion
                     // Bold: **text** -> <strong>text</strong>
                     processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    // Italic: *text* -> <em>text</em>
+                    // Italic: *text* -> <em>$1</em>
                     processedText = processedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
                     // Lists: Convert consecutive lines starting with '- ' into <ul><li>...</li></ul>
@@ -873,7 +875,7 @@
                 }
             } catch (error) {
                 console.error('Error calling Gemini API:', error);
-                outputElement.innerHTML = `<p class="text-red-500 font-semibold">Error: Failed to connect to AI. ${error.message}. Please check your network connection and API key configuration on Vercel.</p>`;
+                outputElement.innerHTML = `<p class="text-red-500 font-semibold">Error: Failed to connect to AI. ${error.message}. This could be a network issue or an invalid API key. Please check your browser's console for more details.</p>`;
             } finally {
                 spinnerElement.classList.add('hidden');
             }
