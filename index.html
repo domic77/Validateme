@@ -3,67 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Indispensable Need for "Validate Me" - Interactive Report</title>
+    <title>Validate Me: Empowering Startup Validation</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40300%3B400%3B500%3B600%3B700%3B800%3B900&family=Noto+Sans%3Awght%40300%3B400%3B500%3B700%3B900&display=swap" onload="this.rel='stylesheet'" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* Custom styles from Stitch Design */
+        /* Custom progress bar styles from original Stitch design */
         .progress-bar::-webkit-progress-value {
-          background-color: #0c7ff2; /* Blue-600 equivalent from Stitch */
+          background-color: #0c7ff2; /* Blue-600 */
           border-radius: 0.25rem;
         }
         .progress-bar::-webkit-progress-bar {
-          background-color: #e5e7eb; /* Gray-200 equivalent from Stitch */
+          background-color: #e5e7eb; /* Gray-200 */
           border-radius: 0.25rem;
         }
         .progress-bar::-moz-progress-bar {
           background-color: #0c7ff2;
           border-radius: 0.25rem;
         }
-        /* End custom styles from Stitch Design */
 
+        /* Applying Inter and Noto Sans from Stitch globally */
         body {
-            /* Applying Inter and Noto Sans from Stitch */
-            font-family: Inter, "Noto Sans", sans-serif;
+            font-family: 'Inter', 'Noto Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Chart container responsiveness */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 700px; /* Keep consistent max-width */
             margin-left: auto;
             margin-right: auto;
-            height: 350px;
-            max-height: 450px;
+            height: 350px; /* Fixed height for consistency */
         }
         @media (max-width: 768px) {
             .chart-container {
-                height: 300px;
-                max-height: 400px;
+                height: 300px; /* Slightly smaller on mobile */
             }
         }
+
+        /* Navigation link smooth transitions */
         .nav-link {
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, font-weight 0.3s ease;
         }
         .nav-link.active, .nav-link:hover {
             color: #0c7ff2; /* Stitch blue-600 */
             font-weight: 600;
+            background-color: #eff6ff; /* Blue-50 for subtle hover/active background */
+            border-radius: 0.5rem; /* Rounded corners for nav links */
         }
 
+        /* Smooth scroll margin for sticky header */
         .content-section {
             scroll-margin-top: 80px; /* Adjust based on sticky nav height */
+        }
+
+        /* Tab button active state styling */
+        .tab-button {
+            transition: all 0.3s ease;
         }
         .tab-button.active {
             border-color: #0c7ff2; /* Stitch blue-600 */
             background-color: #0c7ff2; /* Stitch blue-600 */
             color: white;
+            border-radius: 0.5rem; /* Rounded corners for tabs */
+            padding-left: 1.25rem; /* px-5 equivalent */
+            padding-right: 1.25rem; /* px-5 equivalent */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .tab-button:not(.active):hover {
+            color: #4b5563; /* gray-700 */
+            border-color: #d1d5db; /* gray-300 */
         }
 
+        /* Comparison card expand/collapse animation */
         .comparison-card h3 {
             cursor: pointer;
+            user-select: none; /* Prevent text selection on click */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .comparison-card h3 span {
+            transition: transform 0.3s ease;
+        }
+        .comparison-card.open h3 span {
+            transform: rotate(180deg);
         }
         .comparison-card .details {
             max-height: 0;
@@ -71,8 +101,11 @@
             transition: max-height 0.5s ease-out;
         }
         .comparison-card.open .details {
-            max-height: 500px; /* Adjust as needed */
+            max-height: 500px; /* Sufficient height for content */
+            padding-top: 1rem; /* Add padding when open */
         }
+
+        /* Loading spinner animation */
         .loading-spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
             border-left-color: #0c7ff2; /* Stitch blue-600 */
@@ -88,35 +121,72 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* General button styling for consistent hover/focus */
+        button {
+            transition: all 0.15s ease-in-out;
+        }
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input/Textarea focus styling */
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #3b82f6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* blue-500 with alpha */
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800"> 
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 
-    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 bg-white px-6 sm:px-10 py-4 shadow-sm sticky top-0 z-50">
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 bg-white px-6 sm:px-10 py-4 shadow-md sticky top-0 z-50">
         <div class="flex items-center gap-3 text-slate-800">
-            <div class="size-8 text-blue-600">
-                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <div class="size-9 text-blue-600 flex items-center justify-center rounded-full bg-blue-50">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="size-7">
                     <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
                 </svg>
             </div>
-            <h1 class="text-xl font-semibold leading-tight tracking-tight">Validate Me</h1>
+            <h1 class="text-2xl font-bold leading-tight tracking-tight text-blue-800">Validate Me</h1>
         </div>
         <div class="flex items-center gap-4">
-            <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4">
-                    <a href="#hero" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Home</a>
-                    <a href="#problem" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">The Problem</a>
-                    <a href="#challenges" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Current Challenges</a>
-                    <a href="#solution" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">The Solution</a>
-                    <a href="#interactive-tools" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Interactive Tools</a>
-                    <a href="#advantage" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Advantages</a>
-                    <a href="#takeaways" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Takeaways</a>
+            <nav class="hidden md:block">
+                <div class="flex items-baseline space-x-2 lg:space-x-4">
+                    <a href="#hero" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Home</a>
+                    <a href="#problem" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">The Problem</a>
+                    <a href="#challenges" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Challenges</a>
+                    <a href="#solution" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Solution</a>
+                    <a href="#interactive-tools" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Tools</a>
+                    <a href="#advantage" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Advantages</a>
+                    <a href="#takeaways" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Takeaways</a>
                 </div>
-            </div>
+            </nav>
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-slate-700 hover:text-blue-600 focus:outline-none">
+                <button id="mobile-menu-button" class="text-slate-700 hover:text-blue-600 focus:outline-none p-2 rounded-md hover:bg-gray-100">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
@@ -126,7 +196,7 @@
     </header>
 
     <div id="mobile-menu" class="md:hidden hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-sm">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-sm border-b border-gray-200">
             <a href="#hero" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">Home</a>
             <a href="#problem" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">The Problem</a>
             <a href="#challenges" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">Current Challenges</a>
@@ -139,229 +209,354 @@
     <main class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-8">
         <div class="layout-content-container flex flex-col w-full max-w-5xl">
 
-        <section id="hero" class="content-section text-center py-12 bg-white rounded-xl shadow-lg mb-8"> <h1 class="text-slate-800 text-3xl sm:text-4xl font-bold tracking-tight mb-6">The Startup Minefield: Why Most Ventures Fail</h1> <p class="text-base text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed"> The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This report explores this critical "validation gap."
+        <section id="hero" class="content-section text-center py-16 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl mb-12 border border-blue-100"> 
+            <h1 class="text-slate-900 text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">The Startup Minefield: <br class="hidden sm:inline">Why Most Ventures Fail</h1> 
+            <p class="text-lg text-slate-700 mb-10 max-w-4xl mx-auto leading-relaxed px-4"> 
+                The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This interactive report explores this critical "validation gap" and introduces a powerful solution.
             </p>
-            <div class="bg-blue-50 p-6 rounded-md max-w-3xl mx-auto shadow border border-blue-200"> <h2 class="text-xl font-semibold text-blue-700 mb-3 leading-tight tracking-tight">Introducing "Validate Me"</h2>
-                <p class="text-slate-700 text-sm"> "Validate Me" is envisioned as an AI-powered SaaS solution to bridge this gap, offering data-driven idea validation *before* you invest precious resources. It aims to analyze web data and social trends to confirm if your idea solves a real problem for a specific audience.
+            <div class="bg-blue-100 p-8 rounded-xl max-w-3xl mx-auto shadow-inner border border-blue-200"> 
+                <h2 class="text-2xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Introducing "Validate Me"</h2>
+                <p class="text-slate-700 text-base leading-relaxed"> 
+                    "Validate Me" is envisioned as an <strong>AI-powered SaaS solution</strong> designed to bridge this critical gap. It offers data-driven idea validation <em>before</em> you invest precious resources, analyzing vast web data and social trends to confirm if your idea solves a real problem for a specific audience.
                 </p>
             </div>
+            <a href="#interactive-tools" class="inline-flex items-center justify-center gap-2 mt-10 min-w-[180px] px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
+                Explore AI Tools <span class="material-icons ml-2">arrow_forward</span>
+            </a>
         </section>
 
-        <section id="problem" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">Understanding the Startup Failure Landscape</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> Startup failure is alarmingly common. This section breaks down the primary reasons, with a focus on the most significant pitfall: the lack of market need. Understanding these challenges is the first step to overcoming them.
+        <section id="problem" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Understanding the Startup Failure Landscape</h2> 
+            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                Startup failure is alarmingly common. This section breaks down the primary reasons, with a sharp focus on the most significant pitfall: the fundamental lack of market need. Understanding these challenges is the first step to overcoming them.
             </p>
 
-            <div class="grid md:grid-cols-2 gap-6 items-center"> <div>
-                    <h3 class="text-xl font-semibold text-slate-800 mb-4 leading-tight tracking-tight">Top Reasons for Startup Failure</h3> <p class="text-slate-600 mb-6 text-sm leading-relaxed"> The data consistently shows that "No Market Need" is the leading cause of startup demise. This isn't just a statistic; it's a critical warning for every entrepreneur. Other factors often stem from this fundamental issue.
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-4"> 
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">Top Reasons for Startup Failure</h3> 
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
+                        The data consistently shows that "No Market Need" is the leading cause of startup demise. This isn't just a statistic; it's a critical warning for every entrepreneur. Other factors often stem from this fundamental issue.
                     </p>
                     <div class="chart-container">
                         <canvas id="startupFailureChart"></canvas>
                     </div>
-                     <p class="text-xs text-slate-500 mt-2 text-center">Hover over bars for details. Data based on CB Insights and other sources.</p>
+                     <p class="text-xs text-slate-500 mt-4 text-center">Hover over bars for details. Data based on CB Insights and other industry sources.</p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-4 leading-tight tracking-tight">The "No Market Need" Epidemic</h3> <p class="text-slate-600 mb-6 text-sm leading-relaxed"> A staggering 42% of startups fail because they build something nobody wants. This "founder's blind spot" leads to "solutions in search of problems."
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                    <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">The "No Market Need" Epidemic</h3> 
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
+                        A staggering 42% of startups fail because they build something nobody wants. This "founder's blind spot" leads to "solutions in search of problems"—a costly and disheartening endeavor.
                     </p>
-                    <div class="space-y-4">
-                        <div class="p-4 border border-red-300 bg-red-50 rounded-md shadow-sm" id="quibi-card"> <h4 class="font-semibold text-red-700">Case Study: Quibi <span class="text-xs cursor-pointer text-blue-600 hover:underline" onclick="toggleDetails('quibi-details')">(Show/Hide Details)</span></h4> <p class="text-xs text-slate-600 mt-1 hidden" id="quibi-details">Raised $1.75 billion, collapsed in 6 months. Overspent on content/ads without proving product-market fit.</p>
+                    <div class="space-y-6">
+                        <div class="p-5 border border-red-300 bg-red-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="quibi-card"> 
+                            <h4 class="font-semibold text-red-700 text-lg flex justify-between items-center">Case Study: Quibi 
+                                <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('quibi-details')">info</span>
+                            </h4> 
+                            <p class="text-sm text-slate-600 mt-2 hidden" id="quibi-details">Raised $1.75 billion, collapsed in 6 months. Overspent on content/ads without proving product-market fit for short-form, high-budget mobile video.</p>
                         </div>
-                        <div class="p-4 border border-red-300 bg-red-50 rounded-md shadow-sm" id="juicero-card"> <h4 class="font-semibold text-red-700">Case Study: Juicero <span class="text-xs cursor-pointer text-blue-600 hover:underline" onclick="toggleDetails('juicero-details')">(Show/Hide Details)</span></h4> <p class="text-xs text-slate-600 mt-1 hidden" id="juicero-details">Secured $120 million for a high-tech juice press. Failed as consumers could squeeze packs by hand – a solution for a non-existent problem.</p>
+                        <div class="p-5 border border-red-300 bg-red-50 rounded-lg shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="juicero-card"> 
+                            <h4 class="font-semibold text-red-700 text-lg flex justify-between items-center">Case Study: Juicero 
+                                <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('juicero-details')">info</span>
+                            </h4> 
+                            <p class="text-sm text-slate-600 mt-2 hidden" id="juicero-details">Secured $120 million for a high-tech juice press. Failed as consumers could squeeze packs by hand – a complex solution for a non-existent problem.</p>
                         </div>
                     </div>
-                    <p class="text-slate-600 mt-6 text-sm leading-relaxed">Market validation is the rigorous vetting process to identify a true "problem-solution fit." It's about ensuring your idea addresses a genuine pain point for a sizable audience.</p>
+                    <p class="text-slate-700 mt-8 text-base leading-relaxed">Market validation is the rigorous vetting process to identify a true "problem-solution fit." It's about ensuring your idea addresses a genuine pain point for a sizable, identifiable audience.</p>
                 </div>
             </div>
 
-            <div class="mt-12">
-                <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center leading-tight tracking-tight">The High Cost of Unvalidated Ideas</h3> <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto text-base leading-relaxed"> Launching without validation isn't just risky; it's expensive. The financial drain, wasted time, and lost opportunities can be devastating for startups and entrepreneurs.
+            <div class="mt-16 px-4">
+                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">The High Cost of Unvalidated Ideas</h3> 
+                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
+                    Launching without robust validation isn't just risky; it's financially and emotionally draining. The wasted time, capital, and lost opportunities can be devastating for aspiring entrepreneurs.
                 </p>
-                <div class="grid md:grid-cols-2 gap-6"> <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg shadow-sm"> <h4 class="text-lg font-semibold text-amber-700 mb-3">Financial & Resource Drain</h4>
-                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm leading-relaxed"> <li>95% of 30,000+ new consumer products fail annually.</li>
-                            <li>Product launch costs: $10k - $10M+.</li>
-                            <li>Startup launch costs: $3k (average) to $100k+ (capital-intensive).</li>
-                            <li>"Research debt" from unvalidated assumptions leads to misaligned products.</li>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> 
+                    <div class="bg-amber-50 border-l-6 border-amber-500 p-8 rounded-xl shadow-lg"> 
+                        <h4 class="text-xl font-bold text-amber-800 mb-4">Financial & Resource Drain</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed"> 
+                            <li><strong>95%</strong> of 30,000+ new consumer products fail annually.</li>
+                            <li>Product launch costs: <strong>$10,000 - $10,000,000+</strong>.</li>
+                            <li>Startup launch costs: <strong>$3,000 (average) to $100,000+</strong> (capital-intensive).</li>
+                            <li>"Research debt" from unvalidated assumptions leads to misaligned product development.</li>
                             <li>Poor launches damage user trust (e.g., TSB Bank, Wells Fargo app updates).</li>
                         </ul>
                     </div>
-                    <div class="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-lg shadow-sm"> <h4 class="text-lg font-semibold text-teal-700 mb-3">Time & Effort Inefficiencies</h4>
-                        <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm leading-relaxed"> <li>Founders spend months/years on products with no demand.</li>
-                            <li>Entrepreneurs spend ~40% of time on non-income-generating tasks.</li>
-                            <li>Developers waste ~8 hours/week (20% of time) on inefficiencies like unvalidated features.</li>
-                            <li>Early startups spend 3x longer validating markets than expected.</li>
-                            <li>Traditional research (interviews, focus groups) is costly ($5k-$20k+) and time-consuming.</li>
+                    <div class="bg-teal-50 border-l-6 border-teal-500 p-8 rounded-xl shadow-lg"> 
+                        <h4 class="text-xl font-bold text-teal-800 mb-4">Time & Effort Inefficiencies</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed"> 
+                            <li>Founders spend <strong>months/years</strong> on products with no market demand.</li>
+                            <li>Entrepreneurs spend <strong>~40%</strong> of time on non-income-generating tasks.</li>
+                            <li>Developers waste <strong>~8 hours/week (20% of time)</strong> on inefficiencies like unvalidated features.</li>
+                            <li>Early startups spend <strong>3x longer</strong> validating markets than expected.</li>
+                            <li>Traditional research (interviews, focus groups) is costly (<strong>$5k-$20k+</strong>) and time-consuming.</li>
                         </ul>
                     </div>
                 </div>
-                 <p class="text-center text-slate-600 mt-8 max-w-3xl mx-auto text-base leading-relaxed"> The key takeaway is that "failing fast" through efficient validation is smarter than "failing slow" after extensive, misguided development.
+                 <p class="text-center text-slate-700 mt-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
+                    The key takeaway is clear: "failing fast" through efficient, data-driven validation is inherently smarter than "failing slow" after extensive, misguided development.
                 </p>
             </div>
         </section>
 
-        <section id="challenges" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">Hurdles in Traditional Validation</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
+        <section id="challenges" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Hurdles in Traditional Validation</h2> 
+            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the inherent limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
             </p>
-            <div class="grid md:grid-cols-2 gap-6"> <div class="comparison-card bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-3 flex justify-between items-center" onclick="toggleComparisonCard(this)"> Manual Research Pitfalls
-                        <span class="text-blue-600 text-xl transform transition-transform duration-300">&#x25BC;</span> </h3>
-                    <div class="details text-slate-600 space-y-3 text-sm leading-relaxed"> <p>Traditional methods are often manual, leading to:</p>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li><strong>Bias:</strong> Human researchers can unconsciously skew data.</li>
-                            <li><strong>Time-Consuming:</strong> Sifting through data is slow and laborious.</li>
-                            <li><strong>Limited Scope:</strong> Access to premium data can be restricted by paywalls. Search engines aren't tailored for business nuances.</li>
-                            <li><strong>High Cost:</strong> IDIs ($5k-$15k), Focus Groups ($7k-$20k+).</li>
-                            <li><strong>Pitfalls:</strong> Confusing polite interest with real validation, the "intention-behavior gap," and risks from small sample sizes.</li>
-                            <li><strong>Result:</strong> "Data overload, insight scarcity."</li>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4"> 
+                <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
+                        Manual Research Pitfalls
+                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300">expand_more</span> 
+                    </h3>
+                    <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
+                        <p>Traditional methods are often manual, leading to significant drawbacks:</p>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Human Bias:</strong> Researchers can unconsciously skew data or interpret it subjectively.</li>
+                            <li><strong>Time-Consuming:</strong> Sifting through vast amounts of information is slow and laborious.</li>
+                            <li><strong>Limited Scope:</strong> Access to premium data is often restricted by paywalls. Generic search engines aren't tailored for nuanced business insights.</li>
+                            <li><strong>High Cost:</strong> In-depth interviews ($5k-$15k), Focus Groups ($7k-$20k+).</li>
+                            <li><strong>Validation Pitfalls:</strong> Confusing polite interest with genuine market demand, the "intention-behavior gap," and risks from small, unrepresentative sample sizes.</li>
+                            <li><strong>Result:</strong> Often, "Data overload, insight scarcity."</li>
                         </ul>
-                        <p class="mt-2 font-semibold">This creates a dilemma: high costs for slow, potentially biased insights, or launching with high uncertainty.</p>
+                        <p class="mt-4 font-semibold text-slate-800">This creates a dilemma: high costs for slow, potentially biased insights, or launching with high uncertainty.</p>
                     </div>
                 </div>
 
-                <div class="comparison-card bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-3 flex justify-between items-center" onclick="toggleComparisonCard(this)"> Audience Identification Woes
-                        <span class="text-blue-600 text-xl transform transition-transform duration-300">&#x25BC;</span> </h3>
-                    <div class="details text-slate-600 space-y-3 text-sm leading-relaxed"> <p>Accurately finding and understanding your target audience is crucial but challenging:</p>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li><strong>Clarity is Key:</strong> Defining the target market is essential for effective research.</li>
-                            <li><strong>Talent Gap:</strong> Startups often lack specialized market research talent.</li>
-                            <li><strong>Costly Methods:</strong> Interviews, surveys, focus groups are expensive and time-intensive for audience segmentation.</li>
-                            <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, beliefs, values, lifestyle) reveal the "why" behind behavior but are harder to uncover manually.</li>
+                <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                     <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
+                        Audience Identification Woes
+                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300">expand_more</span> 
+                    </h3>
+                    <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
+                        <p>Accurately finding and deeply understanding your target audience is crucial but challenging:</p>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Clarity is Key:</strong> Precisely defining the target market is foundational for effective research.</li>
+                            <li><strong>Talent Gap:</strong> Many startups lack specialized market research talent in-house.</li>
+                            <li><strong>Costly Methods:</strong> Manual interviews, surveys, and focus groups are expensive and time-intensive for effective audience segmentation.</li>
+                            <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, beliefs, values, lifestyle) reveal the "why" behind behavior but are significantly harder to uncover manually.</li>
                             <li><strong>"Persona-to-Profit" Disconnect:</strong> Difficulty translating qualitative personas into actionable market segments.</li>
-                            <li><strong>Scalability Barrier:</strong> Manual segmentation doesn't scale for large datasets or continuous trend monitoring.</li>
+                            <li><strong>Scalability Barrier:</strong> Manual segmentation doesn't scale efficiently for large datasets or continuous trend monitoring.</li>
                         </ul>
-                        <p class="mt-2 font-semibold">Without a deep, scalable understanding of the target audience, product development and marketing efforts can easily miss the mark.</p>
+                        <p class="mt-4 font-semibold text-slate-800">Without a deep, scalable understanding of the target audience, product development and marketing efforts can easily miss the mark.</p>
                     </div>
                 </div>
             </div>
-            <div class="mt-10 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg shadow"> <h4 class="text-xl font-semibold text-blue-700 mb-3">Traditional vs. AI-Powered Validation</h4>
-                <p class="text-slate-600 mb-4 text-sm leading-relaxed">The table below, drawn from the report, highlights the stark contrast. "Validate Me" aims to embody the AI-powered approach.</p>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-300"> <thead class="bg-gray-100"> <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th> <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Traditional Manual Methods</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AI-Powered ("Validate Me")</th>
+            <div class="mt-16 p-8 bg-blue-50 border-l-6 border-blue-500 rounded-xl shadow-lg"> 
+                <h4 class="text-2xl font-bold text-blue-800 mb-6">Traditional vs. AI-Powered Validation: A Stark Contrast</h4>
+                <p class="text-slate-700 mb-6 text-base leading-relaxed">The table below, drawn from comprehensive industry reports, highlights the stark contrast between outdated manual methods and the agile, data-driven approach of "Validate Me."</p>
+                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-inner">
+                    <table class="min-w-full divide-y divide-gray-300"> 
+                        <thead class="bg-gray-100"> 
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Category</th> 
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Traditional Manual Methods</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">AI-Powered ("Validate Me")</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200"> <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Time to Insight</td><td class="px-4 py-3 text-sm text-slate-600">Weeks to Months</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">Minutes to Hours</td></tr> <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Cost</td><td class="px-4 py-3 text-sm text-slate-600">High ($5k - $50k+)</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">Low (Subscription)</td></tr>
-                            <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Risk of Bias</td><td class="px-4 py-3 text-sm text-slate-600">High</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
-                            <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Data Sources/Scope</td><td class="px-4 py-3 text-sm text-slate-600">Limited</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">Broad (Web, Social)</td></tr>
-                            <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Scalability</td><td class="px-4 py-3 text-sm text-slate-600">Low</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">High (Automated)</td></tr>
-                            <tr><td class="px-4 py-3 font-medium text-sm text-slate-700">Actionability</td><td class="px-4 py-3 text-sm text-slate-600">Often Subjective</td><td class="px-4 py-3 text-sm text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
+                        <tbody class="bg-white divide-y divide-gray-200"> 
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Time to Insight</td><td class="px-6 py-4 text-base text-slate-700">Weeks to Months</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Minutes to Hours</td></tr> 
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Cost</td><td class="px-6 py-4 text-base text-slate-700">High ($5k - $50k+)</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Subscription)</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Risk of Bias</td><td class="px-6 py-4 text-base text-slate-700">High</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Data Sources/Scope</td><td class="px-6 py-4 text-base text-slate-700">Limited, Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Broad (Web, Social, Trends)</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <section id="solution" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">"Validate Me": An Innovative Approach</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> "Validate Me" is designed to overcome the limitations of traditional methods by leveraging AI and the wealth of data available on social platforms. This section explores its core capabilities: identifying real problems, analyzing social trends, and understanding specific audience segments.
+        <section id="solution" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">"Validate Me": An Innovative Approach</h2> 
+             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                "Validate Me" is meticulously designed to overcome the inherent limitations of traditional methods by leveraging cutting-edge AI and the immense wealth of real-time data available across diverse social platforms. This section explores its core capabilities.
             </p>
-            <div class="grid md:grid-cols-3 gap-6"> <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200"> <h3 class="text-lg font-semibold text-blue-700 mb-3">AI-Powered Problem & Trend Analysis</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed"> AI can analyze vast data points (search trends, social conversations) to identify unmet needs and market trends far faster and more objectively than manual methods. It can organize unstructured information, perform sentiment analysis using NLP, and even predict emerging needs. This democratizes access to sophisticated market intelligence.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4"> 
+                <div class="bg-blue-50 p-8 rounded-xl shadow-lg border border-blue-200 text-center"> 
+                    <span class="material-icons text-blue-600 text-5xl mb-4">insights</span>
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">AI-Powered Problem & Trend Analysis</h3>
+                    <p class="text-slate-700 text-base leading-relaxed"> 
+                        AI analyzes vast data points (search trends, social conversations) to identify unmet needs and market trends objectively and at lightning speed. It organizes unstructured information, performs sentiment analysis via NLP, and can even predict emerging needs, democratizing sophisticated market intelligence.
                     </p>
                 </div>
-                <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
-                    <h3 class="text-lg font-semibold text-blue-700 mb-3">Granular Audience Insights via Social Platforms</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed"> Social media is a goldmine of unfiltered consumer conversations. "Validate Me" would tap into platforms like X, TikTok, YouTube, and Reddit to get direct, honest feedback, identify pain points, and understand user behavior in real-time.
+                <div class="bg-blue-50 p-8 rounded-xl shadow-lg border border-blue-200 text-center">
+                    <span class="material-icons text-blue-600 text-5xl mb-4">public</span>
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">Granular Audience Insights via Social Platforms</h3>
+                    <p class="text-slate-700 text-base leading-relaxed"> 
+                        Social media is a goldmine of unfiltered consumer conversations. "Validate Me" taps into platforms like X, TikTok, YouTube, and Reddit to extract direct, honest feedback, identify pain points, and understand user behavior in real-time.
                     </p>
                 </div>
-                <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
-                    <h3 class="text-lg font-semibold text-blue-700 mb-3">Precise User Categorization</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed"> Beyond problems, "Validate Me" aims to identify *who* experiences them. This involves understanding demographics (age, gender, location) and, crucially, psychographics (attitudes, values, lifestyles) to reveal the "why" behind customer actions, enabling truly customer-centric development.
+                <div class="bg-blue-50 p-8 rounded-xl shadow-lg border border-blue-200 text-center">
+                    <span class="material-icons text-blue-600 text-5xl mb-4">person_search</span>
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">Precise User Categorization</h3>
+                    <p class="text-slate-700 text-base leading-relaxed"> 
+                        Beyond just problems, "Validate Me" aims to identify <em>who</em> experiences them. This involves understanding demographics (age, gender, location) and, crucially, psychographics (attitudes, values, lifestyles) to reveal the "why" behind customer actions, enabling truly customer-centric development.
                     </p>
                 </div>
             </div>
 
-            <div class="mt-10">
-                <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center leading-tight tracking-tight">Leveraging Key Social Platforms</h3> <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto text-base leading-relaxed"> Each social platform offers unique insights. "Validate Me" would strategically analyze these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
+            <div class="mt-16 px-4">
+                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">Leveraging Key Social Platforms</h3> 
+                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
+                    Each social platform offers unique, invaluable insights. "Validate Me" strategically analyzes these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
                 </p>
                 <div>
-                    <div class="mb-4 border-b border-gray-200"> <nav class="-mb-px flex space-x-4 sm:space-x-8 justify-center" aria-label="Tabs">
-                            <button class="tab-button active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="xtwitter">X (Twitter)</button> <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="tiktok">TikTok</button>
-                            <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="youtube">YouTube</button>
-                            <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="reddit">Reddit</button>
+                    <div class="mb-6 border-b-2 border-gray-200"> 
+                        <nav class="-mb-0.5 flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center" aria-label="Tabs">
+                            <button class="tab-button active py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="xtwitter">X (Twitter)</button> 
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="tiktok">TikTok</button>
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="youtube">YouTube</button>
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="reddit">Reddit</button>
                         </nav>
                     </div>
-                    <div id="social-platform-content" class="p-6 bg-gray-50 rounded-lg shadow min-h-[200px] border border-gray-200"> </div>
+                    <div id="social-platform-content" class="p-8 bg-gray-50 rounded-xl shadow-lg min-h-[220px] border border-gray-200 flex flex-col justify-center items-center text-center"> 
+                        </div>
                 </div>
             </div>
         </section>
 
-        <section id="interactive-tools" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">Interactive Validation Tools Powered by AI</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> Experience the power of AI in action! These tools provide a glimpse into how "Validate Me" can rapidly **validate your ideas** and identify target audiences.
+        <section id="interactive-tools" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Interactive Validation Tools Powered by AI</h2> 
+            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                Experience the power of AI in action! These interactive tools provide a tangible glimpse into how "Validate Me" can rapidly <strong>validate your ideas</strong>, identify target audiences, and refine your core problem statements.
             </p>
 
-            <div class="grid md:grid-cols-2 gap-6"> <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-4">✨ Idea Expander</h3>
-                    <p class="text-slate-600 mb-4 text-sm leading-relaxed">Input your core idea, and let AI suggest related problems, niche markets, or expansion opportunities.</p>
-                    <textarea id="ideaInput" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-4" rows="4" placeholder="e.g., 'A smart gardening app'"></textarea> <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer overflow-hidden rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 w-full"> Expand Idea ✨ <span id="ideaSpinner" class="loading-spinner hidden"></span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4"> 
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">lightbulb</span> Idea Expander</h3>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your core idea, and let AI suggest related problems it could solve, potential niche markets, or expansion opportunities.</p>
+                    <textarea id="ideaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'A smart gardening app that monitors soil moisture'"></textarea> 
+                    <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
+                        Expand Idea <span class="material-icons text-lg">auto_awesome</span> <span id="ideaSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="ideaOutput" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-slate-700 min-h-[100px] overflow-auto text-sm leading-relaxed"></div> </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-4">✨ Audience Persona Generator</h3>
-                    <p class="text-slate-600 mb-4 text-sm leading-relaxed">Describe a problem or idea, and AI will generate a basic persona for a potential target audience.</p>
-                    <textarea id="personaInput" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-4" rows="4" placeholder="e.g., 'People struggling with meal planning for busy families'"></textarea>
-                    <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer overflow-hidden rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 w-full"> Generate Persona ✨ <span id="personaSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                    <div id="personaOutput" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-slate-700 min-h-[100px] overflow-auto text-sm leading-relaxed"></div>
+                    <div id="ideaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div> 
                 </div>
 
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-4">✨ Problem Statement Refiner</h3>
-                    <p class="text-slate-600 mb-4 text-sm leading-relaxed">Enter a problem you've identified, and AI will refine it into a clear, actionable problem statement.</p>
-                    <textarea id="problemInput" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-4" rows="4" placeholder="e.g., 'People can't find healthy, quick meals.'"></textarea>
-                    <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer overflow-hidden rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 w-full"> Refine Problem ✨ <span id="problemSpinner" class="loading-spinner hidden"></span>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-purple-600">group</span> Audience Persona Generator</h3>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Describe a problem or idea, and AI will generate a basic persona for a potential target audience, including their pain points and online habits.</p>
+                    <textarea id="personaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'Parents struggling with healthy meal prep for picky eaters'"></textarea>
+                    <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
+                        Generate Persona <span class="material-icons text-lg">person_add</span> <span id="personaSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="problemOutput" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-slate-700 min-h-[100px] overflow-auto text-sm leading-relaxed"></div>
+                    <div id="personaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
                 </div>
 
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <h3 class="text-xl font-semibold text-slate-800 mb-4">✨ Competitor Brainstormer</h3>
-                    <p class="text-slate-600 mb-4 text-sm leading-relaxed">Input your idea, and AI will brainstorm potential direct and indirect competitors.</p>
-                    <textarea id="competitorInput" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-4" rows="4" placeholder="e.g., 'An app for finding local dog walkers'"></textarea>
-                    <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer overflow-hidden rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 w-full"> Brainstorm Competitors ✨ <span id="competitorSpinner" class="loading-spinner hidden"></span>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-green-600">check_circle</span> Problem Statement Refiner</h3>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Enter a problem you've identified, and AI will refine it into a clear, concise, and actionable problem statement.</p>
+                    <textarea id="problemInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'People can't find healthy, quick meals when working from home.'"></textarea>
+                    <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
+                        Refine Problem <span class="material-icons text-lg">edit_note</span> <span id="problemSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="competitorOutput" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md text-slate-700 min-h-[100px] overflow-auto text-sm leading-relaxed"></div>
+                    <div id="problemOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-orange-600">compare</span> Competitor Brainstormer</h3>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your idea, and AI will brainstorm potential direct and indirect competitors, highlighting their approaches.</p>
+                    <textarea id="competitorInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'An app for finding local, ethical dog walkers'"></textarea>
+                    <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
+                        Brainstorm Competitors <span class="material-icons text-lg">emoji_objects</span> <span id="competitorSpinner" class="loading-spinner hidden"></span>
+                    </button>
+                    <div id="competitorOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
                 </div>
             </div>
         </section>
 
-        <section id="advantage" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">The Strategic Edge of "Validate Me"</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> By addressing the core issues in idea validation, "Validate Me" offers significant strategic advantages to entrepreneurs, startups, and coders. It's about more than just avoiding failure; it's about building a foundation for success.
+        <section id="advantage" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">The Strategic Edge of "Validate Me"</h2> 
+            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                By directly addressing the core issues in idea validation, "Validate Me" offers significant strategic advantages to entrepreneurs, startups, and developers. It's about more than just avoiding failure; it's about building a robust foundation for sustainable success.
             </p>
-            <div class="grid md:grid-cols-3 gap-6 text-center"> <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <div class="text-3xl mb-3 text-green-600">🚀</div>
-                    <h3 class="text-xl font-semibold text-slate-800 mb-2 leading-tight tracking-tight">Accelerate Product-Market Fit</h3> <p class="text-slate-600 text-sm leading-relaxed">Rapid, data-driven insights allow for quicker iteration and refinement, focusing development on features that truly resonate and reducing time-to-market.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4"> 
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                    <span class="material-icons text-green-600 text-5xl mb-4">rocket_launch</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Accelerate Product-Market Fit</h3> 
+                    <p class="text-slate-700 text-base leading-relaxed">Rapid, data-driven insights allow for quicker iteration and refinement, focusing development on features that truly resonate with users and significantly reducing time-to-market.</p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <div class="text-3xl mb-3 text-yellow-600">🛡️</div>
-                    <h3 class="text-xl font-semibold text-slate-800 mb-2 leading-tight tracking-tight">Mitigate Risk & Optimize Resources</h3> <p class="text-slate-600 text-sm leading-relaxed">Proactively identify if an idea solves a real problem, preventing costly pursuit of unvalidated concepts and ensuring resources are invested wisely.</p>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                     <span class="material-icons text-yellow-600 text-5xl mb-4">security</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Mitigate Risk & Optimize Resources</h3> 
+                    <p class="text-slate-700 text-base leading-relaxed">Proactively identify if an idea solves a real problem, preventing costly pursuit of unvalidated concepts and ensuring precious time and financial resources are invested wisely.</p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow border border-gray-200"> <div class="text-3xl mb-3 text-blue-600">📊</div>
-                    <h3 class="text-xl font-semibold text-slate-800 mb-2 leading-tight tracking-tight">Empower Data-Driven Decisions</h3> <p class="text-slate-600 text-sm leading-relaxed">Move beyond intuition. Leverage continuous market intelligence for informed choices on features, audience, and strategy, fostering sustainable growth.</p>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                    <span class="material-icons text-blue-600 text-5xl mb-4">analytics</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Empower Data-Driven Decisions</h3> 
+                    <p class="text-slate-700 text-base leading-relaxed">Move beyond intuition. Leverage continuous, objective market intelligence for informed choices on features, target audience, and overall strategy, fostering predictable and sustainable growth.</p>
                 </div>
             </div>
         </section>
 
-        <section id="takeaways" class="content-section py-12 bg-white rounded-xl shadow-lg mb-8"> <h2 class="text-3xl font-bold text-center text-slate-800 mb-10 leading-tight tracking-tight">Key Insights & The Path Forward for "Validate Me"</h2> <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto text-base leading-relaxed"> The research overwhelmingly supports the need for a tool like "Validate Me." This final section summarizes the core conclusions and outlines strategic recommendations for developing and positioning such a vital SaaS solution.
+        <section id="takeaways" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Key Insights & The Path Forward for "Validate Me"</h2> 
+            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
+                The research overwhelmingly supports the indispensable need for a tool like "Validate Me." This final section summarizes the core conclusions and outlines strategic recommendations for developing and positioning such a vital SaaS solution.
             </p>
-            <div class="bg-blue-50 p-8 rounded-lg shadow border border-blue-200"> <h3 class="text-2xl font-semibold text-blue-700 mb-6 leading-tight tracking-tight">Core Conclusion: An Indispensable Tool</h3> <p class="text-slate-700 mb-6 text-base leading-relaxed"> The "no market need" epidemic is the Achilles' heel of countless startups. Traditional validation is often too slow, biased, and expensive. "Validate Me" has the potential to directly address these systemic issues by offering an AI-powered, efficient, and objective approach to idea validation and market research. It can transform raw social data into actionable insights, accelerating product-market fit, mitigating risk, and empowering entrepreneurs with the data needed for sustainable success.
+            <div class="bg-blue-50 p-10 rounded-2xl shadow-lg border border-blue-200"> 
+                <h3 class="text-3xl font-bold text-blue-800 mb-8 leading-tight tracking-tight text-center">Core Conclusion: An Indispensable Tool for Modern Entrepreneurship</h3> 
+                <p class="text-slate-700 mb-10 text-lg leading-relaxed"> 
+                    The "no market need" epidemic remains the primary Achilles' heel of countless startups. Traditional validation is often too slow, biased, and expensive. "Validate Me" has the transformative potential to directly address these systemic issues by offering an AI-powered, highly efficient, and objective approach to idea validation and comprehensive market research. It can seamlessly transform raw social data and web trends into actionable insights, thereby accelerating product-market fit, significantly mitigating entrepreneurial risk, and empowering founders with the precise data needed for predictable and sustainable success.
                 </p>
 
-                <h3 class="text-2xl font-semibold text-blue-700 mb-6 leading-tight tracking-tight">Strategic Recommendations for "Validate Me"</h3> <div class="space-y-4 text-slate-700"> <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200"> <summary class="font-semibold text-blue-600 hover:text-blue-700">1. Emphasize "Problem-Solution Fit"</summary> <p class="mt-2 text-sm leading-relaxed">Market as a preventative measure against the "no market need" crisis. Highlight its ability to confirm if an idea solves an existing, articulated problem for a defined audience.</p>
+                <h3 class="text-2xl font-bold text-blue-800 mb-6 leading-tight tracking-tight">Strategic Recommendations for "Validate Me"</h3> 
+                <div class="space-y-6 text-slate-700"> 
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg"> 
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            1. Emphasize "Problem-Solution Fit" 
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary> 
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Market "Validate Me" as a crucial preventative measure against the "no market need" crisis. Highlight its unique ability to definitively confirm if an idea solves an existing, articulated problem for a clearly defined audience, turning assumptions into validated opportunities.</p>
                     </details>
-                    <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">2. Quantify Time & Cost Savings</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Clearly communicate the financial and temporal benefits, positioning it as an investment that prevents greater future losses and reduces "research debt."</p>
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            2. Quantify Time & Cost Savings
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Clearly communicate the profound financial and temporal benefits of using "Validate Me." Position it as an indispensable investment that actively prevents significantly greater future losses and effectively reduces accumulated "research debt," providing a clear ROI.</p>
                     </details>
-                    <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">3. Highlight AI's Unbiased & Scalable Nature</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Stress AI's capacity to overcome human bias and process vast data rapidly, providing comprehensive market intelligence.</p>
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            3. Highlight AI's Unbiased & Scalable Nature
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Stress AI's unparalleled capacity to overcome inherent human biases and efficiently process vast, complex datasets at scale. This positions "Validate Me" as a source of truly objective and comprehensive market intelligence, far beyond manual capabilities.</p>
                     </details>
-                    <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">4. Showcase Granular Audience Insights</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Promote the ability to identify user categories (demographics & psychographics) for personalized product development and targeted marketing.</p>
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            4. Showcase Granular Audience Insights
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Promote the platform's advanced ability to identify and segment precise user categories, delving into both demographics and crucial psychographics. This empowers users to achieve truly personalized product development and highly targeted marketing strategies.</p>
                     </details>
-                     <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">5. Target Specific User Personas</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Tailor messaging for coders (meaningful work), entrepreneurs (risk mitigation, growth), etc.</p>
+                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            5. Target Specific User Personas
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Tailor marketing messages and feature highlights for distinct user personas, such as coders (emphasizing meaningful work on validated products), entrepreneurs (focusing on risk mitigation and accelerated growth), and product managers (highlighting data-driven decision-making).</p>
                     </details>
-                    <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">6. Leverage Social Proof & Case Studies</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Collect and showcase success stories to build credibility and trust.</p>
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            6. Leverage Social Proof & Case Studies
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Actively collect and prominently showcase compelling success stories and detailed case studies from early adopters. This builds crucial credibility and trust, demonstrating tangible value to potential users.</p>
                     </details>
-                    <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">7. Consider a Freemium or Tiered Model</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Offer basic validation for free to attract users, with premium features for deeper analysis.</p>
+                    <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            7. Consider a Freemium or Tiered Model
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Implement a strategic freemium or tiered subscription model. Offer basic validation features for free to attract a broad user base, with premium features for deeper analysis and advanced insights available at higher tiers, ensuring accessibility and scalability.</p>
                     </details>
-                     <details class="bg-white p-4 rounded-md shadow-sm cursor-pointer border border-gray-200">
-                        <summary class="font-semibold text-blue-600 hover:text-blue-700">8. Integrate Continuous Learning</summary>
-                        <p class="mt-2 text-sm leading-relaxed">Position "Validate Me" as a product that embodies validation principles, continuously improving based on user feedback.</p>
+                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
+                            8. Integrate Continuous Learning
+                            <span class="material-icons text-blue-600 text-3xl">add</span>
+                        </summary>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Position "Validate Me" as a product that inherently embodies the principles of continuous validation and improvement. Actively collect and integrate user feedback into its own development roadmap, showcasing a commitment to evolving with market needs and user demands.</p>
                     </details>
                 </div>
             </div>
@@ -369,8 +564,8 @@
 
     </main>
 
-    <footer class="py-6 px-4 sm:px-10 text-center text-sm text-gray-500 border-t border-gray-200 bg-white">
-        &copy; <span id="currentYear"></span> ValidateMe Insights. All rights reserved.
+    <footer class="py-8 px-4 sm:px-10 text-center text-sm text-gray-600 border-t border-gray-200 bg-white shadow-inner">
+        &copy; <span id="currentYear"></span> ValidateMe Insights. All rights reserved. Designed with passion.
     </footer>
 
 </div>
@@ -378,7 +573,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Startup Failure Chart
+        // Startup Failure Chart Initialization
         const startupFailureCtx = document.getElementById('startupFailureChart').getContext('2d');
         const startupFailureData = {
             labels: [
@@ -397,16 +592,16 @@
                 label: 'Approx. % of Startups Failing Due To This Reason',
                 data: [38.5, 33.5, 18.5, 19.5, 46.5, 12.5, 14, 18, 15, 10], 
                 backgroundColor: [
-                    'rgba(239, 68, 68, 0.7)', // red-500
-                    'rgba(249, 115, 22, 0.7)', // orange-500
-                    'rgba(234, 179, 8, 0.7)', // yellow-500
-                    'rgba(132, 204, 22, 0.7)', // lime-500
-                    'rgba(34, 197, 94, 0.7)', // green-500
-                    'rgba(16, 185, 129, 0.7)', // emerald-500
-                    'rgba(6, 182, 212, 0.7)', // cyan-500
-                    'rgba(59, 130, 246, 0.7)', // blue-500
-                    'rgba(139, 92, 246, 0.7)', // violet-500
-                    'rgba(217, 70, 239, 0.7)' // fuchsia-500
+                    'rgba(239, 68, 68, 0.8)', // red-500
+                    'rgba(249, 115, 22, 0.8)', // orange-500
+                    'rgba(234, 179, 8, 0.8)', // yellow-500
+                    'rgba(132, 204, 22, 0.8)', // lime-500
+                    'rgba(34, 197, 94, 0.8)', // green-500
+                    'rgba(16, 185, 129, 0.8)', // emerald-500
+                    'rgba(6, 182, 212, 0.8)', // cyan-500
+                    'rgba(59, 130, 246, 0.8)', // blue-500
+                    'rgba(139, 92, 246, 0.8)', // violet-500
+                    'rgba(217, 70, 239, 0.8)' // fuchsia-500
                 ],
                 borderColor: [
                     'rgba(239, 68, 68, 1)',
@@ -433,12 +628,25 @@
                 scales: {
                     x: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Percentage (%)', color: 'rgb(107 114 128)' } 
+                        title: { 
+                            display: true, 
+                            text: 'Percentage (%)', 
+                            color: '#6b7280', // slate-500
+                            font: { size: 14, weight: '600' }
+                        },
+                        ticks: {
+                            color: '#6b7280', // slate-500
+                            font: { size: 12 }
+                        },
+                        grid: {
+                            color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                        }
                     },
                     y: { 
                         ticks: { 
                             autoSkip: false,
-                            color: 'rgb(107 114 128)', 
+                            color: '#4b5563', // slate-700
+                            font: { size: 13, weight: '500' },
                             callback: function(value, index, values) {
                                 const label = this.getLabelForValue(value);
                                 if (label.length > 25) { 
@@ -446,7 +654,10 @@
                                 }
                                 return label;
                             }
-                        } 
+                        },
+                        grid: {
+                            color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                        }
                     }
                 },
                 plugins: {
@@ -456,39 +667,50 @@
                             label: function(context) {
                                 return `${context.dataset.label}: ${context.raw}%`;
                             }
-                        }
+                        },
+                        backgroundColor: 'rgba(30, 41, 59, 0.9)', // slate-800
+                        titleColor: '#f8fafc', // slate-50
+                        bodyColor: '#e2e8f0', // slate-200
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false
                     }
                 }
             }
         });
 
-        // Social Platform Tabs
+        // Social Platform Tabs Logic
         const tabButtons = document.querySelectorAll('.tab-button');
         const socialPlatformContent = document.getElementById('social-platform-content');
         const platformData = {
             xtwitter: {
-                title: "X (formerly Twitter)",
-                content: "Real-time sentiment analysis, trend spotting, direct engagement. Strengths: Rapid info flow, public conversations. Considerations: Bot activity, algorithmic noise."
+                title: "X (formerly Twitter): Real-time Pulse",
+                icon: "forum",
+                content: "X is ideal for <strong>real-time sentiment analysis</strong>, trend spotting, and direct public engagement. Its strengths lie in rapid information flow and unfiltered public conversations. Considerations: potential bot activity and algorithmic noise that require careful filtering."
             },
             tiktok: {
-                title: "TikTok",
-                content: "Viral testing of MVPs, audience demographics, trend analysis. Strengths: High reach, visual content, Gen Z insights. Considerations: Short-form bias, fleeting trends."
+                title: "TikTok: Viral Validation & Visual Trends",
+                icon: "videocam",
+                content: "TikTok is excellent for <strong>viral testing of MVPs</strong>, understanding audience demographics, and analyzing visual trends. Its strengths: high reach, engaging short-form video content, and deep insights into Gen Z behaviors. Be mindful of the short-form bias and potentially fleeting nature of trends."
             },
             youtube: {
-                title: "YouTube",
-                content: "How-to content, long-form insights, community engagement. Strengths: Deep dives, strong communities. Considerations: Content creation effort, longer feedback cycles."
+                title: "YouTube: Deep Dive & Community Insights",
+                icon: "subscriptions",
+                content: "YouTube offers opportunities for <strong>in-depth content analysis</strong>, understanding 'how-to' needs, and engaging with specific communities. Its strengths: deep dives into topics and strong, engaged communities. Considerations: the effort required for content creation and potentially longer feedback cycles."
             },
             reddit: {
-                title: "Reddit",
-                content: "Niche problem identification, raw feedback, community sentiment. Strengths: Unfiltered feedback, specific niche communities. Considerations: Careful navigation, potential for harsh feedback."
+                title: "Reddit: Niche Problem Identification & Raw Feedback",
+                icon: "comment",
+                content: "Reddit is a goldmine for <strong>niche problem identification</strong>, gathering raw, unfiltered feedback, and understanding specific community sentiment. Its strengths: highly specialized niche communities and honest discussions. Careful navigation is needed due to its unique culture and potential for harsh feedback."
             }
         };
 
         function updateSocialContent(platformKey) {
             const data = platformData[platformKey];
             socialPlatformContent.innerHTML = `
-                <h4 class="text-lg font-semibold text-blue-700 mb-2">${data.title}</h4>
-                <p class="text-slate-600">${data.content}</p>
+                <span class="material-icons text-blue-500 text-6xl mb-4">${data.icon}</span>
+                <h4 class="text-2xl font-bold text-blue-800 mb-3">${data.title}</h4>
+                <p class="text-slate-700 text-base leading-relaxed max-w-2xl">${data.content}</p>
             `;
         }
 
@@ -499,7 +721,7 @@
                 updateSocialContent(button.dataset.tab);
             });
         });
-        updateSocialContent('xtwitter'); // Initial content
+        updateSocialContent('xtwitter'); // Initial content load
 
         // Smooth scrolling for nav links & active state
         const navLinks = document.querySelectorAll('.nav-link');
@@ -524,8 +746,8 @@
         // Active nav link on scroll
         const observerOptions = {
             root: null,
-            rootMargin: '-80px 0px -50% 0px', 
-            threshold: 0
+            rootMargin: '-80px 0px -50% 0px', // Adjust this to control when the active state changes
+            threshold: 0 // Trigger as soon as any part of the section is visible
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -588,7 +810,15 @@
         async function callGeminiAPI(prompt, outputElement, spinnerElement) {
             outputElement.innerHTML = '';
             spinnerElement.classList.remove('hidden');
-            const apiKey = ""; 
+            
+            const apiKey = window.GEMINI_API_KEY || ""; 
+            
+            if (!apiKey) {
+                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please set `GEMINI_API_KEY` as an environment variable on Vercel.</p>';
+                spinnerElement.classList.add('hidden');
+                return;
+            }
+
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             let chatHistory = [];
@@ -606,19 +836,44 @@
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
-                    let text = result.candidates[0].content.parts[0].text;
-                    text = text.replace(/\*\*/g, ''); 
-                    text = text.replace(/__/g, '');  
-                    text = text.replace(/\*/g, '');   
-                    text = text.replace(/_/g, '');    
+                    let rawText = result.candidates[0].content.parts[0].text;
+                    let processedText = rawText;
 
-                    outputElement.innerHTML = text.replace(/\n/g, '<br>'); 
+                    // 1. Basic HTML escaping (order is important: escape before markdown)
+                    processedText = processedText.replace(/&/g, '&amp;')
+                                               .replace(/</g, '&lt;')
+                                               .replace(/>/g, '&gt;')
+                                               .replace(/"/g, '&quot;')
+                                               .replace(/'/g, '&#039;');
+
+                    // 2. Markdown to HTML conversion
+                    // Bold: **text** -> <strong>text</strong>
+                    processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    // Italic: *text* -> <em>text</em>
+                    processedText = processedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                    // Lists: Convert consecutive lines starting with '- ' into <ul><li>...</li></ul>
+                    // This regex looks for one or more lines starting with '- '
+                    processedText = processedText.replace(/^(- .*(\n- .*)*)/gm, (match) => {
+                        const listItems = match.split('\n')
+                                             .filter(line => line.trim().startsWith('- ')) // Ensure only list items are processed
+                                             .map(item => `<li>${item.substring(2).trim()}</li>`)
+                                             .join('');
+                        return `<ul>${listItems}</ul>`;
+                    });
+
+                    // Convert remaining newlines to <br> tags for general text formatting
+                    // This should be done after list processing to avoid <br> inside <li> or <ul>
+                    processedText = processedText.replace(/\n/g, '<br>');
+
+                    outputElement.innerHTML = processedText; 
                 } else {
-                    outputElement.innerHTML = '<p class="text-red-500">Error: No valid response from AI. Please try again.</p>';
+                    outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: No valid response from AI. This might be due to content policy, or an unexpected API response structure. Please try a different prompt or try again.</p>';
+                    console.error('AI response structure unexpected or empty:', result);
                 }
             } catch (error) {
                 console.error('Error calling Gemini API:', error);
-                outputElement.innerHTML = `<p class="text-red-500">Error: Failed to connect to AI. ${error.message}</p>`;
+                outputElement.innerHTML = `<p class="text-red-500 font-semibold">Error: Failed to connect to AI. ${error.message}. Please check your network connection and API key configuration on Vercel.</p>`;
             } finally {
                 spinnerElement.classList.add('hidden');
             }
@@ -627,81 +882,73 @@
         expandIdeaButton.addEventListener('click', () => {
             const idea = ideaInput.value.trim();
             if (idea) {
-                const prompt = `Given the idea: "${idea}", suggest 3-5 related problems it could solve, potential niche markets, or ways to expand its scope. Provide concise bullet points.`;
+                const prompt = `Given the core idea: "${idea}", suggest 3-5 distinct related problems it could solve, potential untapped niche markets, or innovative ways to expand its scope. Provide concise bullet points for each suggestion.`;
                 callGeminiAPI(prompt, ideaOutput, ideaSpinner);
             } else {
-                ideaOutput.innerHTML = '<p class="text-amber-500">Please enter an idea to expand.</p>';
+                ideaOutput.innerHTML = '<p class="text-amber-600">Please enter an idea to expand.</p>';
             }
         });
 
         generatePersonaButton.addEventListener('click', () => {
             const problemOrIdea = personaInput.value.trim();
             if (problemOrIdea) {
-                const prompt = `Based on the following problem/idea: "${problemOrIdea}", generate a brief audience persona. Include: Name, Age Range, Occupation (if applicable), Key Pain Points (3-5 bullet points), and a brief description of their typical online behavior/platforms they frequent (e.g., 'Spends time on Reddit in tech subreddits and watches YouTube tutorials').`;
+                const prompt = `Based on the following problem or idea: "${problemOrIdea}", generate a brief, realistic audience persona. Include:
+                - **Name:** (e.g., 'Sarah, The Busy Professional')
+                - **Age Range:**
+                - **Occupation/Role:** (e.g., 'Mid-level Manager, Parent')
+                - **Key Pain Points:** (3-5 concise bullet points directly related to the problem/idea)
+                - **Online Behavior/Platforms:** (e.g., 'Spends time on LinkedIn for professional networking, watches YouTube tutorials for quick fixes, occasionally browses Reddit for niche communities.')`;
                 callGeminiAPI(prompt, personaOutput, personaSpinner);
             } else {
-                personaOutput.innerHTML = '<p class="text-amber-500">Please enter a problem or idea to generate a persona.</p>';
+                personaOutput.innerHTML = '<p class="text-amber-600">Please enter a problem or idea to generate a persona.</p>';
             }
         });
 
         refineProblemButton.addEventListener('click', () => {
             const problem = problemInput.value.trim();
             if (problem) {
-                const prompt = `Refine the following problem statement into a clear, concise, and actionable problem statement, suitable for a startup to address: "${problem}". Focus on identifying the core unmet need.`;
+                const prompt = `Refine the following raw problem statement into a clear, concise, and actionable problem statement, suitable for a startup to effectively address: "${problem}". Ensure it identifies the core unmet need and is customer-centric.`;
                 callGeminiAPI(prompt, problemOutput, problemSpinner);
             } else {
-                problemOutput.innerHTML = '<p class="text-amber-500">Please enter a problem to refine.</p>';
+                problemOutput.innerHTML = '<p class="text-amber-600">Please enter a problem to refine.</p>';
             }
         });
 
         brainstormCompetitorsButton.addEventListener('click', () => {
             const idea = competitorInput.value.trim();
             if (idea) {
-                const prompt = `Given the idea: "${idea}", brainstorm 3-5 potential direct and indirect competitors. For each, briefly mention their approach or key features. Provide concise bullet points.`;
+                const prompt = `Given the startup idea: "${idea}", brainstorm 3-5 potential direct and indirect competitors. For each competitor, briefly mention their current approach, key features, or market positioning. Provide concise bullet points.`;
                 callGeminiAPI(prompt, competitorOutput, competitorSpinner);
             } else {
-                competitorOutput.innerHTML = '<p class="text-amber-500">Please enter an idea to brainstorm competitors.</p>';
+                competitorOutput.innerHTML = '<p class="text-amber-600">Please enter an idea to brainstorm competitors.</p>';
             }
         });
 
-        // Chart color update function (simplified for light mode only)
-        function updateChartColors() {
-            const textColor = 'rgb(107 114 128)'; // gray-500
-            const gridColor = 'rgba(209, 213, 219, 0.5)'; // gray-200
-
-            if (startupFailureChart) {
-                startupFailureChart.options.scales.x.title.color = textColor;
-                startupFailureChart.options.scales.y.ticks.color = textColor;
-                startupFailureChart.options.scales.x.grid.color = gridColor;
-                startupFailureChart.options.scales.y.grid.color = gridColor;
-                startupFailureChart.update();
+        // Toggle details for case study cards
+        function toggleDetails(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.classList.toggle('hidden');
             }
         }
+        window.toggleDetails = toggleDetails; // Make globally accessible
 
-        // Initial chart color update on load
-        updateChartColors();
+        // Toggle comparison card details
+        function toggleComparisonCard(headerElement) {
+            const card = headerElement.closest('.comparison-card');
+            if (card) {
+                card.classList.toggle('open');
+                const icon = headerElement.querySelector('.material-icons');
+                if (card.classList.contains('open')) {
+                    icon.textContent = 'remove'; // Change icon to 'remove' or 'expand_less'
+                } else {
+                    icon.textContent = 'add'; // Change icon back to 'add' or 'expand_more'
+                }
+            }
+        }
+        window.toggleComparisonCard = toggleComparisonCard; // Make globally accessible
+
     });
-
-    function toggleDetails(elementId) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.classList.toggle('hidden');
-        }
-    }
-    
-    function toggleComparisonCard(headerElement) {
-        const card = headerElement.closest('.comparison-card');
-        if (card) {
-            card.classList.toggle('open');
-            const icon = headerElement.querySelector('span');
-            if (card.classList.contains('open')) {
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-    }
-
 </script>
 </body>
 </html>
