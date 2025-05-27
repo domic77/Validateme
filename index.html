@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validate Me: Empowering Startup Validation</title>
+    <title>Ivalidate: Empowering Startup Validation</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40300%3B400%3B500%3B600%3B700%3B800%3B900&family=Noto+Sans%3Awght%40300%3B400%3B500%3B700%3B900&display=swap" onload="this.rel='stylesheet'" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         /* Custom progress bar styles from original Stitch design */
@@ -47,39 +46,38 @@
             }
         }
 
-        /* Navigation link smooth transitions */
-        .nav-link {
-            transition: color 0.3s ease, background-color 0.3s ease, font-weight 0.3s ease;
-        }
-        .nav-link.active, .nav-link:hover {
-            color: #0c7ff2; /* Stitch blue-600 */
-            font-weight: 600;
-            background-color: #eff6ff; /* Blue-50 for subtle hover/active background */
-            border-radius: 0.5rem; /* Rounded corners for nav links */
-        }
-
-        /* Smooth scroll margin for sticky header */
-        .content-section {
-            scroll-margin-top: 80px; /* Adjust based on sticky nav height */
-        }
-
-        /* Tab button active state styling */
+        /* Tab button base styles */
         .tab-button {
-            transition: all 0.3s ease;
+            transition: color 0.15s ease-in-out, font-weight 0.15s ease-in-out; /* Only transition color and font-weight */
+            padding: 0.75rem 0.5rem;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            text-align: center;
+            border-radius: 0.5rem;
+            cursor: pointer; /* Add cursor pointer */
+            color: #4b5563; /* Default gray text */
+            background-color: transparent; /* Ensure no background */
+            border: none; /* Ensure no border */
+            box-shadow: none; /* Ensure no shadow */
+            position: relative; /* Needed for z-index if used, but not strictly for this issue */
+            z-index: 1; /* Not strictly needed for this issue, but keeps previous layering */
         }
+        /* Active tab state */
         .tab-button.active {
-            border-color: #0c7ff2; /* Stitch blue-600 */
-            background-color: #0c7ff2; /* Stitch blue-600 */
-            color: white;
-            border-radius: 0.5rem; /* Rounded corners for tabs */
-            padding-left: 1.25rem; /* px-5 equivalent */
-            padding-right: 1.25rem; /* px-5 equivalent */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            color: #0c7ff2; /* Stitch blue-600 */
+            font-weight: 600; /* font-semibold */
         }
+        /* Non-active tab hover state */
         .tab-button:not(.active):hover {
-            color: #4b5563; /* gray-700 */
-            border-color: #d1d5db; /* gray-300 */
+            color: #0c7ff2; /* Blue on hover for non-active */
         }
+        /* Remove outline on focus */
+        .tab-button:focus,
+        .tab-button:focus-visible {
+            outline: none;
+            box-shadow: none;
+        }
+
 
         /* Comparison card expand/collapse animation */
         .comparison-card h3 {
@@ -87,7 +85,7 @@
             user-select: none; /* Prevent text selection on click */
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: center; /* Ensures vertical alignment */
         }
         .comparison-card h3 span {
             transition: transform 0.3s ease;
@@ -108,7 +106,7 @@
         /* Loading spinner animation */
         .loading-spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #0c7ff2; /* Stitch blue-600 */
+            border-left-color: #0c7ff2; /* Blue-600 */
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -158,33 +156,123 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        /* Left Navigation Bar Styles */
+        #left-navbar {
+            width: 120px; /* Adjust width as needed */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No visible borders */
+            transition: all 0.3s ease; /* Smooth transitions for any dynamic changes */
+            height: 168px; /* Fixed height to show approx 3 items (56px per item) */
+            overflow-y: hidden; /* Hide scrollbar by default */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            perspective: 500px; /* For 3D transforms on children */
+        }
+
+        /* Show scrollbar on hover */
+        #left-navbar:hover {
+            overflow-y: scroll;
+        }
+
+        /* Hide scrollbar for Webkit browsers */
+        #left-navbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        #left-navbar .nav-link {
+            display: flex; /* Flex for content alignment */
+            flex-direction: column; /* Stack content (only text now) */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center content vertically */
+            padding: 0.75rem 0.5rem; /* Padding for each link */
+            margin: 0.5rem 0; /* Vertical margin between links */
+            color: #4b5563; /* Default text color */
+            font-size: 0.875rem; /* Smaller font size */
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease, transform 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease; /* Added font-size and font-weight to transition */
+            border-radius: 0.5rem; /* Rounded corners for individual links */
+            transform-style: preserve-3d; /* Allows child elements to exist in 3D space */
+            transform: rotateX(var(--rotation-x, 0deg)) translateZ(var(--translate-z, 0px));
+            height: 56px; /* Explicit height for each nav link for consistent spacing */
+        }
+
+        #left-navbar .nav-link.active {
+            color: #0c7ff2; /* Stitch blue-600 for active text */
+            font-weight: 700; /* Make text bold */
+            font-size: 1rem; /* Increase font size */
+            background-color: transparent; /* No background highlight */
+            box-shadow: none; /* No shadow */
+            transform: rotateX(var(--rotation-x, 0deg)) translateZ(var(--translate-z, 0px)) scale(1.05); /* Slight scale and bring forward */
+            z-index: 2; /* Ensure it's above other links */
+        }
+        #left-navbar .nav-link:hover {
+            color: #0c7ff2; /* Stitch blue-600 for hover text */
+            font-weight: 600; /* Bold on hover */
+        }
+
+        /* Adjust main content for left navbar */
+        main {
+            padding-left: 4rem; /* Default padding for mobile/small screens */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            main {
+                margin-left: 90px; /* Adjusted to bring content closer to the navbar (120px navbar width - 30px overlap = 90px) */
+                padding-left: 0; /* Reset padding if margin-left is used */
+            }
+        }
+
+        /* Ensure header content is not affected by left navbar */
+        header {
+            left: 0;
+            width: 100%;
+        }
+
+        /* Smooth scroll margin for fixed header and left nav */
+        .content-section {
+            scroll-margin-top: 80px; /* Adjust based on fixed nav height */
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800"> 
-<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
+<body class="bg-gray-50 text-slate-800 min-h-screen"> 
+<div class="relative flex flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex flex-col">
 
-    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 bg-white px-6 sm:px-10 py-4 shadow-md sticky top-0 z-50">
+    <div id="left-navbar" class="hidden md:flex flex-col items-center fixed left-0 top-1/2 -translate-y-1/2 z-40">
+        <a href="#hero" class="nav-link">
+            <span class="text-xs">Home</span>
+        </a>
+        <a href="#problem" class="nav-link">
+            <span class="text-xs">Problem</span>
+        </a>
+        <a href="#challenges" class="nav-link">
+            <span class="text-xs">Challenges</span>
+        </a>
+        <a href="#solution" class="nav-link">
+            <span class="text-xs">Solution</span>
+        </a>
+        <a href="#interactive-tools" class="nav-link">
+            <span class="text-xs">Tools</span>
+        </a>
+        <a href="#advantage" class="nav-link">
+            <span class="text-xs">Advantages</span>
+        </a>
+        <a href="#takeaways" class="nav-link">
+            <span class="text-xs">Takeaways</span>
+        </a>
+    </div>
+
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 bg-white px-6 sm:px-10 py-4 shadow-md fixed top-0 left-0 right-0 z-50 w-full">
         <div class="flex items-center gap-3 text-slate-800">
             <div class="size-9 text-blue-600 flex items-center justify-center rounded-full bg-blue-50">
                 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="size-7">
                     <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
                 </svg>
             </div>
-            <h1 class="text-2xl font-bold leading-tight tracking-tight text-blue-800">Validate Me</h1>
+            <h1 class="text-2xl font-bold leading-tight tracking-tight text-blue-800">Ivalidate</h1>
         </div>
-        <div class="flex items-center gap-4">
-            <nav class="hidden md:block">
-                <div class="flex items-baseline space-x-2 lg:space-x-4">
-                    <a href="#hero" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Home</a>
-                    <a href="#problem" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">The Problem</a>
-                    <a href="#challenges" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Challenges</a>
-                    <a href="#solution" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Solution</a>
-                    <a href="#interactive-tools" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Tools</a>
-                    <a href="#advantage" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Advantages</a>
-                    <a href="#takeaways" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 rounded-lg">Takeaways</a>
-                </div>
-            </nav>
+        <div class="flex items-center gap-4 ml-10">
             <div class="md:hidden">
                 <button id="mobile-menu-button" class="text-slate-700 hover:text-blue-600 focus:outline-none p-2 rounded-md hover:bg-gray-100">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -206,32 +294,33 @@
             <a href="#takeaways" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700">Takeaways</a>
         </div>
     </div>
-    <main class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-8">
+
+    <main class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-8 pt-20 md:ml-[90px]">
         <div class="layout-content-container flex flex-col w-full max-w-5xl">
 
-        <section id="hero" class="content-section text-center py-16 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl mb-12 border border-blue-100"> 
+        <section id="hero" class="content-section text-center py-16 mb-12 min-h-screen flex flex-col justify-center"> 
             <h1 class="text-slate-900 text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">The Startup Minefield: <br class="hidden sm:inline">Why Most Ventures Fail</h1> 
             <p class="text-lg text-slate-700 mb-10 max-w-4xl mx-auto leading-relaxed px-4"> 
                 The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This interactive report explores this critical "validation gap" and introduces a powerful solution.
             </p>
             <div class="bg-blue-100 p-8 rounded-xl max-w-3xl mx-auto shadow-inner border border-blue-200"> 
-                <h2 class="text-2xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Introducing "Validate Me"</h2>
+                <h2 class="text-2xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Introducing <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></h2>
                 <p class="text-slate-700 text-base leading-relaxed"> 
-                    "Validate Me" is envisioned as an <strong>AI-powered SaaS solution</strong> designed to bridge this critical gap. It offers data-driven idea validation <em>before</em> you invest precious resources, analyzing vast web data and social trends to confirm if your idea solves a real problem for a specific audience.
+                    <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is envisioned as an <strong>AI-powered SaaS solution</strong> designed to bridge this critical gap. It offers data-driven idea validation <em>before</em> you invest precious resources, analyzing vast web data and social trends to confirm if your idea solves a real problem for a specific audience.
                 </p>
             </div>
-            <a href="#interactive-tools" class="inline-flex items-center justify-center gap-2 mt-10 min-w-[180px] px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
+            <a href="#interactive-tools" id="exploreAIToolsButton" class="inline-flex items-center justify-center gap-2 mt-10 min-w-[180px] px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus->ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
                 Explore AI Tools <span class="material-icons ml-2">arrow_forward</span>
             </a>
         </section>
 
-        <section id="problem" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+        <section id="problem" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Understanding the Startup Failure Landscape</h2> 
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
                 Startup failure is alarmingly common. This section breaks down the primary reasons, with a sharp focus on the most significant pitfall: the fundamental lack of market need. Understanding these challenges is the first step to overcoming them.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-4"> 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start px-4"> 
                 <div>
                     <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">Top Reasons for Startup Failure</h3> 
                     <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
@@ -242,7 +331,7 @@
                     </div>
                      <p class="text-xs text-slate-500 mt-4 text-center">Hover over bars for details. Data based on CB Insights and other industry sources.</p>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+                <div class="pl-4 md:pl-8 border-l border-gray-300"> 
                     <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">The "No Market Need" Epidemic</h3> 
                     <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
                         A staggering 42% of startups fail because they build something nobody wants. This "founder's blind spot" leads to "solutions in search of problems"—a costly and disheartening endeavor.
@@ -267,7 +356,7 @@
 
             <div class="mt-16 px-4">
                 <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">The High Cost of Unvalidated Ideas</h3> 
-                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
+                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
                     Launching without robust validation isn't just risky; it's financially and emotionally draining. The wasted time, capital, and lost opportunities can be devastating for aspiring entrepreneurs.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> 
@@ -292,22 +381,21 @@
                         </ul>
                     </div>
                 </div>
-                 <p class="text-center text-slate-700 mt-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
+                 <p class="text-slate-700 mt-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
                     The key takeaway is clear: "failing fast" through efficient, data-driven validation is inherently smarter than "failing slow" after extensive, misguided development.
                 </p>
             </div>
         </section>
 
-        <section id="challenges" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+        <section id="challenges" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Hurdles in Traditional Validation</h2> 
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
                 Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the inherent limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4"> 
-                <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch px-4"> <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
                     <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
-                        Manual Research Pitfalls
-                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300">expand_more</span> 
+                        <span>Manual Research Pitfalls</span>
+                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300 flex-shrink-0">expand_more</span> 
                     </h3>
                     <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
                         <p>Traditional methods are often manual, leading to significant drawbacks:</p>
@@ -325,33 +413,32 @@
 
                 <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
                      <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
-                        Audience Identification Woes
-                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300">expand_more</span> 
+                        <span>Audience Identification Woes</span>
+                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300 flex-shrink-0">expand_more</span> 
                     </h3>
                     <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
-                        <p>Accurately finding and deeply understanding your target audience is crucial but challenging:</p>
+                        <p>Accurately understanding your target audience is crucial but challenging:</p>
                         <ul class="list-disc list-inside space-y-2 ml-4">
-                            <li><strong>Clarity is Key:</strong> Precisely defining the target market is foundational for effective research.</li>
-                            <li><strong>Talent Gap:</strong> Many startups lack specialized market research talent in-house.</li>
-                            <li><strong>Costly Methods:</strong> Manual interviews, surveys, and focus groups are expensive and time-intensive for effective audience segmentation.</li>
-                            <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, beliefs, values, lifestyle) reveal the "why" behind behavior but are significantly harder to uncover manually.</li>
-                            <li><strong>"Persona-to-Profit" Disconnect:</strong> Difficulty translating qualitative personas into actionable market segments.</li>
-                            <li><strong>Scalability Barrier:</strong> Manual segmentation doesn't scale efficiently for large datasets or continuous trend monitoring.</li>
+                            <li><strong>Clarity:</strong> Defining the target market is foundational.</li>
+                            <li><strong>Talent Gap:</strong> Many lack in-house market research talent.</li>
+                            <li><strong>Costly:</strong> Manual methods (interviews, surveys) are expensive and time-intensive.</li>
+                            <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, values) reveal the "why," but are hard to uncover manually.</li>
+                            <li><strong>Scalability:</strong> Manual segmentation doesn't scale for large data or continuous monitoring.</li>
                         </ul>
-                        <p class="mt-4 font-semibold text-slate-800">Without a deep, scalable understanding of the target audience, product development and marketing efforts can easily miss the mark.</p>
+                        <p class="mt-4 font-semibold text-slate-800">Without deep, scalable audience understanding, product development and marketing efforts can easily miss the mark.</p>
                     </div>
                 </div>
             </div>
             <div class="mt-16 p-8 bg-blue-50 border-l-6 border-blue-500 rounded-xl shadow-lg"> 
                 <h4 class="text-2xl font-bold text-blue-800 mb-6">Traditional vs. AI-Powered Validation: A Stark Contrast</h4>
-                <p class="text-slate-700 mb-6 text-base leading-relaxed">The table below, drawn from comprehensive industry reports, highlights the stark contrast between outdated manual methods and the agile, data-driven approach of "Validate Me."</p>
+                <p class="text-slate-700 mb-6 text-base leading-relaxed">The table below, drawn from comprehensive industry reports, highlights the stark contrast between outdated manual methods and the agile, data-driven approach of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>.</p>
                 <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-inner">
                     <table class="min-w-full divide-y divide-gray-300"> 
                         <thead class="bg-gray-100"> 
                             <tr>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Category</th> 
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Traditional Manual Methods</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">AI-Powered ("Validate Me")</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">AI-Powered (<span class="text-blue-600 uppercase font-bold">IVALIDATE</span>)</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200"> 
@@ -360,17 +447,17 @@
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Risk of Bias</td><td class="px-6 py-4 text-base text-slate-700">High</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Data Sources/Scope</td><td class="px-6 py-4 text-base text-slate-700">Limited, Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Broad (Web, Social, Trends)</td></tr>
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <section id="solution" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">"Validate Me": An Innovative Approach</h2> 
+        <section id="solution" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-blue-600 uppercase font-bold">IVALIDATE</span>: An Innovative Approach</h2> 
              <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
-                "Validate Me" is meticulously designed to overcome the inherent limitations of traditional methods by leveraging cutting-edge AI and the immense wealth of real-time data available across diverse social platforms. This section explores its core capabilities.
+                <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is meticulously designed to overcome the inherent limitations of traditional methods by leveraging cutting-edge AI and the immense wealth of real-time data available across diverse social platforms. This section explores its core capabilities.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4"> 
                 <div class="bg-blue-50 p-8 rounded-xl shadow-lg border border-blue-200 text-center"> 
@@ -384,14 +471,14 @@
                     <span class="material-icons text-blue-600 text-5xl mb-4">public</span>
                     <h3 class="text-xl font-bold text-blue-800 mb-3">Granular Audience Insights via Social Platforms</h3>
                     <p class="text-slate-700 text-base leading-relaxed"> 
-                        Social media is a goldmine of unfiltered consumer conversations. "Validate Me" taps into platforms like X, TikTok, YouTube, and Reddit to extract direct, honest feedback, identify pain points, and understand user behavior in real-time.
+                        Social media is a goldmine of unfiltered consumer conversations. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> taps into platforms like X, TikTok, YouTube, and Reddit to extract direct, honest feedback, identify pain points, and understand user behavior in real-time.
                     </p>
                 </div>
                 <div class="bg-blue-50 p-8 rounded-xl shadow-lg border border-blue-200 text-center">
                     <span class="material-icons text-blue-600 text-5xl mb-4">person_search</span>
                     <h3 class="text-xl font-bold text-blue-800 mb-3">Precise User Categorization</h3>
                     <p class="text-slate-700 text-base leading-relaxed"> 
-                        Beyond just problems, "Validate Me" aims to identify <em>who</em> experiences them. This involves understanding demographics (age, gender, location) and, crucially, psychographics (attitudes, values, lifestyles) to reveal the "why" behind customer actions, enabling truly customer-centric development.
+                        Beyond just problems, <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> aims to identify <em>who</em> experiences them. This involves understanding demographics (age, gender, location) and, crucially, psychographics (attitudes, values, lifestyles) to reveal the "why" behind customer actions, enabling truly customer-centric development.
                     </p>
                 </div>
             </div>
@@ -399,15 +486,15 @@
             <div class="mt-16 px-4">
                 <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">Leveraging Key Social Platforms</h3> 
                  <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                    Each social platform offers unique, invaluable insights. "Validate Me" strategically analyzes these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
+                    Each social platform offers unique, invaluable insights. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> strategically analyzes these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
                 </p>
                 <div>
                     <div class="mb-6 border-b-2 border-gray-200"> 
-                        <nav class="-mb-0.5 flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center" aria-label="Tabs">
-                            <button class="tab-button active py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="xtwitter">X (Twitter)</button> 
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="tiktok">TikTok</button>
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="youtube">YouTube</button>
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200" data-tab="reddit">Reddit</button>
+                        <nav class="flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center" aria-label="Tabs">
+                            <button class="tab-button active py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="xtwitter">X (Twitter)</button> 
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="tiktok">TikTok</button>
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="youtube">YouTube</button>
+                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="reddit">Reddit</button>
                         </nav>
                     </div>
                     <div id="social-platform-content" class="p-8 bg-gray-50 rounded-xl shadow-lg min-h-[220px] border border-gray-200 flex flex-col justify-center items-center text-center"> 
@@ -416,112 +503,96 @@
             </div>
         </section>
 
-        <section id="interactive-tools" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
+        <section id="interactive-tools" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Interactive Validation Tools Powered by AI</h2> 
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
-                Experience the power of AI in action! These interactive tools provide a tangible glimpse into how "Validate Me" can rapidly <strong>validate your ideas</strong>, identify target audiences, and refine your core problem statements.
+                Experience the power of AI in action! These interactive tools provide a tangible glimpse into how <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> can rapidly <strong>validate your ideas</strong>, identify target audiences, and refine your core problem statements.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4"> 
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">lightbulb</span> Idea Expander</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4"> 
+                <div class="bg-gray-50 px-6 py-8 rounded-xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">lightbulb</span> Idea Expander</h3>
                     <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your core idea, and let AI suggest related problems it could solve, potential niche markets, or expansion opportunities.</p>
-                    <textarea id="ideaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'A smart gardening app that monitors soil moisture'"></textarea> 
-                    <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
-                        Expand Idea <span class="material-icons text-lg">auto_awesome</span> <span id="ideaSpinner" class="loading-spinner hidden"></span>
+                    <textarea id="ideaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'A smart gardening app that monitors soil moisture'"></textarea> 
+                    <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Expand Idea <span id="ideaSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="ideaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div> 
-                </div>
+                    <div id="ideaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-purple-600">group</span> Audience Persona Generator</h3>
+                <div class="bg-gray-50 px-6 py-8 rounded-xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-purple-600">group</span> Audience Persona Generator</h3>
                     <p class="text-slate-700 mb-6 text-base leading-relaxed">Describe a problem or idea, and AI will generate a basic persona for a potential target audience, including their pain points and online habits.</p>
-                    <textarea id="personaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'Parents struggling with healthy meal prep for picky eaters'"></textarea>
-                    <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
-                        Generate Persona <span class="material-icons text-lg">person_add</span> <span id="personaSpinner" class="loading-spinner hidden"></span>
+                    <textarea id="personaInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'Parents struggling with healthy meal prep for picky eaters'"></textarea>
+                    <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Generate Persona <span id="personaSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="personaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
-                </div>
+                    <div id="personaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-green-600">check_circle</span> Problem Statement Refiner</h3>
+                <div class="bg-gray-50 px-6 py-8 rounded-xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-green-600">check_circle</span> Problem Statement Refiner</h3>
                     <p class="text-slate-700 mb-6 text-base leading-relaxed">Enter a problem you've identified, and AI will refine it into a clear, concise, and actionable problem statement.</p>
-                    <textarea id="problemInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'People can't find healthy, quick meals when working from home.'"></textarea>
-                    <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
-                        Refine Problem <span class="material-icons text-lg">edit_note</span> <span id="problemSpinner" class="loading-spinner hidden"></span>
+                    <textarea id="problemInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'People can't find healthy, quick meals when working from home.'"></textarea>
+                    <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Refine Problem <span id="problemSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="problemOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
-                </div>
+                    <div id="problemOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 flex flex-col"> 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-orange-600">compare</span> Competitor Brainstormer</h3>
+                <div class="bg-gray-50 px-6 py-8 rounded-xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-orange-600">compare</span> Competitor Brainstormer</h3>
                     <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your idea, and AI will brainstorm potential direct and indirect competitors, highlighting their approaches.</p>
-                    <textarea id="competitorInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px]" rows="4" placeholder="e.g., 'An app for finding local, ethical dog walkers'"></textarea>
-                    <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"> 
-                        Brainstorm Competitors <span class="material-icons text-lg">emoji_objects</span> <span id="competitorSpinner" class="loading-spinner hidden"></span>
+                    <textarea id="competitorInput" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'An app for finding local, ethical dog walkers'"></textarea>
+                    <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-lg h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Brainstorm Competitors <span id="competitorSpinner" class="loading-spinner hidden"></span>
                     </button>
-                    <div id="competitorOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner"></div>
-                </div>
+                    <div id="competitorOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
             </div>
         </section>
 
-        <section id="advantage" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">The Strategic Edge of "Validate Me"</h2> 
+        <section id="advantage" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">The Strategic Edge of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></h2> 
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
-                By directly addressing the core issues in idea validation, "Validate Me" offers significant strategic advantages to entrepreneurs, startups, and developers. It's about more than just avoiding failure; it's about building a robust foundation for sustainable success.
+                By directly addressing the core issues in idea validation, <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> offers significant strategic advantages to entrepreneurs, startups, and developers. It's about more than just avoiding failure; it's about building a robust foundation for sustainable success.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4"> 
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
-                    <span class="material-icons text-green-600 text-5xl mb-4">rocket_launch</span>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> <span class="material-icons text-green-600 text-5xl mb-4">rocket_launch</span>
                     <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Accelerate Product-Market Fit</h3> 
                     <p class="text-slate-700 text-base leading-relaxed">Rapid, data-driven insights allow for quicker iteration and refinement, focusing development on features that truly resonate with users and significantly reducing time-to-market.</p>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
-                     <span class="material-icons text-yellow-600 text-5xl mb-4">security</span>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> <span class="material-icons text-yellow-600 text-5xl mb-4">security</span>
                     <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Mitigate Risk & Optimize Resources</h3> 
                     <p class="text-slate-700 text-base leading-relaxed">Proactively identify if an idea solves a real problem, preventing costly pursuit of unvalidated concepts and ensuring precious time and financial resources are invested wisely.</p>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
-                    <span class="material-icons text-blue-600 text-5xl mb-4">analytics</span>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> <span class="material-icons text-blue-600 text-5xl mb-4">analytics</span>
                     <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Empower Data-Driven Decisions</h3> 
                     <p class="text-slate-700 text-base leading-relaxed">Move beyond intuition. Leverage continuous, objective market intelligence for informed choices on features, target audience, and overall strategy, fostering predictable and sustainable growth.</p>
                 </div>
             </div>
         </section>
 
-        <section id="takeaways" class="content-section py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-100"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Key Insights & The Path Forward for "Validate Me"</h2> 
+        <section id="takeaways" class="content-section py-12 mb-12 min-h-screen flex flex-col justify-center"> 
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Key Insights & The Path Forward for <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></h2> 
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
-                The research overwhelmingly supports the indispensable need for a tool like "Validate Me." This final section summarizes the core conclusions and outlines strategic recommendations for developing and positioning such a vital SaaS solution.
+                The research overwhelmingly supports the indispensable need for a tool like <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>. This final section summarizes the core conclusions and outlines strategic recommendations for developing and positioning such a vital SaaS solution.
             </p>
-            <div class="bg-blue-50 p-10 rounded-2xl shadow-lg border border-blue-200"> 
-                <h3 class="text-3xl font-bold text-blue-800 mb-8 leading-tight tracking-tight text-center">Core Conclusion: An Indispensable Tool for Modern Entrepreneurship</h3> 
+            <div class="bg-blue-50 p-10 rounded-2xl shadow-lg border border-blue-200"> <h3 class="text-3xl font-bold text-blue-800 mb-8 leading-tight tracking-tight text-center">Core Conclusion: An Indispensable Tool for Modern Entrepreneurship</h3> 
                 <p class="text-slate-700 mb-10 text-lg leading-relaxed"> 
-                    The "no market need" epidemic remains the primary Achilles' heel of countless startups. Traditional validation is often too slow, biased, and expensive. "Validate Me" has the transformative potential to directly address these systemic issues by offering an AI-powered, highly efficient, and objective approach to idea validation and comprehensive market research. It can seamlessly transform raw social data and web trends into actionable insights, thereby accelerating product-market fit, significantly mitigating entrepreneurial risk, and empowering founders with the precise data needed for predictable and sustainable success.
+                    The "no market need" epidemic remains the primary Achilles' heel of countless startups. Traditional validation is often too slow, biased, and expensive. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> has the transformative potential to directly address these systemic issues by offering an AI-powered, highly efficient, and objective approach to idea validation and comprehensive market research. It can seamlessly transform raw social data and web trends into actionable insights, thereby accelerating product-market fit, significantly mitigating entrepreneurial risk, and empowering founders with the precise data needed for predictable and sustainable success.
                 </p>
 
-                <h3 class="text-2xl font-bold text-blue-800 mb-6 leading-tight tracking-tight">Strategic Recommendations for "Validate Me"</h3> 
+                <h3 class="text-2xl font-bold text-blue-800 mb-6 leading-tight tracking-tight">Strategic Recommendations for <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></h3> 
                 <div class="space-y-6 text-slate-700"> 
                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg"> 
                         <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
                             1. Emphasize "Problem-Solution Fit" 
                             <span class="material-icons text-blue-600 text-3xl">add</span>
                         </summary> 
-                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Market "Validate Me" as a crucial preventative measure against the "no market need" crisis. Highlight its unique ability to definitively confirm if an idea solves an existing, articulated problem for a clearly defined audience, turning assumptions into validated opportunities.</p>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Market <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> as a crucial preventative measure against the "no market need" crisis. Highlight its unique ability to definitively confirm if an idea solves an existing, articulated problem for a clearly defined audience, turning assumptions into validated opportunities.</p>
                     </details>
                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
                         <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
                             2. Quantify Time & Cost Savings
                             <span class="material-icons text-blue-600 text-3xl">add</span>
                         </summary>
-                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Clearly communicate the profound financial and temporal benefits of using "Validate Me." Position it as an indispensable investment that actively prevents significantly greater future losses and effectively reduces accumulated "research debt," providing a clear ROI.</p>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Clearly communicate the profound financial and temporal benefits of using <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>. Position it as an indispensable investment that actively prevents significantly greater future losses and effectively reduces accumulated "research debt," providing a clear ROI.</p>
                     </details>
                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
                         <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
                             3. Highlight AI's Unbiased & Scalable Nature
                             <span class="material-icons text-blue-600 text-3xl">add</span>
                         </summary>
-                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Stress AI's unparalleled capacity to overcome inherent human biases and efficiently process vast, complex datasets at scale. This positions "Validate Me" as a source of truly objective and comprehensive market intelligence, far beyond manual capabilities.</p>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Stress AI's unparalleled capacity to overcome inherent human biases and efficiently process vast, complex datasets at scale. This positions <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> as a source of truly objective and comprehensive market intelligence, far beyond manual capabilities.</p>
                     </details>
                     <details class="bg-white p-6 rounded-xl shadow-md cursor-pointer border border-gray-200 transition-all duration-300 ease-in-out hover:shadow-lg">
                         <summary class="font-bold text-blue-700 text-lg flex items-center justify-between">
@@ -556,7 +627,7 @@
                             8. Integrate Continuous Learning
                             <span class="material-icons text-blue-600 text-3xl">add</span>
                         </summary>
-                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Position "Validate Me" as a product that inherently embodies the principles of continuous validation and improvement. Actively collect and integrate user feedback into its own development roadmap, showcasing a commitment to evolving with market needs and user demands.</p>
+                        <p class="mt-4 text-base leading-relaxed border-t border-gray-100 pt-4">Position <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> as a product that inherently embodies the principles of continuous validation and improvement. Actively collect and integrate user feedback into its own development roadmap, showcasing a commitment to evolving with market needs and user demands.</p>
                     </details>
                 </div>
             </div>
@@ -565,119 +636,124 @@
     </main>
 
     <footer class="py-8 px-4 sm:px-10 text-center text-sm text-gray-600 border-t border-gray-200 bg-white shadow-inner">
-        &copy; <span id="currentYear"></span> ValidateMe Insights. All rights reserved. Designed with passion.
+        &copy; <span id="currentYear"></span> Ivalidate Insights. All rights reserved. Designed with passion.
     </footer>
 
 </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Startup Failure Chart Initialization
-        const startupFailureCtx = document.getElementById('startupFailureChart').getContext('2d');
-        const startupFailureData = {
-            labels: [
-                'No Market Need (35-42%)', 
-                'Ran Out of Cash (29-38%)', 
-                'Weak Team (14-23%)', 
-                'Competition (19-20%)', 
-                'Poor Model/Fit (19-74%)', 
-                'Poor Product (8-17%)',
-                'Poor Marketing (14%)',
-                'Regulatory Issues (18%)',
-                'Pricing Issues (15%)',
-                'Poor Timing (10%)'
-            ],
-            datasets: [{
-                label: 'Approx. % of Startups Failing Due To This Reason',
-                data: [38.5, 33.5, 18.5, 19.5, 46.5, 12.5, 14, 18, 15, 10], 
-                backgroundColor: [
-                    'rgba(239, 68, 68, 0.8)', // red-500
-                    'rgba(249, 115, 22, 0.8)', // orange-500
-                    'rgba(234, 179, 8, 0.8)', // yellow-500
-                    'rgba(132, 204, 22, 0.8)', // lime-500
-                    'rgba(34, 197, 94, 0.8)', // green-500
-                    'rgba(16, 185, 129, 0.8)', // emerald-500
-                    'rgba(6, 182, 212, 0.8)', // cyan-500
-                    'rgba(59, 130, 246, 0.8)', // blue-500
-                    'rgba(139, 92, 246, 0.8)', // violet-500
-                    'rgba(217, 70, 239, 0.8)' // fuchsia-500
+        const startupFailureCanvas = document.getElementById('startupFailureChart');
+        if (startupFailureCanvas) { // Check if the element exists
+            const startupFailureCtx = startupFailureCanvas.getContext('2d');
+            const startupFailureData = {
+                labels: [
+                    'No Market Need (35-42%)', 
+                    'Ran Out of Cash (29-38%)', 
+                    'Weak Team (14-23%)', 
+                    'Competition (19-20%)', 
+                    'Poor Model/Fit (19-74%)', 
+                    'Poor Product (8-17%)',
+                    'Poor Marketing (14%)',
+                    'Regulatory Issues (18%)',
+                    'Pricing Issues (15%)',
+                    'Poor Timing (10%)'
                 ],
-                borderColor: [
-                    'rgba(239, 68, 68, 1)',
-                    'rgba(249, 115, 22, 1)',
-                    'rgba(234, 179, 8, 1)',
-                    'rgba(132, 204, 22, 1)',
-                    'rgba(34, 197, 94, 1)',
-                    'rgba(16, 185, 129, 1)',
-                    'rgba(6, 182, 212, 1)',
-                    'rgba(59, 130, 246, 1)',
-                    'rgba(139, 92, 246, 1)',
-                    'rgba(217, 70, 239, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-        const startupFailureChart = new Chart(startupFailureCtx, {
-            type: 'bar',
-            data: startupFailureData,
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        title: { 
-                            display: true, 
-                            text: 'Percentage (%)', 
-                            color: '#6b7280', // slate-500
-                            font: { size: 14, weight: '600' }
+                datasets: [{
+                    label: 'Approx. % of Startups Failing Due To This Reason',
+                    data: [38.5, 33.5, 18.5, 19.5, 46.5, 12.5, 14, 18, 15, 10], 
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)', // red-500
+                        'rgba(249, 115, 22, 0.8)', // orange-500
+                        'rgba(234, 179, 8, 0.8)', // yellow-500
+                        'rgba(132, 204, 22, 0.8)', // lime-500
+                        'rgba(34, 197, 94, 0.8)', // green-500
+                        'rgba(16, 185, 129, 0.8)', // emerald-500
+                        'rgba(6, 182, 212, 0.8)', // cyan-500
+                        'rgba(59, 130, 246, 0.8)', // blue-500
+                        'rgba(139, 92, 246, 0.8)', // violet-500
+                        'rgba(217, 70, 239, 0.8)' // fuchsia-500
+                    ],
+                    borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(249, 115, 22, 1)',
+                        'rgba(234, 179, 8, 1)',
+                        'rgba(132, 204, 22, 1)',
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(6, 182, 212, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(139, 92, 246, 1)',
+                        'rgba(217, 70, 239, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            const startupFailureChart = new Chart(startupFailureCtx, {
+                type: 'bar',
+                data: startupFailureData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { 
+                                display: true, 
+                                text: 'Percentage (%)', 
+                                color: '#6b7280', // slate-500
+                                font: { size: 14, weight: '600' }
+                            },
+                            ticks: {
+                                color: '#6b7280', // slate-500
+                                font: { size: 12 }
+                            },
+                            grid: {
+                                color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                            }
                         },
-                        ticks: {
-                            color: '#6b7280', // slate-500
-                            font: { size: 12 }
-                        },
-                        grid: {
-                            color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                        y: { 
+                            ticks: { 
+                                autoSkip: false,
+                                color: '#4b5563', // slate-700
+                                font: { size: 13, weight: '500' },
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 25) { 
+                                        return label.substring(0, 25) + '...';
+                                    }
+                                    return label;
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                            }
                         }
                     },
-                    y: { 
-                        ticks: { 
-                            autoSkip: false,
-                            color: '#4b5563', // slate-700
-                            font: { size: 13, weight: '500' },
-                            callback: function(value, index, values) {
-                                const label = this.getLabelForValue(value);
-                                if (label.length > 25) { 
-                                    return label.substring(0, 25) + '...';
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
                                 }
-                                return label;
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                            },
+                            backgroundColor: 'rgba(30, 41, 59, 0.9)', // slate-800
+                            titleColor: '#f8fafc', // slate-50
+                            bodyColor: '#e2e8f0', // slate-200
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false
                         }
                     }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.raw}%`;
-                            }
-                        },
-                        backgroundColor: 'rgba(30, 41, 59, 0.9)', // slate-800
-                        titleColor: '#f8fafc', // slate-50
-                        bodyColor: '#e2e8f0', // slate-200
-                        padding: 12,
-                        cornerRadius: 8,
-                        displayColors: false
-                    }
                 }
-            }
-        });
+            });
+        }
+
 
         // Social Platform Tabs Logic
         const tabButtons = document.querySelectorAll('.tab-button');
@@ -724,7 +800,7 @@
         updateSocialContent('xtwitter'); // Initial content load
 
         // Smooth scrolling for nav links & active state
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link'); // Selects both left-nav and mobile nav links
         const sections = document.querySelectorAll('.content-section');
 
         navLinks.forEach(link => {
@@ -734,6 +810,7 @@
                 const targetSection = document.querySelector(targetId);
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
                     // For mobile menu, close it after click
                     if(document.getElementById('mobile-menu').classList.contains('hidden') === false) {
                         document.getElementById('mobile-menu').classList.add('hidden');
@@ -746,21 +823,32 @@
         // Active nav link on scroll
         const observerOptions = {
             root: null,
-            rootMargin: '-80px 0px -50% 0px', // Adjust this to control when the active state changes
+            // Adjust rootMargin to account for fixed header height (approx 68px)
+            // Format: 'top right bottom left'
+            rootMargin: '-68px 0px 0px 0px', 
             threshold: 0 // Trigger as soon as any part of the section is visible
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const id = entry.target.getAttribute('id');
-                const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                // Select both desktop and mobile nav links
+                const desktopNavLink = document.querySelector(`#left-navbar .nav-link[href="#${id}"]`);
                 const mobileNavLink = document.querySelector(`#mobile-menu .nav-link[href="#${id}"]`);
 
+                // Ensure only one nav link is active at a time based on intersection
                 if (entry.isIntersecting) {
-                    navLinks.forEach(link => link.classList.remove('active'));
-                    if(navLink) navLink.classList.add('active');
+                    // Remove active class from ALL nav links first (both desktop and mobile)
+                    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+                    // Then add active class to the currently intersecting link
+                    if(desktopNavLink) desktopNavLink.classList.add('active');
                     if(mobileNavLink) mobileNavLink.classList.add('active');
 
+                } else {
+                    // If a section is not intersecting, ensure its nav link is not active
+                    if(desktopNavLink) desktopNavLink.classList.remove('active');
+                    if(mobileNavLink) mobileNavLink.classList.remove('active');
                 }
             });
         }, observerOptions);
@@ -815,8 +903,8 @@
             // Example: const apiKey = "AIzaSyB-YOUR-ACTUAL-KEY-GOES-HERE";
             const apiKey = "AIzaSyBM8UsLH_ubOmP3tTxvXWvdQWnlPPpiOK0"; 
             
-            if (!apiKey || apiKey === "YOUR_PASTED_API_KEY_HERE") {
-                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please replace "YOUR_ACTUAL_GEMINI_API_KEY_HERE" in the JavaScript with your actual Gemini API key.</p>';
+            if (!apiKey || apiKey === "YOUR_ACTUAL_GEMINI_API_HERE") {
+                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please replace "YOUR_ACTUAL_GEMINI_API_HERE" in the JavaScript with your actual Gemini API key.</p>';
                 spinnerElement.classList.add('hidden');
                 return;
             }
@@ -926,7 +1014,8 @@
             }
         });
 
-        // Toggle details for case study cards
+
+        // Toggle details for case study cards - these still use the info icon
         function toggleDetails(elementId) {
             const element = document.getElementById(elementId);
             if (element) {
@@ -935,21 +1024,96 @@
         }
         window.toggleDetails = toggleDetails; // Make globally accessible
 
-        // Toggle comparison card details
+        // Toggle comparison card details (Synchronized functionality)
         function toggleComparisonCard(headerElement) {
-            const card = headerElement.closest('.comparison-card');
-            if (card) {
-                card.classList.toggle('open');
-                const icon = headerElement.querySelector('.material-icons');
-                if (card.classList.contains('open')) {
-                    icon.textContent = 'remove'; // Change icon to 'remove' or 'expand_less'
+            const allCards = document.querySelectorAll('.comparison-card');
+            // Determine the target state (open or closed) based on the first card's current state
+            // If the first card is open, we want to close all. If it's closed, we want to open all.
+            const shouldOpen = !allCards[0].classList.contains('open');
+
+            // Apply the state to all cards
+            allCards.forEach(card => {
+                if (shouldOpen) {
+                    card.classList.add('open');
+                    card.querySelector('.material-icons').textContent = 'remove';
                 } else {
-                    icon.textContent = 'add'; // Change icon back to 'add' or 'expand_more'
+                    card.classList.remove('open');
+                    card.querySelector('.material-icons').textContent = 'add';
                 }
-            }
+            });
         }
         window.toggleComparisonCard = toggleComparisonCard; // Make globally accessible
 
+        // Navbar 3D Scroll Animation and Synchronization
+        const leftNavbar = document.getElementById('left-navbar');
+        const leftNavLinks = leftNavbar.querySelectorAll('.nav-link'); 
+        
+        // Function to update 3D transforms based on scroll
+        function updateNavbarTransforms() {
+            if (!leftNavbar || leftNavLinks.length === 0) return;
+
+            // Get the current scroll position of the main window
+            const windowScrollY = window.scrollY;
+
+            // Calculate the total scrollable height of the main document
+            const documentScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            // Calculate the total scrollable height of the navbar
+            const navbarScrollHeight = leftNavbar.scrollHeight - leftNavbar.clientHeight;
+
+            // Synchronize navbar scroll with window scroll proportionally
+            if (documentScrollHeight > 0 && navbarScrollHeight > 0) {
+                const scrollRatio = windowScrollY / documentScrollHeight;
+                leftNavbar.scrollTop = scrollRatio * navbarScrollHeight;
+            } else {
+                leftNavbar.scrollTop = 0; // Reset if not scrollable
+            }
+
+            const scrollCenter = leftNavbar.scrollTop + (leftNavbar.clientHeight / 2);
+
+            leftNavLinks.forEach(link => { // Use leftNavLinks here
+                const linkCenter = link.offsetTop + (link.offsetHeight / 2);
+                const distance = linkCenter - scrollCenter; // Distance from the center of the visible navbar area
+
+                // Normalized distance to a range like -1 to 1 based on half of the visible height
+                // This makes items at the edge of the visible area have a normalizedDistance close to 1 or -1
+                const maxDistance = leftNavbar.clientHeight / 2;
+                const normalizedDistance = Math.max(-1, Math.min(1, distance / maxDistance)); // Clamp to -1 to 1
+
+                // Apply rotation based on normalized distance
+                // Closer to center (0), less rotation. Further away (towards -1 or 1), more rotation.
+                const maxRotation = 20; // Max rotation in degrees
+                const rotationX = normalizedDistance * maxRotation; // Rotate more as it moves away from center
+
+                // Apply a slight Z-translation for depth
+                // Items further from center are pushed slightly back
+                const maxTranslateZ = 15; // Max Z translation in pixels
+                const translateZ = Math.abs(normalizedDistance) * maxTranslateZ; 
+
+                link.style.setProperty('--rotation-x', `${rotationX}deg`);
+                link.style.setProperty('--translate-z', `${-translateZ}px`); // Negative to push back
+            });
+        }
+
+        // Add scroll event listener to the window
+        window.addEventListener('scroll', updateNavbarTransforms);
+
+        // Also call it initially to set the correct state on load
+        updateNavbarTransforms();
+
+
+        // Fix for "Explore AI Tools" button to smoothly scroll
+        const exploreAIToolsButton = document.getElementById('exploreAIToolsButton');
+        if (exploreAIToolsButton) {
+            exploreAIToolsButton.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default jump behavior
+                const targetId = this.getAttribute('href'); // Get the href (e.g., "#interactive-tools")
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
     });
 </script>
 </body>
