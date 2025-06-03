@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ivalidate: Empowering Startup Validation</title>
+    <!-- Stitch Design Fonts (Existing Branding) -->
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40300%3B400%3B500%3B600%3B700%3B800%3B900&family=Noto+Sans%3Awght%40300%3B400%3B500%3B700%3B900&display=swap" onload="this.rel='stylesheet'" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
     <style>
@@ -69,7 +71,7 @@
         }
         /* Non-active tab hover state */
         .tab-button:not(.active):hover {
-            color: #0c7ff2; /* Blue on hover for non-active */
+            /* Removed hover highlight */ 
         }
         /* Remove outline on focus */
         .tab-button:focus,
@@ -78,30 +80,66 @@
             box-shadow: none;
         }
 
-
         /* Comparison card expand/collapse animation */
+        .comparison-card {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            border: 1px solid #e5e7eb; /* border border-gray-200 */
+            overflow: hidden; /* Crucial for max-height transition */
+            transition: max-height 0.5s ease-out;
+            will-change: max-height;
+            /* Default state: collapsed, showing only the header */
+            max-height: 200px; /* This is the desired height for the closed card box */
+            margin-bottom: 2rem; /* Spacing between cards (adjust as needed) */
+        }
+
+        .comparison-card.open {
+            max-height: 9999px; /* Expands to show all content */
+        }
+
         .comparison-card h3 {
             cursor: pointer;
             user-select: none; /* Prevent text selection on click */
             display: flex;
             justify-content: space-between;
             align-items: center; /* Ensures vertical alignment */
+            /* Padding for the header itself, always present */
+            padding-left: 2rem; /* px-8 */
+            padding-right: 2rem; /* px-8 */
+            padding-top: 1.5rem; /* py-6 */
+            padding-bottom: 1.5rem; /* py-6 */
+            margin: 0; /* Ensure no margin on h3 itself */
         }
-        .comparison-card h3 span {
-            transition: transform 0.3s ease;
-        }
-        .comparison-card.open h3 span {
-            transform: rotate(180deg);
-        }
-        .comparison-card .details {
+        
+        .comparison-card .card-details-content { 
+            /* Horizontal padding always applied to content */
+            padding-left: 2rem; 
+            padding-right: 2rem; 
+            /* Default: collapsed and hidden */
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
+            padding-top: 0; 
+            padding-bottom: 0; 
+            margin-top: 0; 
+            margin-bottom: 0; 
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Transition for content */
+            will-change: max-height, padding;
         }
-        .comparison-card.open .details {
-            max-height: 500px; /* Sufficient height for content */
-            padding-top: 1rem; /* Add padding when open */
+        /* When parent is open, expand content and apply vertical padding */
+        .comparison-card.open .card-details-content {
+            max-height: 9999px; /* Expands content */
+            padding-top: 1rem;
+            padding-bottom: 2rem;
         }
+
+        /* Ensure children of card-details-content don't have external margins */
+        .comparison-card .card-details-content p,
+        .comparison-card .card-details-content ul {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
 
         /* Loading spinner animation */
         .loading-spinner {
@@ -207,10 +245,13 @@
             transform: rotateX(var(--rotation-x, 0deg)) translateZ(var(--translate-z, 0px)) scale(1.05); /* Slight scale and bring forward */
             z-index: 2; /* Ensure it's above other links */
         }
+        /* Removed hover styling for nav links */
+        /*
         #left-navbar .nav-link:hover {
-            color: #0c7ff2; /* Stitch blue-600 for hover text */
-            font-weight: 600; /* Bold on hover */
+            color: #0c7ff2; 
+            font-weight: 600; 
         }
+        */
 
         /* Adjust main content for left navbar */
         main {
@@ -392,12 +433,14 @@
             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed px-4"> 
                 Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the inherent limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch px-4"> <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch px-4"> 
+                <!-- Manual Research Pitfalls Card -->
+                <div class="comparison-card" id="manualResearchCard"> 
+                    <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
                         <span>Manual Research Pitfalls</span>
-                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300 flex-shrink-0">expand_more</span> 
+                        <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span> 
                     </h3>
-                    <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
+                    <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed"> 
                         <p>Traditional methods are often manual, leading to significant drawbacks:</p>
                         <ul class="list-disc list-inside space-y-2 ml-4">
                             <li><strong>Human Bias:</strong> Researchers can unconsciously skew data or interpret it subjectively.</li>
@@ -411,12 +454,13 @@
                     </div>
                 </div>
 
-                <div class="comparison-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200"> 
-                     <h3 class="text-2xl font-bold text-slate-800 mb-4 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
+                <!-- Audience Identification Woes Card -->
+                <div class="comparison-card" id="audienceIdentificationCard"> 
+                     <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
                         <span>Audience Identification Woes</span>
-                        <span class="text-blue-600 text-3xl material-icons transform transition-transform duration-300 flex-shrink-0">expand_more</span> 
+                        <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span> 
                     </h3>
-                    <div class="details text-slate-700 space-y-4 text-base leading-relaxed"> 
+                    <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed"> 
                         <p>Accurately understanding your target audience is crucial but challenging:</p>
                         <ul class="list-disc list-inside space-y-2 ml-4">
                             <li><strong>Clarity:</strong> Defining the target market is foundational.</li>
@@ -837,6 +881,9 @@
                 const mobileNavLink = document.querySelector(`#mobile-menu .nav-link[href="#${id}"]`);
 
                 // Ensure only one nav link is active at a time based on intersection
+                // This logic needs refinement to correctly handle cases where multiple sections might be in view
+                // For simplicity and based on user's current need, we'll keep it as is for now
+                // but a more robust solution might involve calculating the "most visible" section
                 if (entry.isIntersecting) {
                     // Remove active class from ALL nav links first (both desktop and mobile)
                     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
@@ -899,12 +946,12 @@
             outputElement.innerHTML = '';
             spinnerElement.classList.remove('hidden');
             
-            // >>>>>>>>>> PASTE YOUR ACTUAL GEMINI API KEY HERE <<<<<<<<<<
-            // Example: const apiKey = "AIzaSyB-YOUR-ACTUAL-KEY-GOES-HERE";
-            const apiKey = "AIzaSyBM8UsLH_ubOmP3tTxvXWvdQWnlPPpiOK0"; 
+            // IMPORTANT: Replace "" with your actual Gemini API key.
+            // You can get one from Google AI Studio: https://makersuite.google.com/app/apikey
+            const apiKey = ""; 
             
-            if (!apiKey || apiKey === "YOUR_ACTUAL_GEMINI_API_HERE") {
-                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please replace "YOUR_ACTUAL_GEMINI_API_HERE" in the JavaScript with your actual Gemini API key.</p>';
+            if (!apiKey) {
+                outputElement.innerHTML = '<p class="text-red-500 font-semibold">Error: API Key is not configured. Please add your Gemini API key in the JavaScript code to enable AI features.</p>';
                 spinnerElement.classList.add('hidden');
                 return;
             }
@@ -1024,23 +1071,30 @@
         }
         window.toggleDetails = toggleDetails; // Make globally accessible
 
-        // Toggle comparison card details (Synchronized functionality)
-        function toggleComparisonCard(headerElement) {
+        // REFINED toggleComparisonCard function for mutual exclusivity and correct display
+        function toggleComparisonCard(clickedHeader) {
             const allCards = document.querySelectorAll('.comparison-card');
-            // Determine the target state (open or closed) based on the first card's current state
-            // If the first card is open, we want to close all. If it's closed, we want to open all.
-            const shouldOpen = !allCards[0].classList.contains('open');
+            const clickedCard = clickedHeader.closest('.comparison-card');
+            const clickedIcon = clickedHeader.querySelector('.material-icons');
 
-            // Apply the state to all cards
+            // Store the current state of the clicked card BEFORE closing others
+            const wasClickedCardOpen = clickedCard.classList.contains('open');
+
+            // Close all cards first
             allCards.forEach(card => {
-                if (shouldOpen) {
-                    card.classList.add('open');
-                    card.querySelector('.material-icons').textContent = 'remove';
-                } else {
-                    card.classList.remove('open');
-                    card.querySelector('.material-icons').textContent = 'add';
+                card.classList.remove('open');
+                const icon = card.querySelector('h3 .material-icons');
+                if (icon) {
+                    icon.textContent = 'add'; // Set icon to 'add' for all closed cards
                 }
             });
+
+            // If the clicked card was NOT open initially, then open it
+            if (!wasClickedCardOpen) {
+                clickedCard.classList.add('open');
+                clickedIcon.textContent = 'remove'; // Set icon to 'remove' for the newly opened card
+            }
+            // If it *was* open, it has now been closed by the loop above and will remain closed.
         }
         window.toggleComparisonCard = toggleComparisonCard; // Make globally accessible
 
