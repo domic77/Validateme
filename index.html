@@ -11,7 +11,6 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
-    <!-- Custom Fonts: Allenoire and Qurova -->
     <style>
         /* Custom progress bar styles from original Stitch design */
         .progress-bar::-webkit-progress-value {
@@ -206,7 +205,7 @@
             
             /* Positioning for floating effect */
             position: fixed; /* Already fixed */
-            top: 1rem; /* Detach from the very top */
+            top: 1.5rem; /* Adjusted: Moved header down slightly for more clearance */
             left: 50%; /* Center horizontally */
             transform: translateX(-50%); /* Adjust for horizontal centering */
             width: calc(100% - 2rem); /* Limit width to fit screen with side margins */
@@ -277,7 +276,7 @@
         /* Adjust main content for top navbar (now floating) */
         main {
             /* Increased padding-top to account for the floating header's height and its top margin */
-            padding-top: 160px; /* Increased from 130px for more clearance */
+            padding-top: 180px; /* Adjusted: Increased for more clearance */
             /* Apply horizontal padding directly to main for overall spacing */
             padding-left: 2rem;
             padding-right: 2rem;
@@ -305,7 +304,7 @@
         /* Smooth scroll margin for fixed header (now floating) */
         .content-section {
             /* Increased scroll-margin-top to account for the floating header's height and its top margin */
-            scroll-margin-top: 160px; /* Increased from 130px for more clearance */
+            scroll-margin-top: 180px; /* Adjusted: Increased for more clearance */
             
             /* Apply pill-like styling to all content sections */
             background-color: white; /* Give sections a background */
@@ -442,12 +441,12 @@
             }
 
             main {
-                padding-top: 100px; /* Adjusted from 80px for mobile header height */
+                padding-top: 120px; /* Adjusted: Increased for mobile header height */
                 padding-left: 1rem; /* Reduce main padding for mobile */
                 padding-right: 1rem;
             }
             .content-section {
-                scroll-margin-top: 100px; /* Adjusted from 80px for mobile header height */
+                scroll-margin-top: 120px; /* Adjusted: Increased for mobile header height */
             }
         }
         /* Custom styling for Research Methodology section bullet points */
@@ -484,13 +483,15 @@
         }
 
         /* Ensure waitlist input and button also look pill-like */
-        #waitlistEmail, #waitlistName, #waitlistChallenge {
+        /* Updated: Apply styling directly to input/textarea/button elements within the form */
+        #waitlist-form input[type="text"],
+        #waitlist-form input[type="email"] {
             border-radius: 9999px; /* full pill for input */
             padding-left: 1.5rem; /* extra padding for visual balance */
             padding-right: 1.5rem;
         }
         /* Textarea needs special handling for rounded corners if it's multiline */
-        #waitlistChallenge {
+        #waitlist-form textarea {
             border-radius: 1.5rem; /* Rounded like sections, not full pill */
             resize: vertical; /* Allow vertical resizing */
             min-height: 80px; /* Minimum height for textarea */
@@ -498,7 +499,7 @@
             padding-bottom: 1rem;
         }
 
-        #joinWaitlistButton {
+        #waitlist-form button[type="submit"] {
             border-radius: 9999px; /* full pill for button */
             padding-left: 2.5rem; /* extra padding for visual balance */
             padding-right: 2.5rem;
@@ -515,57 +516,8 @@
             z-index: 1; /* Ensure it overlaps any rounded body if present */
         }
 
-        /* @font-face rule for Qurova font */
-        /* IMPORTANT: To make 'Qurova' font work, you need to:
-           1. Download the font file (e.g., Qurova-Regular.woff2, Qurova-Bold.woff2, etc.)
-              from Prioritype Co (prioritypeco.com/product/qurova-logo-font/) or MyFonts.
-           2. Host this font file on your own server or a public CDN.
-           3. Replace the 'url()' value below with the actual path to your hosted font file.
-           4. You may need multiple 'url()' entries for different font formats (e.g., .woff2, .woff, .ttf)
-              for broader browser compatibility.
-        */
-        @font-face {
-            font-family: 'Qurova';
-            src: url('/fonts/Qurova-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap; /* Ensures text remains visible during font load */
-        }
-
-        /* Custom style for the Ivalidate logo text */
-        .ivalidate-logo-text {
-            font-family: 'Qurova', sans-serif; /* Applied Qurova font */
-            font-weight: 900; /* Make it extra, extra bold (if font supports it) */
-            letter-spacing: 0.04em; /* Slight letter spacing for a sleek feel */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1), 0 0 5px rgba(12, 127, 242, 0.3); /* Subtle shadow and glow */
-            transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
-        }
-        .ivalidate-logo-text:hover {
-            transform: scale(1.02); /* Slight scale on hover */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2), 0 0 8px rgba(12, 127, 242, 0.5); /* Enhanced shadow on hover */
-        }
-
-        /* @font-face rule for Allenoire font */
-        /* IMPORTANT: To make 'Allenoire' font work, you need to:
-           1. Download the font file (e.g., Allenoire-Regular.woff2, Allenoire-Bold.woff2, etc.)
-              from Freepik (freepik.com/font/allenoire) or dafontfree.io.
-           2. Host this font file on your own server or a public CDN.
-           3. Replace the 'url()' value below with the actual path to your hosted font file.
-           4. You may need multiple 'url()' entries for different font formats (e.g., .woff2, .woff, .ttf)
-              for broader browser compatibility.
-        */
-        @font-face {
-            font-family: 'Allenoire';
-            src: url('\fonts/Allenoire Font.otf') format('otf');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap; /* Ensures text remains visible during font load */
-        }
-
-        /* Apply Allenoire font to the hero title */
-        #hero h1 {
-            font-family: 'Allenoire', 'Inter', sans-serif; /* Allenoire, with Inter and generic sans-serif as fallback */
-        }
+        /* Reverted: Custom style for the Ivalidate logo text removed */
+        /* Reverted: Apply Allenoire font to the hero title removed */
 
     </style>
 </head>
@@ -581,8 +533,8 @@
                     <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
                 </svg>
             </div>
-            <!-- Added custom class for logo text styling -->
-            <h1 class="text-2xl leading-tight tracking-tight text-blue-800 ivalidate-logo-text">Ivalidate</h1>
+            <!-- Reverted: Removed ivalidate-logo-text class -->
+            <h1 class="text-2xl leading-tight tracking-tight text-blue-800">Ivalidate</h1>
         </div>
         
         <!-- Top Navigation Bar - Dynamic current page pill -->
@@ -626,6 +578,7 @@
         <div class="layout-content-container flex flex-col w-full max-w-5xl">
 
         <section id="hero" class="content-section text-center mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Home"> 
+            <!-- Reverted: Removed custom font-family for h1 -->
             <h1 class="text-slate-900 text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">The Startup Minefield: <br class="hidden sm:inline">Why Most Ventures Fail</h1> 
             <p class="text-lg text-slate-700 mb-10 max-w-4xl mx-auto leading-relaxed"> 
                 The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This interactive report explores this critical "validation gap" and introduces a powerful solution.
@@ -790,7 +743,7 @@
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Cost</td><td class="px-6 py-4 text-base text-slate-700">High ($5k - $50k+)</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Subscription)</td></tr>
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Risk of Bias</td><td class="px-6 py-4 text-base text-slate-700">High</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Data Sources/Scope</td><td class="px-6 py-4 text-base text-slate-700">Limited, Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Broad (Web, Social, Trends)</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
+                            <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
                             <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
                         </tbody>
                     </table>
@@ -933,14 +886,16 @@
                 <p class="text-slate-700 text-lg mb-8 leading-relaxed">
                     Be among the first to experience the power of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>. Sign up for our waitlist to receive early access, exclusive updates, and special offers!
                 </p>
-                <div class="flex flex-col gap-4 w-full items-center">
-                    <input type="text" id="waitlistName" placeholder="Your Name" class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
-                    <input type="email" id="waitlistEmail" placeholder="Your Email Address" class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
-                    <textarea id="waitlistChallenge" placeholder="What's your biggest challenge in validating a new startup idea or finding market need?" class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200 resize-y min-h-[80px]"></textarea>
-                    <button id="joinWaitlistButton" class="flex items-center justify-center gap-2 min-w-[150px] w-full sm:w-auto h-12 px-6 bg-blue-600 text-white text-base font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150">
+                <!-- START: Waitlist Form - Integrated Zapier/Google Apps Script -->
+                <form id="waitlist-form" method="POST" action="https://script.google.com/macros/s/AKfycbw6NcKfV4mO3eZ_VRYpKTjrsvDDMlqL69KQTLc4MP6oef1wXLOksTP1I4WF6gvLxEYq/exec" class="flex flex-col gap-4 w-full items-center">
+                    <input type="text" name="name" id="waitlistName" placeholder="Your Name" required class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
+                    <input type="email" name="email" id="waitlistEmail" placeholder="Your Email Address" required class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
+                    <textarea name="challenge" id="waitlistChallenge" placeholder="What's your biggest challenge in validating a new startup idea or finding market need?" required class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200 resize-y min-h-[80px]"></textarea>
+                    <button type="submit" id="joinWaitlistButton" class="flex items-center justify-center gap-2 min-w-[150px] w-full sm:w-auto h-12 px-6 bg-blue-600 text-white text-base font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150">
                         Join Waitlist <span id="waitlistSpinner" class="loading-spinner hidden"></span>
                     </button>
-                </div>
+                </form>
+                <!-- END: Waitlist Form -->
                 <div id="waitlistMessage" class="mt-6 text-sm font-semibold hidden"></div>
             </div>
         </section>
@@ -1188,7 +1143,7 @@
             let currentScrollY = window.scrollY;
             let activeSectionId = null;
             let activeSectionName = null;
-            const headerOffset = 150; // Updated to match new scroll-margin-top
+            const headerOffset = 170; // Adjusted to match new padding-top/scroll-margin-top
 
             // Logic to determine the currently active section
             // Prioritize the section whose top is closest to the headerOffset and within view
@@ -1272,7 +1227,7 @@
         // Intersection Observer to trigger updateActivePill when *any* section enters or leaves
         const observerOptions = {
             root: null, // viewport
-            rootMargin: '-150px 0px 0px 0px', // Updated to match new scroll-margin-top
+            rootMargin: '-170px 0px 0px 0px', // Adjusted to match new padding-top/scroll-margin-top
             threshold: 0 // Trigger as soon as any part of the section enters the observation area
         };
         const observer = new IntersectionObserver(updateActivePill, observerOptions); // Pass function directly
@@ -1349,26 +1304,30 @@
         });
 
         // Waitlist Form Logic
-        const waitlistNameInput = document.getElementById('waitlistName');
-        const waitlistEmailInput = document.getElementById('waitlistEmail');
-        const waitlistChallengeInput = document.getElementById('waitlistChallenge');
+        const waitlistForm = document.getElementById('waitlist-form');
         const joinWaitlistButton = document.getElementById('joinWaitlistButton');
         const waitlistSpinner = document.getElementById('waitlistSpinner');
         const waitlistMessage = document.getElementById('waitlistMessage');
 
-        joinWaitlistButton.addEventListener('click', async () => {
-            const name = waitlistNameInput.value.trim();
-            const email = waitlistEmailInput.value.trim();
-            const challenge = waitlistChallengeInput.value.trim();
+        waitlistForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const nameInput = document.getElementById('waitlistName');
+            const emailInput = document.getElementById('waitlistEmail');
+            const challengeInput = document.getElementById('waitlistChallenge');
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const challenge = challengeInput.value.trim();
 
             waitlistMessage.classList.add('hidden'); // Hide previous messages
             waitlistMessage.textContent = ''; // Clear message
+            waitlistMessage.classList.remove('text-green-600', 'text-red-600'); // Clear previous styling
 
             if (!name || !email || !challenge) {
                 waitlistMessage.textContent = 'Please fill in all fields (Name, Email, and Challenge).';
                 waitlistMessage.classList.remove('hidden');
-                waitlistMessage.classList.remove('text-blue-600', 'text-red-600');
-                waitlistMessage.classList.add('text-blue-500'); /* Changed to blue for info/warning */
+                waitlistMessage.classList.add('text-red-600'); 
                 return;
             }
 
@@ -1377,58 +1336,50 @@
             if (!emailRegex.test(email)) {
                 waitlistMessage.textContent = 'Please enter a valid email address.';
                 waitlistMessage.classList.remove('hidden');
-                waitlistMessage.classList.remove('text-blue-600', 'text-red-600');
-                waitlistMessage.classList.add('text-blue-500'); /* Changed to blue for info/warning */
+                waitlistMessage.classList.add('text-red-600');
                 return;
             }
 
+            joinWaitlistButton.textContent = 'Submitting...';
             waitlistSpinner.classList.remove('hidden');
             joinWaitlistButton.disabled = true; // Disable button during submission
 
-            try {
-                // Simulate an API call
-                await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-
-                // In a real application, you would send this data to your backend/waitlist service
-                console.log('Waitlist Submission:', { name, email, challenge });
-                /*
-                const response = await fetch('/api/join-waitlist', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, challenge })
-                });
-
-                if (response.ok) {
-                    waitlistMessage.textContent = `Thank you, ${name}! We've received your challenge and will keep you updated.`;
-                    waitlistMessage.classList.add('text-blue-600');
-                    waitlistNameInput.value = ''; // Clear input on success
-                    waitlistEmailInput.value = '';
-                    waitlistChallengeInput.value = '';
+            fetch(waitlistForm.action, {
+                method: 'POST',
+                body: new FormData(waitlistForm)
+            })
+            .then(response => {
+                // Check if response is JSON, sometimes Apps Script might return plain text
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    return response.json();
                 } else {
-                    const errorData = await response.json();
-                    waitlistMessage.textContent = `Failed to join waitlist: ${errorData.message || 'Please try again later.'}`;
+                    return response.text().then(text => ({ result: response.ok ? 'success' : 'error', message: text }));
+                }
+            })
+            .then(data => {
+                if (data.result === 'success') {
+                    waitlistMessage.textContent = 'Thanks for joining our waitlist! Check your email soon.';
+                    waitlistMessage.classList.remove('hidden');
+                    waitlistMessage.classList.add('text-green-600');
+                    waitlistForm.reset(); // Clear form fields
+                } else {
+                    waitlistMessage.textContent = `Error submitting form: ${data.message || 'Please try again.'}`;
+                    waitlistMessage.classList.remove('hidden');
                     waitlistMessage.classList.add('text-red-600');
                 }
-                */
-
-                // For this demonstration, we'll always show success after delay
-                waitlistMessage.textContent = `Thank you, ${name}! We've received your challenge and will keep you updated.`;
-                waitlistMessage.classList.remove('text-blue-500', 'text-red-600'); /* Adjusted class removal */
-                waitlistMessage.classList.add('text-blue-600'); /* Changed to blue for success */
-                waitlistNameInput.value = ''; // Clear input on success
-                waitlistEmailInput.value = '';
-                waitlistChallengeInput.value = '';
-
-            } catch (error) {
-                console.error('Waitlist submission error:', error);
+            })
+            .catch(error => {
+                console.error('Error submitting waitlist form:', error);
                 waitlistMessage.textContent = 'An unexpected error occurred. Please try again.';
-                waitlistMessage.classList.remove('text-blue-500', 'text-blue-600'); /* Adjusted class removal */
-                waitlistMessage.classList.add('text-red-600'); /* Error messages remain red */
-            } finally {
-                waitlistSpinner.classList.add('hidden');
                 waitlistMessage.classList.remove('hidden');
+                waitlistMessage.classList.add('text-red-600');
+            })
+            .finally(() => {
+                joinWaitlistButton.textContent = 'Join Waitlist';
+                waitlistSpinner.classList.add('hidden');
                 joinWaitlistButton.disabled = false; // Re-enable button
-            }
+            });
         });
 
         // Set current year in footer
