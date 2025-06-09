@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ivalidate: Empowering Startup Validation</title>
-    <!-- Stitch Design Fonts (Existing Branding) -->
+    
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40300%3B400%3B500%3B600%3B700%3B800%3B900&family=Noto+Sans%3Awght%40300%3B400%3B500%3B700%3B900&display=swap" onload="this.rel='stylesheet'" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <style>
         /* Custom progress bar styles from original Stitch design */
         .progress-bar::-webkit-progress-value {
@@ -31,6 +31,168 @@
             font-family: 'Inter', 'Noto Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* In light mode, body background is subtle pale blue. In dark mode, it's deep black. */
+            /* Hero section's gradient will now cover the top area, so body color is less critical at top */
+            background-color: #f8faff; /* Very pale light blue */
+        }
+
+        /* Dark Mode Styles */
+        html.dark {
+            background-color: #0d1117; /* Deep black for body */
+            color: #e2e8f0; /* Light text for general content */
+        }
+        html.dark .layout-container {
+            background-color: #0d1117; /* Ensure main container matches body */
+        }
+        html.dark .content-section {
+            background-color: #161b22; /* Slightly lighter dark background for sections (white space effect) */
+            border-color: #2d3748; /* Darker border for internal elements */
+            box-shadow: none; /* Remove shadows for flat dark design */
+        }
+        html.dark header {
+            background-color: rgba(13, 17, 23, 0.9); /* Slightly transparent deep black header */
+            border-color: rgba(45, 55, 72, 0.5); /* Darker border */
+            box-shadow: none; /* No shadow on header in dark mode */
+        }
+        html.dark #current-page-pill {
+            background-color: rgba(56, 189, 248, 0.2); /* Light blue semi-transparent for pill */
+            color: #38bdf8; /* Sky blue text */
+        }
+        html.dark #current-page-text {
+            color: #38bdf8; /* Sky blue text */
+        }
+        html.dark .text-slate-800,
+        html.dark .text-slate-900,
+        html.dark .text-slate-700,
+        html.dark .text-gray-600 {
+            color: #e2e8f0; /* Light text */
+        }
+        html.dark .text-blue-800,
+        html.dark .text-blue-700 {
+            color: #63b3ed; /* Lighter blue for titles */
+        }
+        html.dark .text-blue-600 {
+            color: #38bdf8; /* Sky blue */
+        }
+        html.dark .bg-blue-100 {
+            background-color: #1f3554; /* Darker blue for hero intro, waitlist box */
+            border-color: #4299e1;
+            color: #e2e8f0;
+        }
+        html.dark .bg-blue-50 {
+            background-color: #2a4365; /* Medium dark blue for cards/solution */
+            border-color: #4299e1;
+            color: #e2e8f0;
+        }
+        html.dark .bg-gray-50 { /* Used for interactive tool cards, etc. */
+            background-color: #2d3748; /* Dark charcoal */
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+        html.dark .border-gray-300 {
+            border-color: #4a5568; /* Darker border for inputs */
+        }
+        html.dark .bg-white { /* Sections in light mode, but becomes dark in dark mode */
+            background-color: #161b22; /* Matches content-section background */
+        }
+        html.dark #startupFailureChart {
+            background-color: #1a202c; /* Dark mode chart background */
+        }
+        html.dark .bg-gray-100 { /* Table header */
+            background-color: #4a5568; /* Darker gray for table header */
+        }
+        html.dark table thead th {
+            color: #e2e8f0; /* Light text for table header */
+        }
+        html.dark table tbody td {
+            color: #cbd5e0; /* Slightly darker light text for table body */
+        }
+        html.dark .tab-button {
+            color: #cbd5e0;
+        }
+        html.dark .tab-button.active {
+            color: #63b3ed;
+        }
+        html.dark .tab-button:not(.active):hover {
+            color: #90cdf4;
+        }
+        html.dark .shadow-md,
+        html.dark .shadow-lg,
+        html.dark .shadow-inner,
+        html.dark .shadow-xl {
+            box-shadow: none !important; /* Remove all shadows in dark mode for flat design */
+        }
+        html.dark #mobile-menu {
+            background-color: #161b22;
+            border-color: #2d3748;
+        }
+        html.dark #mobile-menu .nav-link {
+            color: #e2e8f0;
+        }
+        html.dark #mobile-menu .nav-link.active {
+            background-color: #2a4365;
+            color: #90cdf4;
+        }
+        html.dark #mobile-menu .nav-link:hover {
+            background-color: #2d3748;
+        }
+        html.dark footer {
+            background-color: #0d1117; /* Deep black for footer */
+            border-color: #2d3748;
+            color: #cbd5e0;
+        }
+        html.dark .loading-spinner {
+            border-left-color: #63b3ed;
+        }
+        html.dark .stat-highlight {
+            background: linear-gradient(to right, #2a4365, #4299e1, #48bb78); /* Dark blue to lighter blue to dark green */
+            color: #90cdf4;
+        }
+        html.dark .founder-quote {
+            background-color: #2a4365;
+            border-color: #63b3ed;
+            color: #e2e8f0;
+        }
+        html.dark .founder-quote strong {
+            color: #90cdf4;
+        }
+        html.dark .pattern-callout {
+            background-color: #2a4365;
+            border-color: #63b3ed;
+            color: #e2e8f0;
+        }
+        html.dark .pattern-callout .material-icons {
+            color: #90cdf4;
+        }
+        html.dark .pattern-callout strong {
+            color: #90cdf4;
+        }
+        html.dark #research-methodology .bg-gradient-to-br { /* Research methodology inner box */
+             background: linear-gradient(to bottom right, #1f3554, #2a4365);
+             border-color: #63b3ed;
+             color: #e2e8f0;
+        }
+        html.dark input[type="text"],
+        html.dark input[type="email"],
+        html.dark textarea {
+            background-color: #1a202c; /* Darker input backgrounds */
+            color: #e2e8f0;
+            border-color: #4a5568;
+        }
+        html.dark input:focus,
+        html.dark textarea:focus {
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25); /* Lighter blue focus ring */
+        }
+        html.dark .border-gray-200,
+        html.dark .divide-gray-300,
+        html.dark .divide-gray-200 {
+            border-color: #2d3748; /* Darker borders */
+        }
+        html.dark .border-l {
+            border-color: #4a5568; /* Darker border for vertical rule */
+        }
+        html.dark .border-l-6 {
+            border-color: #38bdf8; /* Sky blue for prominent borders */
         }
 
         /* Chart container responsiveness */
@@ -71,7 +233,7 @@
         }
         /* Non-active tab hover state */
         .tab-button:not(.active):hover {
-            /* Removed hover highlight */ 
+            /* Removed hover highlight */
         }
         /* Remove outline on focus */
         .tab-button:focus,
@@ -93,6 +255,12 @@
             max-height: 200px; /* This is the desired height for the closed card box */
             margin-bottom: 2rem; /* Spacing between cards (adjust as needed) */
         }
+        html.dark .comparison-card {
+            background-color: #2d3748; /* Dark charcoal */
+            border: 1px solid #4a5568; /* Darker border */
+            box-shadow: none !important; /* Remove shadows in dark mode */
+        }
+
 
         .comparison-card.open {
             max-height: 9999px; /* Expands to show all content */
@@ -111,18 +279,18 @@
             padding-bottom: 1.5rem; /* py-6 */
             margin: 0; /* Ensure no margin on h3 itself */
         }
-        
-        .comparison-card .card-details-content { 
+
+        .comparison-card .card-details-content {
             /* Horizontal padding always applied to content */
-            padding-left: 2rem; 
-            padding-right: 2rem; 
+            padding-left: 2rem;
+            padding-right: 2rem;
             /* Default: collapsed and hidden */
             max-height: 0;
             overflow: hidden;
-            padding-top: 0; 
-            padding-bottom: 0; 
-            margin-top: 0; 
-            margin-bottom: 0; 
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
             transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Transition for content */
             will-change: max-height, padding;
         }
@@ -194,15 +362,24 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        html.dark ::-webkit-scrollbar-track {
+            background: #1a202c;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+        }
+        html.dark ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568;
+        }
 
         /* Header specific styles for top navigation */
         header {
-            background-color: #e0f2fe; /* Reverted: Back to light blue */
+            background-color: #e0f2fe; /* Light blue */
             padding: 1rem 2rem; /* Adjusted vertical and horizontal padding for the header container */
             border-radius: 9999px; /* Pill shape on all corners */
-            border: 1px solid rgba(209, 213, 219, 0.5); /* Reverted: Added back border */
+            border: 1px solid rgba(209, 213, 219, 0.5); /* border */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Existing shadow */
-            
+
             /* Positioning for floating effect */
             position: fixed; /* Already fixed */
             top: 1.5rem; /* Adjusted: Moved header down slightly for more clearance */
@@ -214,7 +391,6 @@
             align-items: center; /* Vertically align items */
             justify-content: space-between; /* Space out logo, nav, and button */
             z-index: 50;
-            /* No px-6/sm:px-10 on header anymore, handle within children */
         }
 
         /* Container for the dynamic current page pill - NOW SCROLLABLE */
@@ -222,7 +398,6 @@
             display: flex; /* Make it a flex container */
             justify-content: center; /* Center content horizontally */
             align-items: center;
-            /* Removed flex-grow: 1 to allow overflow-x: auto to work effectively */
             margin: 0 2rem; /* Added horizontal margin to separate from logo and waitlist button */
             height: 2.8rem; /* Fixed height for consistent pill appearance */
             overflow-x: auto; /* Enable horizontal scrolling */
@@ -240,7 +415,7 @@
         /* Style for the dynamic current page pill itself */
         #current-page-pill {
             background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-            color: #0c7ff2; /* Changed: Updated to match Ivalidate blue */
+            color: #0c7ff2; /* Ivalidate blue */
             font-size: 1rem; /* Standard font size */
             font-weight: 700; /* Bold text */
             padding: 0.6rem 1.25rem; /* Padding for pill shape */
@@ -249,7 +424,7 @@
             transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
             cursor: pointer; /* Indicate it's clickable */
             height: 100%; /* Fill height of parent */
-            
+
             overflow: hidden; /* Crucial for clipping the sliding text */
             display: flex; /* Use flex to vertically center text */
             align-items: center; /* Center text vertically */
@@ -268,59 +443,65 @@
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Animation for text */
             will-change: transform, opacity; /* Optimize animation */
             /* Ensure text properties are inherited or set here if needed */
-            font-size: 1rem; 
+            font-size: 1rem;
             font-weight: 700;
-            color: #0c7ff2; /* Changed: Updated to match Ivalidate blue */
+            color: #0c7ff2; /* Ivalidate blue */
         }
 
         /* Adjust main content for top navbar (now floating) */
         main {
-            /* Increased padding-top to account for the floating header's height and its top margin */
-            padding-top: 180px; /* Adjusted: Increased for more clearance */
-            /* Apply horizontal padding directly to main for overall spacing */
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding-top: 0; /* REMOVED: No top padding here to allow hero to extend up */
+            padding-left: 0;
+            padding-right: 0;
+            display: flex; /* Ensure main is a flex container for its children sections */
+            flex-direction: column;
+            align-items: center; /* Center content sections */
         }
         @media (min-width: 768px) { /* md breakpoint */
             main {
-                padding-left: 4rem; /* More padding on larger screens */
-                padding-right: 4rem;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
         @media (min-width: 1024px) { /* lg breakpoint */
             main {
-                padding-left: 8rem; /* Even more padding on larger screens */
-                padding-right: 8rem;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
         @media (min-width: 1280px) { /* xl breakpoint */
             main {
-                padding-left: 10rem; /* Max padding on very large screens */
-                padding-right: 10rem;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
 
 
         /* Smooth scroll margin for fixed header (now floating) */
         .content-section {
-            /* Increased scroll-margin-top to account for the floating header's height and its top margin */
-            scroll-margin-top: 180px; /* Adjusted: Increased for more clearance */
-            
-            /* Apply pill-like styling to all content sections */
-            background-color: white; /* Give sections a background */
-            border-radius: 1.5rem; /* rounded-3xl */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 3rem 2rem; /* Adjusted padding inside sections */
-            border: 1px solid #e5e7eb; /* Subtle border */
+            background-color: white; /* Default background for sections in light mode */
+            border-radius: 0; /* Removed rounded corners from sections for edge-to-edge */
+            box-shadow: none; /* Removed shadows for a flat look */
+            padding-top: 2.5rem; /* Reduced padding from 3rem */
+            padding-bottom: 2.5rem; /* Reduced padding from 3rem */
+            border: none; /* Removed border */
+            max-width: 100%; /* Ensure sections take full width */
+            width: 100%; /* Ensure sections take full width */
+            /* No margin-left/right here, controlled by section-content-wrapper */
+            scroll-margin-top: 120px; /* Adjusted to account for fixed header height and its top offset */
         }
         /* Adjust section padding for mobile */
         @media (max-width: 767px) {
             .content-section {
-                padding: 2rem 1.5rem; /* Reduced padding on mobile */
-                border-radius: 1rem; /* Slightly less rounded on small screens if desired */
+                padding-top: 1.5rem; /* Reduced padding from 2rem */
+                padding-bottom: 1.5rem; /* Reduced padding from 2rem */
+                border-radius: 0; /* Ensure no rounding */
+            }
+            .content-section {
+                scroll-margin-top: 90px; /* Adjusted for mobile header height and margin */
             }
         }
-        
+
         /* Custom line spacing for paragraphs and list items */
         p, li {
             line-height: 1.75; /* Increased line height for better readability */
@@ -333,7 +514,7 @@
             border-radius: 0.375rem; /* rounded-md */
             font-weight: 700; /* font-bold */
             color: #0c7ff2; /* blue-600 */
-            background: linear-gradient(to right, #e0f2fe, #bfdbfe); /* blue-100 to blue-200 */
+            background: linear-gradient(to right, #e0f2fe, #a7f3d0); /* Light blue to light green */
             transition: transform 0.2s ease-in-out; /* For interactive animation */
             cursor: pointer; /* Indicate interactivity */
         }
@@ -387,7 +568,7 @@
 
         /* Vertical breathing room between sections */
         .content-section + .content-section { /* Apply margin between sections */
-            margin-top: 3rem; /* Spacing between pill-shaped sections */
+            margin-top: 0; /* Removed explicit margin, relying on background changes */
         }
         /* Adjust for first section to prevent excessive top margin */
         .layout-content-container > .content-section:first-child {
@@ -441,12 +622,9 @@
             }
 
             main {
-                padding-top: 120px; /* Adjusted: Increased for mobile header height */
-                padding-left: 1rem; /* Reduce main padding for mobile */
-                padding-right: 1rem;
-            }
-            .content-section {
-                scroll-margin-top: 120px; /* Adjusted: Increased for mobile header height */
+                padding-top: 0; /* REMOVED for mobile too */
+                padding-left: 0;
+                padding-right: 0;
             }
         }
         /* Custom styling for Research Methodology section bullet points */
@@ -454,10 +632,15 @@
             color: #1d4ed8; /* A darker, more prominent blue for emphasis */
             font-weight: 800; /* Make it extra bold */
         }
+        /* Ensure non-strong text in research methodology is not blue */
+        #research-methodology p,
+        #research-methodology ul li {
+            color: inherit; /* Inherit color from parent (body text color) */
+        }
+
 
         /* Elements inside sections that need rounded corners */
         .content-section .bg-blue-100, /* Hero section intro */
-        /* Changed from red, amber, teal to blue shades */
         .content-section .bg-blue-50, /* Used for case study cards, financial drain, time inefficiencies, traditional vs AI table */
         .content-section .bg-gray-50, /* Solution icons, interactive tool cards, advantages */
         .content-section .bg-gradient-to-br /* Research methodology */
@@ -507,21 +690,115 @@
 
         /* Footer styling */
         footer {
-            border-top-left-radius: 1.5rem; /* rounded-3xl */
-            border-top-right-radius: 1.5rem; /* rounded-3xl */
-            border-bottom-left-radius: 0; /* Keep bottom flat if desired or match body */
+            border-top-left-radius: 0; /* No rounding, goes to edge */
+            border-top-right-radius: 0; /* No rounding, goes to edge */
+            border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow on top */
+            box-shadow: none; /* Removed shadow for flat look */
             position: relative; /* Needed for z-index if body is also rounded */
             z-index: 1; /* Ensure it overlaps any rounded body if present */
+            background-color: white; /* Default background for footer */
+            border-top: 1px solid #e5e7eb; /* Subtle border for separation */
         }
 
-        /* Reverted: Custom style for the Ivalidate logo text removed */
-        /* Reverted: Apply Allenoire font to the hero title removed */
+        /* Gradient Text Classes */
+        .text-gradient-blue {
+            background-image: linear-gradient(to right, #3b82f6, #10b981); /* blue-500 to emerald-500 (green) */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        html.dark .text-gradient-blue {
+            background-image: linear-gradient(to right, #63b3ed, #68d391); /* lighter blue to lighter green for dark mode */
+        }
+
+        /* Full-width Section Backgrounds */
+        #hero {
+            background: linear-gradient(to bottom right, #eff6ff, #d1fae5); /* Light blue to very light green */
+            /* Ensure the full height is respected even with content */
+            min-height: 100vh; /* Changed to full viewport height to extend gradient to top */
+            width: 100%; /* Ensure it takes full width */
+            padding-top: 120px; /* Add padding to push content below the fixed header */
+            box-sizing: border-box; /* Include padding in height calculation */
+
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center; /* Center text */
+        }
+        html.dark #hero {
+            background: linear-gradient(to bottom right, #2a4365, #1f3d2f); /* Darker blue to dark green gradient for dark mode hero */
+        }
+
+        /* Section content wrapper to keep content within a readable width while background goes full width */
+        .section-content-wrapper {
+            max-width: 1000px; /* Adjust this as needed for content width */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem; /* Consistent inner padding */
+            padding-right: 2rem;
+        }
+        /* Adjust padding for mobile */
+        @media (max-width: 767px) {
+            .section-content-wrapper {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+        /* Specific override for problem section as it has a grid directly inside and needs wider layout */
+        #problem .section-content-wrapper,
+        #challenges .section-content-wrapper,
+        #solution .section-content-wrapper,
+        #interactive-tools .section-content-wrapper,
+        #advantage .section-content-wrapper,
+        #research-methodology .section-content-wrapper,
+        #waitlist .section-content-wrapper
+        {
+            max-width: 1200px; /* Wider for sections with content grids */
+            padding-left: 4rem; /* More padding on larger screens */
+            padding-right: 4rem;
+        }
+        @media (max-width: 767px) {
+            #problem .section-content-wrapper,
+            #challenges .section-content-wrapper,
+            #solution .section-content-wrapper,
+            #interactive-tools .section-content-wrapper,
+            #advantage .section-content-wrapper,
+            #research-methodology .section-content-wrapper,
+            #waitlist .section-content-wrapper {
+                padding-left: 1.5rem; /* Revert to smaller padding on mobile */
+                padding-right: 1.5rem;
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            #problem .section-content-wrapper,
+            #challenges .section-content-wrapper,
+            #solution .section-content-wrapper,
+            #interactive-tools .section-content-wrapper,
+            #advantage .section-content-wrapper,
+            #research-methodology .section-content-wrapper,
+            #waitlist .section-content-wrapper {
+                padding-left: 8rem;
+                padding-right: 8rem;
+            }
+        }
+        @media (min-width: 1280px) { /* xl breakpoint */
+            #problem .section-content-wrapper,
+            #challenges .section-content-wrapper,
+            #solution .section-content-wrapper,
+            #interactive-tools .section-content-wrapper,
+            #advantage .section-content-wrapper,
+            #research-methodology .section-content-wrapper,
+            #waitlist .section-content-wrapper {
+                padding-left: 10rem;
+                padding-right: 10rem;
+            }
+        }
 
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800 min-h-screen"> 
+<body class="text-slate-800 min-h-screen"> 
 <div class="relative flex flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex flex-col">
 
@@ -533,10 +810,9 @@
                     <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
                 </svg>
             </div>
-            <!-- Reverted: Removed ivalidate-logo-text class -->
             <h1 class="text-2xl leading-tight tracking-tight text-blue-800">Ivalidate</h1>
         </div>
-        
+
         <!-- Top Navigation Bar - Dynamic current page pill -->
         <nav id="top-navbar" class="hidden md:flex">
             <!-- This span will dynamically show the current page name -->
@@ -545,11 +821,15 @@
             </span>
         </nav>
 
-        <!-- Right-aligned content: Join Waitlist button and Mobile Menu button -->
+        <!-- Right-aligned content: Join Waitlist button, Theme Switcher, and Mobile Menu button -->
         <div class="flex items-center gap-4">
             <a href="#waitlist" class="hidden md:inline-flex items-center justify-center min-w-[120px] px-4 py-2 bg-blue-600 text-white text-base font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
                 Join Waitlist
             </a>
+            <!-- Theme Switcher Button -->
+            <button id="theme-switcher" class="p-2 rounded-md text-slate-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150">
+                <span class="material-icons text-2xl">light_mode</span>
+            </button>
             <div class="md:hidden">
                 <button id="mobile-menu-button" class="text-slate-700 hover:text-blue-600 focus:outline-none p-2 rounded-md hover:bg-gray-100">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -574,335 +854,349 @@
         </div>
     </div>
 
-    <main class="flex flex-1 justify-center py-8">
-        <div class="layout-content-container flex flex-col w-full max-w-5xl">
+    <main class="flex flex-1 flex-col">
 
-        <section id="hero" class="content-section text-center mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Home"> 
-            <!-- Reverted: Removed custom font-family for h1 -->
-            <h1 class="text-slate-900 text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">The Startup Minefield: <br class="hidden sm:inline">Why Most Ventures Fail</h1> 
-            <p class="text-lg text-slate-700 mb-10 max-w-4xl mx-auto leading-relaxed"> 
-                The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This interactive report explores this critical "validation gap" and introduces a powerful solution.
-            </p>
-            <div class="bg-blue-100 p-8 rounded-3xl max-w-3xl mx-auto shadow-inner border border-blue-200"> 
-                <h2 class="text-2xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Introducing <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>: Your AI Agent for Rapid Idea Validation</h2>
-                <p class="text-slate-700 text-base leading-relaxed"> 
-                    <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is an <strong>AI agent</strong> designed to validate startup ideas and empower entrepreneurs. It leverages state-of-the-art AI technology combined with direct social media integration to orchestrate crucial data, confirming if your idea solves a real problem for a specific audience. <strong>Get crucial feedback and validate your idea in minutes, not days or hours.</strong>
+        <section id="hero" class="content-section min-h-screen" data-nav-name="Home">
+            <div class="section-content-wrapper">
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-gradient-blue">The Startup Minefield: <br class="hidden sm:inline">Why Most Ventures Fail</h1>
+                <p class="text-lg text-slate-700 mb-10 max-w-4xl mx-auto leading-relaxed">
+                    The entrepreneurial dream is enticing, but the path is fraught with peril. A primary reason for failure? Building something nobody truly needs. This interactive report explores this critical "validation gap" and introduces a powerful solution.
                 </p>
+                <div class="bg-blue-100 p-8 rounded-3xl max-w-3xl mx-auto shadow-inner border border-blue-200">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Introducing <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>: Your AI Agent for Rapid Idea Validation</h2>
+                    <p class="text-slate-700 text-base leading-relaxed">
+                        <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is an <strong>AI agent</strong> designed to validate startup ideas and empower entrepreneurs. It leverages state-of-the-art AI technology combined with direct social media integration to orchestrate crucial data, confirming if your idea solves a real problem that resonates with the audience you're reaching. <strong>Get crucial feedback and validate your idea in minutes, not days or hours.</strong>
+                    </p>
+                </div>
+                <a href="#interactive-tools" id="exploreAIToolsButton" class="inline-flex items-center justify-center gap-2 mt-10 min-w-[180px] px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
+                    Explore AI Tools <span class="material-icons ml-2">arrow_forward</span>
+                </a>
             </div>
-            <a href="#interactive-tools" id="exploreAIToolsButton" class="inline-flex items-center justify-center gap-2 mt-10 min-w-[180px] px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus->ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-out transform hover:-translate-y-1">
-                Explore AI Tools <span class="material-icons ml-2">arrow_forward</span>
-            </a>
         </section>
 
-        <section id="problem" class="content-section mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Problem"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Understanding the Startup Failure Landscape</h2> 
-            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                Startup failure is alarmingly common. This section breaks down the primary reasons, with a sharp focus on the most significant pitfall: the fundamental lack of market need. Understanding these challenges is the first step to overcoming them.
-            </p>
+        <section id="problem" class="content-section min-h-screen" data-nav-name="Problem">
+            <div class="section-content-wrapper">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-gradient-blue">Understanding the Startup Failure Landscape</span></h2>
+                <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
+                    Startup failure is alarmingly common. This section breaks down the primary reasons, with a sharp focus on the most significant pitfall: the fundamental lack of market need. Understanding these challenges is the first step to overcoming them.
+                </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start"> 
-                <div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">Top Reasons for Startup Failure</h3> 
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
-                        The data consistently shows that "No Market Need" is the leading cause of startup demise. This isn't just a statistic; it's a critical warning for every entrepreneur. Other factors often stem from this fundamental issue.
-                    </p>
-                    <div class="chart-container">
-                        <canvas id="startupFailureChart"></canvas>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">Top Reasons for Startup Failure</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">
+                            The data consistently shows that "No Market Need" is the leading cause of startup demise. This isn't just a statistic; it's a critical warning for every entrepreneur. Other factors often stem from this fundamental issue.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="startupFailureChart"></canvas>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 text-center">Hover over bars for details. Data based on CB Insights and other industry sources.</p>
                     </div>
-                     <p class="text-xs text-slate-500 mt-4 text-center">Hover over bars for details. Data based on CB Insights and other industry sources.</p>
+                    <div class="pl-4 md:pl-8 border-l border-blue-300">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">The "No Market Need" Epidemic</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">
+                            A staggering <span class="stat-highlight">42%</span> of startups fail because they build something nobody wants. This "founder's blind spot" leads to "solutions in search of problems"—a costly and disheartening endeavor.
+                        </p>
+                        <!-- New paragraph to balance the text -->
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">
+                            It's not enough to have a great idea; it must address a genuine pain point for a specific audience. Ignoring this fundamental principle often results in wasted resources and eventual failure.
+                        </p>
+                        <!-- Founder Pain Quote 1 -->
+                        <div class="founder-quote">
+                            <p>"As we rolled out Dayslice, we often found ourselves in a catch-22. Either users had no existing solution so adoption was easy but their pain was not as painful... Or users had an expansive customer base, weren't too happy with existing solutions, but felt it'd be a headache to switch."</p>
+                            <p class="text-right text-sm font-semibold mt-2">- Ishita Arora, Founder of Dayslice (failed SaaS)</p>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="p-5 border border-blue-300 bg-blue-50 rounded-3xl shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="quibi-card">
+                                <h4 class="font-semibold text-blue-700 text-lg flex justify-between items-center">Case Study: Quibi
+                                    <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('quibi-details')">info</span>
+                                </h4>
+                                <p class="text-sm text-slate-600 mt-2 hidden" id="quibi-details">Raised <span class="stat-highlight">$1.75 billion</span>, collapsed in 6 months. Overspent on content/ads without proving product-market fit for short-form, high-budget mobile video.</p>
+                            </div>
+                            <div class="p-5 border border-blue-300 bg-blue-50 rounded-3xl shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="juicero-card">
+                                <h4 class="font-semibold text-blue-700 text-lg flex justify-between items-center">Case Study: Juicero
+                                    <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('juicero-details')">info</span>
+                                </h4>
+                                <p class="text-sm text-slate-600 mt-2 hidden" id="juicero-details">Secured <span class="stat-highlight">$120 million</span> for a high-tech juice press. Failed as consumers could squeeze packs by hand – a complex solution for a non-existent problem.</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-700 mt-8 text-base leading-relaxed">Market validation is the rigorous vetting process to identify a true "problem-solution fit." It's about ensuring your idea addresses a genuine pain point for a sizable, identifiable audience.</p>
+                    </div>
                 </div>
-                <div class="pl-4 md:pl-8 border-l border-gray-300"> 
-                    <h3 class="text-2xl font-bold text-slate-800 mb-5 leading-tight tracking-tight">The "No Market Need" Epidemic</h3> 
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed"> 
-                        A staggering <span class="stat-highlight">42%</span> of startups fail because they build something nobody wants. This "founder's blind spot" leads to "solutions in search of problems"—a costly and disheartening endeavor.
+
+                <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">The High Cost of Unvalidated Ideas</h3>
+                    <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed">
+                        Launching without robust validation isn't just risky; it's financially and emotionally draining. The wasted time, capital, and lost opportunities can be devastating for aspiring entrepreneurs.
                     </p>
-                    <!-- New paragraph to balance the text -->
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed">
-                        It's not enough to have a great idea; it must address a genuine pain point for a specific audience. Ignoring this fundamental principle often results in wasted resources and eventual failure.
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 border-l-6 border-blue-500 p-8 rounded-3xl shadow-lg">
+                            <h4 class="text-xl font-bold text-blue-800 mb-4">Financial & Resource Drain</h4>
+                            <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed">
+                                <li><span class="stat-highlight">95%</span> of 30,000+ new consumer products fail annually.</li>
+                                <li>Product launch costs: <strong>$10,000 - $10,000,000+</strong>.</li>
+                                <li>Startup launch costs: <strong>$3,000 (average) to $100,000+</strong> (capital-intensive).</li>
+                                <li>"Research debt" from unvalidated assumptions leads to misaligned product development.</li>
+                                <li>Poor launches damage user trust (e.g., TSB Bank, Wells Fargo app updates).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 border-l-6 border-blue-500 p-8 rounded-3xl shadow-lg">
+                            <h4 class="text-xl font-bold text-blue-800 mb-4">Time & Effort Inefficiencies</h4>
+                            <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed">
+                                <li>Founders spend <strong>months/years</strong> on products with no market demand.</li>
+                                <li>Entrepreneurs spend <strong>~40%</strong> of time on non-income-generating tasks.</li>
+                                <li>Developers waste <strong>~8 hours/week (20% of time)</strong> on inefficiencies like unvalidated features.</li>
+                                <li>Early startups spend <strong>3x longer</strong> validating markets than expected.</li>
+                                <li>Traditional research (interviews, focus groups) is costly (<strong>$5k-$20k+</strong>) and time-consuming.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Pattern Recognition Callout 1 -->
+                    <div class="pattern-callout">
+                        <span class="material-icons">lightbulb</span>
+                        <p><strong>We Noticed:</strong> Many teams skipping early validation spent <strong>3x more time</strong> and capital fixing their products later, often leading to burnout and eventual closure. It's a costly detour.</p>
+                    </div>
+                    <p class="text-slate-700 mt-10 max-w-4xl mx-auto text-lg leading-relaxed">
+                        The key takeaway is clear: "failing fast" through efficient, data-driven validation is inherently smarter than "failing slow" after extensive, misguided development.
                     </p>
-                    <!-- Founder Pain Quote 1 -->
-                    <div class="founder-quote">
-                        <p>"As we rolled out Dayslice, we often found ourselves in a catch-22. Either users had no existing solution so adoption was easy but their pain was not as painful... Or users had an expansive customer base, weren't too happy with existing solutions, but felt it'd be a headache to switch."</p>
-                        <p class="text-right text-sm font-semibold mt-2">- Ishita Arora, Founder of Dayslice (failed SaaS)</p>
-                    </div>
-                    <div class="space-y-6">
-                        <div class="p-5 border border-blue-300 bg-blue-50 rounded-3xl shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="quibi-card"> 
-                            <h4 class="font-semibold text-blue-700 text-lg flex justify-between items-center">Case Study: Quibi 
-                                <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('quibi-details')">info</span>
-                            </h4> 
-                            <p class="text-sm text-slate-600 mt-2 hidden" id="quibi-details">Raised <span class="stat-highlight">$1.75 billion</span>, collapsed in 6 months. Overspent on content/ads without proving product-market fit for short-form, high-budget mobile video.</p>
-                        </div>
-                        <div class="p-5 border border-blue-300 bg-blue-50 rounded-3xl shadow-sm transition-all duration-300 ease-in-out hover:shadow-md" id="juicero-card"> 
-                            <h4 class="font-semibold text-blue-700 text-lg flex justify-between items-center">Case Study: Juicero 
-                                <span class="text-blue-600 text-2xl cursor-pointer material-icons" onclick="toggleDetails('juicero-details')">info</span>
-                            </h4> 
-                            <p class="text-sm text-slate-600 mt-2 hidden" id="juicero-details">Secured <span class="stat-highlight">$120 million</span> for a high-tech juice press. Failed as consumers could squeeze packs by hand – a complex solution for a non-existent problem.</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-700 mt-8 text-base leading-relaxed">Market validation is the rigorous vetting process to identify a true "problem-solution fit." It's about ensuring your idea addresses a genuine pain point for a sizable, identifiable audience.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="mt-16">
-                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">The High Cost of Unvalidated Ideas</h3> 
-                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                    Launching without robust validation isn't just risky; it's financially and emotionally draining. The wasted time, capital, and lost opportunities can be devastating for aspiring entrepreneurs.
+        <section id="challenges" class="content-section min-h-screen" data-nav-name="Challenges">
+            <div class="section-content-wrapper">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-gradient-blue">Hurdles in Traditional Validation</span></h2>
+                <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
+                    Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the inherent limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> 
-                    <div class="bg-blue-50 border-l-6 border-blue-500 p-8 rounded-3xl shadow-lg"> 
-                        <h4 class="text-xl font-bold text-blue-800 mb-4">Financial & Resource Drain</h4>
-                        <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed"> 
-                            <li><span class="stat-highlight">95%</span> of 30,000+ new consumer products fail annually.</li>
-                            <li>Product launch costs: <strong>$10,000 - $10,000,000+</strong>.</li>
-                            <li>Startup launch costs: <strong>$3,000 (average) to $100,000+</strong> (capital-intensive).</li>
-                            <li>"Research debt" from unvalidated assumptions leads to misaligned product development.</li>
-                            <li>Poor launches damage user trust (e.g., TSB Bank, Wells Fargo app updates).</li>
-                        </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <!-- Manual Research Pitfalls Card -->
+                    <div class="comparison-card" id="manualResearchCard">
+                        <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)">
+                            <span>Manual Research Pitfalls</span>
+                            <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span>
+                        </h3>
+                        <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed">
+                            <p>Traditional methods are often manual, leading to significant drawbacks:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Human Bias:</strong> Unconscious biases can skew data interpretation.</li>
+                                <li><strong>Time-Consuming:</strong> Sifting through vast amounts of information is slow and laborious.</li>
+                                <li><strong>Limited Scope:</strong> Access to premium data is often restricted by paywalls. Generic search engines aren't tailored for nuanced business insights.</li>
+                                <li><strong>High Cost:</strong> In-depth interviews ($5k-$15k), Focus Groups ($7k-$20k+).</li>
+                                <li><strong>Validation Pitfalls:</strong> Confusing polite interest with genuine market demand, the "intention-behavior-gap," and risks from small, unrepresentative sample sizes.</li>
+                                <li><strong>Result:</strong> Often, "Data overload, insight scarcity."</li>
+                            </ul>
+                            <p class="mt-4 font-semibold text-slate-800">This creates a dilemma: high costs for slow, potentially biased insights, or launching with high uncertainty.</p>
+                        </div>
                     </div>
-                    <div class="bg-blue-50 border-l-6 border-blue-500 p-8 rounded-3xl shadow-lg"> 
-                        <h4 class="text-xl font-bold text-blue-800 mb-4">Time & Effort Inefficiencies</h4>
-                        <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed"> 
-                            <li>Founders spend <strong>months/years</strong> on products with no market demand.</li>
-                            <li>Entrepreneurs spend <strong>~40%</strong> of time on non-income-generating tasks.</li>
-                            <li>Developers waste <strong>~8 hours/week (20% of time)</strong> on inefficiencies like unvalidated features.</li>
-                            <li>Early startups spend <strong>3x longer</strong> validating markets than expected.</li>
-                            <li>Traditional research (interviews, focus groups) is costly (<strong>$5k-$20k+</strong>) and time-consuming.</li>
-                        </ul>
+
+                    <!-- Audience Identification Woes Card -->
+                    <div class="comparison-card" id="audienceIdentificationCard">
+                        <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)">
+                            <span>Audience Identification Woes</span>
+                            <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span>
+                        </h3>
+                        <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed">
+                            <p>Accurately understanding your target audience is crucial but challenging:</p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li><strong>Clarity:</strong> Defining the target market is foundational.</li>
+                                <li><strong>Talent Gap:</strong> Many lack in-house market research talent.</li>
+                                <li><strong>Costly:</strong> Manual methods (interviews, surveys) are expensive and time-intensive.</li>
+                                <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, values) reveal the "why," but are hard to uncover manually.</li>
+                                <li><strong>Scalability:</strong> Manual segmentation doesn't scale for large data or continuous monitoring.</li>
+                            </ul>
+                            <p class="mt-4 font-semibold text-slate-800">Without deep, scalable audience understanding, product development and marketing efforts can easily miss the mark.</p>
+                        </div>
                     </div>
                 </div>
-                <!-- Pattern Recognition Callout 1 -->
+                <div class="mt-16 p-8 bg-blue-50 rounded-3xl border-l-6 border-blue-500 shadow-lg">
+                    <h4 class="text-2xl font-bold text-blue-800 mb-6">Traditional vs. AI-Powered Validation: A Stark Contrast</h4>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">The table below, drawn from comprehensive industry reports, highlights the stark contrast between outdated manual methods and the agile, data-driven approach of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>.</p>
+                    <div class="overflow-x-auto rounded-3xl border border-blue-200 shadow-inner">
+                        <table class="min-w-full divide-y divide-blue-300">
+                            <thead class="bg-blue-100">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">Traditional Manual Methods</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-blue-800 uppercase tracking-wider">AI-Powered (<span class="text-blue-600 uppercase font-bold">IVALIDATE</span>)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-blue-200">
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Time to Insight</td><td class="px-6 py-4 text-base text-slate-700">Weeks to Months</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Minutes to Hours</td></tr>
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Cost</td><td class="px-6 py-4 text-base text-slate-700">High ($5k - $50k+)</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Subscription)</td></tr>
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Risk of Bias</td><td class="px-6 py-4 text-base text-slate-700">High</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Data Sources/Scope</td><td class="px-6 py-4 text-base text-slate-700">Limited, Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Broad (Web, Social, Trends)</td></tr>
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
+                                <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="content-section min-h-screen" data-nav-name="Solution">
+            <div class="section-content-wrapper">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-gradient-blue">IVALIDATE</span>: Your AI Validation Agent</h2>
+                <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
+                    <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is an <strong>AI agent</strong> meticulously designed to validate startup and entrepreneurial ideas in <strong>minutes</strong>. It leverages state-of-the-art AI technology, combined with direct social media integration to orchestrate crucial data and give you instant insights into your idea's market viability.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center">
+                        <span class="material-icons text-blue-600 text-5xl mb-4">insights</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">AI-Powered Market Validation</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            Our AI agent analyzes vast web data, market trends, and social conversations in real-time. It connects directly with <strong>your</strong> social media platforms, monitors and tracks your posts, and optimizes its internal information database to determine if your idea truly solves a problem that resonates with the audience you're reaching.
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center">
+                        <span class="material-icons text-blue-600 text-5xl mb-4">public</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Real-time Social Media Engagement & Feedback</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> can not only monitor <em>your</em> posts on platforms like X, TikTok, YouTube, and Reddit, but it actively uses the feedback it gets to rapidly validate your idea. This means direct, unfiltered sentiment analysis and behavioral insights derived from how real users interact with your content, providing instant validation signals.
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center">
+                        <span class="material-icons text-blue-600 text-5xl mb-4">bolt</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Instant Validation: Minutes, Not Days</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            Forget weeks or even days of waiting for market research. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> processes data and provides actionable validation results in <strong>minutes</strong>. This unparalleled speed allows entrepreneurs to iterate, pivot, or proceed with confidence at a pace previously unimaginable, drastically cutting down on wasted time and resources.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">Leveraging Key Social Platforms</h3>
+                    <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed">
+                        Each social platform offers unique, invaluable insights. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> strategically analyzes these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
+                    </p>
+                    <div>
+                        <div class="mb-6 border-b-2 border-blue-200">
+                            <nav class="flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center" aria-label="Tabs">
+                                <button class="tab-button active py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="xtwitter">X (Twitter)</button>
+                                <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="tiktok">TikTok</button>
+                                <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="youtube">YouTube</button>
+                                <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="reddit">Reddit</button>
+                            </nav>
+                        </div>
+                        <div id="social-platform-content" class="p-8 bg-blue-50 rounded-3xl shadow-lg min-h-[220px] border border-blue-200 flex flex-col justify-between items-center text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interactive-tools" class="content-section min-h-screen" data-nav-name="Tools">
+            <div class="section-content-wrapper">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-gradient-blue">Interactive Validation Tools Powered by AI</span></h2>
+                <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
+                    Experience the power of Ivalidate's AI agent in action! These interactive tools provide a tangible glimpse into how quickly and effectively you can <strong>validate your ideas, understand market needs from social feedback, and refine your core problem statements—all in minutes.</strong>
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-blue-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">lightbulb</span> Idea Expander</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your core idea, and let AI suggest related problems it could solve, potential niche markets, or expansion opportunities.</p>
+                        <textarea id="ideaInput" class="w-full p-4 border border-blue-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'A smart gardening app that monitors soil moisture'"></textarea>
+                        <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Expand Idea <span id="ideaSpinner" class="loading-spinner hidden"></span>
+                        </button>
+                        <div id="ideaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
+
+                    <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-blue-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">group</span> Audience Persona Generator</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">Describe a problem or idea, and AI will generate a basic persona for a potential target audience, including their pain points and online habits.</p>
+                        <textarea id="personaInput" class="w-full p-4 border border-blue-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'Parents struggling with healthy meal prep for picky eaters'"></textarea>
+                        <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Generate Persona <span id="personaSpinner" class="loading-spinner hidden"></span>
+                        </button>
+                        <div id="personaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
+
+                    <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-blue-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">check_circle</span> Problem Statement Refiner</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">Enter a problem you've identified, and AI will refine it into a clear, concise, and actionable problem statement.</p>
+                        <textarea id="problemInput" class="w-full p-4 border border-blue-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'People can't find healthy, quick meals when working from home.'"></textarea>
+                        <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Refine Problem <span id="problemSpinner" class="loading-spinner hidden"></span>
+                        </button>
+                        <div id="problemOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
+
+                    <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-blue-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">compare</span> Competitor Brainstormer</h3>
+                        <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your idea, and let AI suggest potential direct and indirect competitors, highlighting their approaches.</p>
+                        <textarea id="competitorInput" class="w-full p-4 border border-blue-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'An app for finding local, ethical dog walkers'"></textarea>
+                        <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Brainstorm Competitors <span id="competitorSpinner" class="loading-spinner hidden"></span>
+                        </button>
+                        <div id="competitorOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advantage" class="content-section min-h-screen" data-nav-name="Advantages">
+            <div class="section-content-wrapper">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-gradient-blue">The Strategic Edge of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></span></h2>
+                <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
+                    By directly addressing the core issues in idea validation, <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> offers significant strategic advantages to entrepreneurs, startups, and developers. It's about more than just avoiding failure; it's about building a robust foundation for sustainable success.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200"> <span class="material-icons text-blue-600 text-5xl mb-4">rocket_launch</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3 leading-tight tracking-tight">Accelerate Product-Market Fit</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">Rapid, data-driven insights allow for quicker iteration and refinement, focusing development on features that truly resonate with users and significantly reducing time-to-market.</p>
+                    </div>
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200"> <span class="material-icons text-blue-600 text-5xl mb-4">security</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3 leading-tight tracking-tight">Mitigate Risk & Optimize Resources</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">Proactively identify if an idea solves a real problem, preventing costly pursuit of unvalidated concepts and ensuring precious time and financial resources are invested wisely.</p>
+                    </div>
+                    <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200"> <span class="material-icons text-blue-600 text-5xl mb-4">analytics</span>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3 leading-tight tracking-tight">Empower Data-Driven Decisions</h3>
+                        <p class="text-slate-700 text-base leading-relaxed">Move beyond intuition. Leverage continuous, objective market intelligence for informed choices on features, target audience, and overall strategy, fostering predictable and sustainable growth.</p>
+                    </div>
+                </div>
+                <!-- Pattern Recognition Callout 2 -->
                 <div class="pattern-callout">
-                    <span class="material-icons">lightbulb</span>
-                    <p><strong>We Noticed:</strong> Many teams skipping early validation spent <strong>3x more time</strong> and capital fixing their products later, often leading to burnout and eventual closure. It's a costly detour.</p>
+                    <span class="material-icons">trending_up</span>
+                    <p><strong>We Noticed:</strong> Startups that prioritize continuous, data-driven validation from day one are significantly more likely to pivot effectively and achieve sustainable growth, avoiding the common pitfalls of guesswork.</p>
                 </div>
-                 <p class="text-slate-700 mt-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                    The key takeaway is clear: "failing fast" through efficient, data-driven validation is inherently smarter than "failing slow" after extensive, misguided development.
-                </p>
-            </div>
-        </section>
-
-        <section id="challenges" class="content-section mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Challenges"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Hurdles in Traditional Validation</h2> 
-            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                Why do so many entrepreneurs fall into the "no market need" trap? Part of the answer lies in the inherent limitations of traditional market research and validation methods. These approaches often struggle with bias, time demands, and accurately identifying the right audience.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"> 
-                <!-- Manual Research Pitfalls Card -->
-                <div class="comparison-card" id="manualResearchCard"> 
-                    <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
-                        <span>Manual Research Pitfalls</span>
-                        <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span> 
-                    </h3>
-                    <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed"> 
-                        <p>Traditional methods are often manual, leading to significant drawbacks:</p>
-                        <ul class="list-disc list-inside space-y-2 ml-4">
-                            <li><strong>Human Bias:</strong> Unconscious biases can skew data interpretation.</li>
-                            <li><strong>Time-Consuming:</strong> Sifting through vast amounts of information is slow and laborious.</li>
-                            <li><strong>Limited Scope:</strong> Access to premium data is often restricted by paywalls. Generic search engines aren't tailored for nuanced business insights.</li>
-                            <li><strong>High Cost:</strong> In-depth interviews ($5k-$15k), Focus Groups ($7k-$20k+).</li>
-                            <li><strong>Validation Pitfalls:</strong> Confusing polite interest with genuine market demand, the "intention-behavior-gap," and risks from small, unrepresentative sample sizes.</li>
-                            <li><strong>Result:</strong> Often, "Data overload, insight scarcity."</li>
-                        </ul>
-                        <p class="mt-4 font-semibold text-slate-800">This creates a dilemma: high costs for slow, potentially biased insights, or launching with high uncertainty.</p>
-                    </div>
-                </div>
-
-                <!-- Audience Identification Woes Card -->
-                <div class="comparison-card" id="audienceIdentificationCard"> 
-                     <h3 class="text-2xl font-bold text-slate-800 flex justify-between items-center" onclick="toggleComparisonCard(this)"> 
-                        <span>Audience Identification Woes</span>
-                        <span class="text-blue-600 text-3xl material-icons flex-shrink-0">add</span> 
-                    </h3>
-                    <div class="card-details-content text-slate-700 space-y-4 text-base leading-relaxed"> 
-                        <p>Accurately understanding your target audience is crucial but challenging:</p>
-                        <ul class="list-disc list-inside space-y-2 ml-4">
-                            <li><strong>Clarity:</strong> Defining the target market is foundational.</li>
-                            <li><strong>Talent Gap:</strong> Many lack in-house market research talent.</li>
-                            <li><strong>Costly:</strong> Manual methods (interviews, surveys) are expensive and time-intensive.</li>
-                            <li><strong>Beyond Demographics:</strong> Psychographics (attitudes, values) reveal the "why," but are hard to uncover manually.</li>
-                            <li><strong>Scalability:</strong> Manual segmentation doesn't scale for large data or continuous monitoring.</li>
-                        </ul>
-                        <p class="mt-4 font-semibold text-slate-800">Without deep, scalable audience understanding, product development and marketing efforts can easily miss the mark.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-16 p-8 bg-blue-50 rounded-3xl border-l-6 border-blue-500 shadow-lg"> 
-                <h4 class="text-2xl font-bold text-blue-800 mb-6">Traditional vs. AI-Powered Validation: A Stark Contrast</h4>
-                <p class="text-slate-700 mb-6 text-base leading-relaxed">The table below, drawn from comprehensive industry reports, highlights the stark contrast between outdated manual methods and the agile, data-driven approach of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>.</p>
-                <div class="overflow-x-auto rounded-3xl border border-gray-200 shadow-inner">
-                    <table class="min-w-full divide-y divide-gray-300"> 
-                        <thead class="bg-gray-100"> 
-                            <tr>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Category</th> 
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Traditional Manual Methods</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-blue-700 uppercase tracking-wider">AI-Powered (<span class="text-blue-600 uppercase font-bold">IVALIDATE</span>)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200"> 
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Time to Insight</td><td class="px-6 py-4 text-base text-slate-700">Weeks to Months</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Minutes to Hours</td></tr> 
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Cost</td><td class="px-6 py-4 text-base text-slate-700">High ($5k - $50k+)</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Subscription)</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Risk of Bias</td><td class="px-6 py-4 text-base text-slate-700">High</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Low (Algorithmic)</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-800">Data Sources/Scope</td><td class="px-6 py-4 text-base text-slate-700">Limited, Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Broad (Web, Social, Trends)</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Scalability</td><td class="px-6 py-4 text-base text-slate-700">Low, Manual</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">High, Automated</td></tr>
-                            <tr><td class="px-6 py-4 font-medium text-base text-slate-700">Actionability</td><td class="px-6 py-4 text-base text-slate-700">Often Subjective</td><td class="px-6 py-4 text-base text-blue-700 font-semibold">Quantitative, Actionable</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section id="solution" class="content-section mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Solution"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight"><span class="text-blue-600 uppercase font-bold">IVALIDATE</span>: Your AI Validation Agent</h2> 
-             <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> is an <strong>AI agent</strong> meticulously designed to validate startup and entrepreneurial ideas in <strong>minutes</strong>. It leverages state-of-the-art AI technology, combined with direct social media integration, to orchestrate crucial data and give you instant insights into your idea's market viability.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
-                <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center"> 
-                    <span class="material-icons text-blue-600 text-5xl mb-4">insights</span>
-                    <h3 class="text-xl font-bold text-blue-800 mb-3">AI-Powered Market Validation</h3>
-                    <p class="text-slate-700 text-base leading-relaxed"> 
-                        Our AI agent analyzes vast web data, market trends, and social conversations in real-time. It connects directly with <strong>your</strong> social media platforms, monitors and tracks your posts, and optimizes its internal information database to determine if your idea truly solves a problem that resonates with the audience you're reaching.
-                    </p>
-                </div>
-                <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center">
-                    <span class="material-icons text-blue-600 text-5xl mb-4">public</span>
-                    <h3 class="text-xl font-bold text-blue-800 mb-3">Real-time Social Media Engagement & Feedback</h3>
-                    <p class="text-slate-700 text-base leading-relaxed"> 
-                        <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> can not only monitor <em>your</em> posts on platforms like X, TikTok, YouTube, and Reddit, but it actively uses the feedback it gets to rapidly validate your idea. This means direct, unfiltered sentiment analysis and behavioral insights derived from how real users interact with your content, providing instant validation signals.
-                    </p>
-                </div>
-                <div class="bg-blue-50 p-8 rounded-3xl shadow-lg border border-blue-200 text-center">
-                    <span class="material-icons text-blue-600 text-5xl mb-4">bolt</span>
-                    <h3 class="text-xl font-bold text-blue-800 mb-3">Instant Validation: Minutes, Not Days</h3>
-                    <p class="text-slate-700 text-base leading-relaxed"> 
-                        Forget weeks or even days of waiting for market research. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> processes data and provides actionable validation results in <strong>minutes</strong>. This unparalleled speed allows entrepreneurs to iterate, pivot, or proceed with confidence at a pace previously unimaginable, drastically cutting down on wasted time and resources.
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-16">
-                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center leading-tight tracking-tight">Leveraging Key Social Platforms</h3> 
-                 <p class="text-center text-slate-700 mb-10 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                    Each social platform offers unique, invaluable insights. <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> strategically analyzes these diverse environments to build a comprehensive picture of market needs and audience segments. Click a tab to learn more about each platform's potential.
-                </p>
-                <div>
-                    <div class="mb-6 border-b-2 border-gray-200"> 
-                        <nav class="flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center" aria-label="Tabs">
-                            <button class="tab-button active py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="xtwitter">X (Twitter)</button> 
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="tiktok">TikTok</button>
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="youtube">YouTube</button>
-                            <button class="tab-button py-3 px-5 font-semibold text-sm text-gray-500 rounded-lg" data-tab="reddit">Reddit</button>
-                        </nav>
-                    </div>
-                    <div id="social-platform-content" class="p-8 bg-gray-50 rounded-3xl shadow-lg min-h-[220px] border border-gray-200 flex flex-col justify-center items-center text-center"> 
-                        </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="interactive-tools" class="content-section mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Tools"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">Interactive Validation Tools Powered by AI</h2> 
-            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                Experience the power of Ivalidate's AI agent in action! These interactive tools provide a tangible glimpse into how quickly and effectively you can <strong>validate your ideas, understand market needs from social feedback, and refine your core problem statements—all in minutes.</strong>
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"> 
-                <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">lightbulb</span> Idea Expander</h3>
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your core idea, and let AI suggest related problems it could solve, potential niche markets, or expansion opportunities.</p>
-                    <textarea id="ideaInput" class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'A smart gardening app that monitors soil moisture'"></textarea> 
-                    <button id="expandIdeaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Expand Idea <span id="ideaSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                    <div id="ideaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
-
-                <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">group</span> Audience Persona Generator</h3>
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Describe a problem or idea, and AI will generate a basic persona for a potential target audience, including their pain points and online habits.</p>
-                    <textarea id="personaInput" class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'Parents struggling with healthy meal prep for picky eaters'"></textarea>
-                    <button id="generatePersonaButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Generate Persona <span id="personaSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                    <div id="personaOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
-
-                <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">check_circle</span> Problem Statement Refiner</h3>
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Enter a problem you've identified, and AI will refine it into a clear, concise, and actionable problem statement.</p>
-                    <textarea id="problemInput" class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'People can't find healthy, quick meals when working from home.'"></textarea>
-                    <button id="refineProblemButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Refine Problem <span id="problemSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                    <div id="problemOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
-
-                <div class="bg-gray-50 px-6 py-8 rounded-3xl shadow-lg border border-gray-200 flex flex-col h-full"> <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="material-icons text-blue-600">compare</span> Competitor Brainstormer</h3>
-                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Input your idea, and let AI suggest potential direct and indirect competitors, highlighting their approaches.</p>
-                    <textarea id="competitorInput" class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 mb-6 shadow-sm resize-y min-h-[100px] flex-grow" rows="4" placeholder="e.g., 'An app for finding local, ethical dog walkers'"></textarea>
-                    <button id="brainstormCompetitorsButton" class="flex items-center justify-center gap-2 min-w-[84px] max-w-full cursor-pointer overflow-hidden rounded-full h-12 px-6 bg-blue-600 text-white text-base font-semibold leading-normal tracking-wide shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 mt-auto"> Brainstorm Competitors <span id="competitorSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                    <div id="competitorOutput" class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-3xl text-slate-700 min-h-[120px] overflow-auto text-base leading-relaxed shadow-inner flex-grow"></div> </div>
-            </div>
-        </section>
-
-        <section id="advantage" class="content-section mb-12 min-h-screen flex flex-col justify-center" data-nav-name="Advantages"> 
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 mb-10 leading-tight tracking-tight">The Strategic Edge of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span></h2> 
-            <p class="text-center text-slate-700 mb-12 max-w-4xl mx-auto text-lg leading-relaxed"> 
-                By directly addressing the core issues in idea validation, <span class="text-blue-600 uppercase font-bold">IVALIDATE</span> offers significant strategic advantages to entrepreneurs, startups, and developers. It's about more than just avoiding failure; it's about building a robust foundation for sustainable success.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"> 
-                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-200"> <span class="material-icons text-blue-600 text-5xl mb-4">rocket_launch</span>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Accelerate Product-Market Fit</h3> 
-                    <p class="text-slate-700 text-base leading-relaxed">Rapid, data-driven insights allow for quicker iteration and refinement, focusing development on features that truly resonate with users and significantly reducing time-to-market.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-200"> <span class="material-icons text-blue-600 text-5xl mb-4">security</span>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Mitigate Risk & Optimize Resources</h3> 
-                    <p class="text-slate-700 text-base leading-relaxed">Proactively identify if an idea solves a real problem, preventing costly pursuit of unvalidated concepts and ensuring precious time and financial resources are invested wisely.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-200"> <span class="material-icons text-blue-600 text-5xl mb-4">analytics</span>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3 leading-tight tracking-tight">Empower Data-Driven Decisions</h3> 
-                    <p class="text-slate-700 text-base leading-relaxed">Move beyond intuition. Leverage continuous, objective market intelligence for informed choices on features, target audience, and overall strategy, fostering predictable and sustainable growth.</p>
-                </div>
-            </div>
-            <!-- Pattern Recognition Callout 2 -->
-            <div class="pattern-callout">
-                <span class="material-icons">trending_up</span>
-                <p><strong>We Noticed:</strong> Startups that prioritize continuous, data-driven validation from day one are significantly more likely to pivot effectively and achieve sustainable growth, avoiding the common pitfalls of guesswork.</p>
             </div>
         </section>
 
         <!-- Research Methodology Box -->
-        <section id="research-methodology" class="content-section mb-12 flex flex-col justify-center" data-nav-name="Research Methodology">
-            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl shadow-xl border-2 border-blue-300">
-                <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center leading-tight tracking-tight flex items-center justify-center gap-3">
-                    <span class="material-icons text-blue-600 text-4xl">science</span> How We Uncovered These Insights
-                </h3>
-                <p class="text-slate-700 mb-6 text-base leading-relaxed">Our insights are derived from a multi-faceted research approach, combining quantitative data with qualitative understanding to provide a comprehensive view of the startup landscape:</p>
-                <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed ml-4">
-                    <li><strong>Extensive Startup Analysis:</strong> Aggregated and analyzed data from thousands of startup post-mortems, venture capital reports, and industry studies to identify common failure patterns and success factors.</li>
-                    <li><strong>Founder Surveys & Interviews:</strong> Conducted anonymous surveys and in-depth interviews with both successful and struggling founders to capture their firsthand experiences, challenges, and lessons learned regarding market validation.</li>
-                    <li><strong>Social Listening & Trend Monitoring:</strong> Utilized advanced social listening tools and trend analysis platforms to monitor real-time conversations, emerging pain points, and unmet needs across various online communities and social media channels.</li>
-                </ul>
-                <p class="text-slate-700 mt-6 text-base leading-relaxed">This rigorous methodology ensures our understanding of the startup ecosystem is both data-backed and deeply empathetic to the entrepreneurial journey.</p>
+        <section id="research-methodology" class="content-section" data-nav-name="Research Methodology">
+            <div class="section-content-wrapper">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl shadow-xl border-2 border-blue-300">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center leading-tight tracking-tight flex items-center justify-center gap-3">
+                        <span class="material-icons text-blue-600 text-4xl">science</span> How We Uncovered These Insights
+                    </h3>
+                    <p class="text-slate-700 mb-6 text-base leading-relaxed">Our insights are derived from a multi-faceted research approach, combining quantitative data with qualitative understanding to provide a comprehensive view of the startup landscape:</p>
+                    <ul class="list-disc list-inside text-slate-700 space-y-3 text-base leading-relaxed ml-4">
+                        <li><strong>Extensive Startup Analysis:</strong> Aggregated and analyzed data from thousands of startup post-mortems, venture capital reports, and industry studies to identify common failure patterns and success factors.</li>
+                        <li><strong>Founder Surveys & Interviews:</b> Conducted anonymous surveys and in-depth interviews with both successful and struggling founders to capture their firsthand experiences, challenges, and lessons learned regarding market validation.</li>
+                        <li><strong>Social Listening & Trend Monitoring:</strong> Utilized advanced social listening tools and trend analysis platforms to monitor real-time conversations, emerging pain points, and unmet needs across various online communities and social media channels.</li>
+                    </ul>
+                    <p class="text-slate-700 mt-6 text-base leading-relaxed">This rigorous methodology ensures our understanding of the startup ecosystem is both data-backed and deeply empathetic to the entrepreneurial journey.</p>
+                </div>
             </div>
         </section>
 
         <!-- Waitlist Section -->
-        <section id="waitlist" class="content-section mb-12 min-h-screen flex flex-col justify-center items-center text-center" data-nav-name="Waitlist">
-            <div class="bg-blue-100 p-8 rounded-3xl max-w-2xl mx-auto shadow-inner border border-blue-200 w-full">
-                <h2 class="text-3xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Join Our Exclusive Waitlist</h2>
-                <p class="text-slate-700 text-lg mb-8 leading-relaxed">
-                    Be among the first to experience the power of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>. Sign up for our waitlist to receive early access, exclusive updates, and special offers!
-                </p>
-                <!-- START: Waitlist Form - Integrated Zapier/Google Apps Script -->
-                <form id="waitlist-form" method="POST" action="https://script.google.com/macros/s/AKfycbw6NcKfV4mO3eZ_VRYpKTjrsvDDMlqL69KQTLc4MP6oef1wXLOksTP1I4WF6gvLxEYq/exec" class="flex flex-col gap-4 w-full items-center">
-                    <input type="text" name="name" id="waitlistName" placeholder="Your Name" required class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
-                    <input type="email" name="email" id="waitlistEmail" placeholder="Your Email Address" required class="w-full p-4 border border-gray-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
-                    <textarea name="challenge" id="waitlistChallenge" placeholder="What's your biggest challenge in validating a new startup idea or finding market need?" required class="w-full p-4 border border-gray-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200 resize-y min-h-[80px]"></textarea>
-                    <button type="submit" id="joinWaitlistButton" class="flex items-center justify-center gap-2 min-w-[150px] w-full sm:w-auto h-12 px-6 bg-blue-600 text-white text-base font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150">
-                        Join Waitlist <span id="waitlistSpinner" class="loading-spinner hidden"></span>
-                    </button>
-                </form>
-                <!-- END: Waitlist Form -->
-                <div id="waitlistMessage" class="mt-6 text-sm font-semibold hidden"></div>
+        <section id="waitlist" class="content-section min-h-screen flex flex-col justify-center items-center text-center" data-nav-name="Waitlist">
+            <div class="section-content-wrapper">
+                <div class="bg-blue-100 p-8 rounded-3xl max-w-2xl mx-auto shadow-inner border border-blue-200 w-full">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-4 leading-tight tracking-tight">Join Our Exclusive Waitlist</h2>
+                    <p class="text-slate-700 text-lg mb-8 leading-relaxed">
+                        Be among the first to experience the power of <span class="text-blue-600 uppercase font-bold">IVALIDATE</span>. Sign up for our waitlist to receive early access, exclusive updates, and special offers!
+                    </p>
+                    <!-- START: Waitlist Form - Perplexity's Snippet with New URL -->
+                    <form id="waitlist-form" method="POST" action="https://script.google.com/macros/s/AKfycbwkJrWMaQhsIPghKWIewjGRTI7WMUMHUp14KPxpFxAtDSvZ1qGSyOdwoQPc-B_6hztZ/exec" class="flex flex-col gap-4 w-full items-center">
+                        <input type="text" name="Name" id="waitlistName" placeholder="Your Name" required class="w-full p-4 border border-blue-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
+                        <input type="email" name="Email" id="waitlistEmail" placeholder="Your Email Address" required class="w-full p-4 border border-blue-300 rounded-full focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200">
+                        <textarea name="Challenge" id="waitlistChallenge" placeholder="What's your biggest startup validation challenge?" required class="w-full p-4 border border-blue-300 rounded-3xl focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 shadow-sm transition-all duration-200 resize-y min-h-[80px]"></textarea>
+                        <button type="submit" id="joinWaitlistButton" class="flex items-center justify-center gap-2 min-w-[150px] w-full sm:w-auto h-12 px-6 bg-blue-600 text-white text-base font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150">
+                            Join Waitlist
+                        </button>
+                    </form>
+                    <!-- END: Waitlist Form -->
+                    <div id="waitlistMessage" class="mt-6 text-sm font-semibold hidden"></div>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="py-8 px-4 sm:px-10 text-center text-sm text-gray-600 border-t border-gray-200 bg-white shadow-inner rounded-t-3xl">
+    <footer class="py-8 px-4 sm:px-10 text-center text-sm text-gray-600 border-t border-blue-200">
         &copy; <span id="currentYear"></span> Ivalidate Insights. All rights reserved. Designed with passion.
     </footer>
 
@@ -912,16 +1206,52 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Theme Switcher Logic
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const htmlElement = document.documentElement;
+        const currentTheme = localStorage.getItem('theme');
+
+        // Set initial theme
+        if (currentTheme) {
+            htmlElement.classList.add(currentTheme);
+            updateThemeSwitcherIcon(currentTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Default to dark mode if system preference is dark
+            htmlElement.classList.add('dark');
+            updateThemeSwitcherIcon('dark');
+        } else {
+            htmlElement.classList.add('light'); // Explicitly set light if no preference and not dark system
+            updateThemeSwitcherIcon('light');
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                updateThemeSwitcherIcon('light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeSwitcherIcon('dark');
+            }
+        });
+
+        function updateThemeSwitcherIcon(theme) {
+            themeSwitcher.querySelector('.material-icons').textContent = theme === 'dark' ? 'dark_mode' : 'light_mode';
+        }
+
         // Startup Failure Chart Initialization
         const startupFailureCanvas = document.getElementById('startupFailureChart');
         if (startupFailureCanvas) { // Check if the element exists
             const startupFailureCtx = startupFailureCanvas.getContext('2d');
             const startupFailureData = {
                 labels: [
-                    'No Market Need (35-42%)', 
-                    'Ran Out of Cash (29-38%)', 
-                    'Weak Team (14-23%)', 
-                    'Competition (19-20%)', 
+                    'No Market Need (35-42%)',
+                    'Ran Out of Cash (29-38%)',
+                    'Weak Team (14-23%)',
+                    'Competition (19-20%)',
                     'Poor Business Model/Fit (19-74%)', /* Adjusted label for clarity */
                     'Poor Product (8-17%)',
                     'Poor Marketing (14%)',
@@ -931,7 +1261,7 @@
                 ],
                 datasets: [{
                     label: 'Approx. % of Startups Failing Due To This Reason',
-                    data: [38.5, 33.5, 18.5, 19.5, 46.5, 12.5, 14, 18, 15, 10], 
+                    data: [38.5, 33.5, 18.5, 19.5, 46.5, 12.5, 14, 18, 15, 10],
                     backgroundColor: [
                         'rgba(30, 64, 175, 0.8)', // blue-800
                         'rgba(37, 99, 235, 0.8)', // blue-700
@@ -968,43 +1298,43 @@
                     maintainAspectRatio: false,
                     layout: {
                         padding: {
-                            right: 20 
+                            right: 20
                         }
                     },
                     scales: {
                         x: {
                             beginAtZero: true,
-                            title: { 
-                                display: true, 
-                                text: 'Percentage (%)', 
-                                color: '#6b7280', // slate-500
+                            title: {
+                                display: true,
+                                text: 'Percentage (%)',
+                                color: 'rgb(75, 85, 99)', /* slate-600 */
                                 font: { size: 14, weight: '600' }
                             },
                             ticks: {
-                                color: '#4b5563', // slate-700
+                                color: 'rgb(75, 85, 99)', /* slate-700 */
                                 font: { size: 12 }
                             },
                             grid: {
-                                color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                                color: 'rgba(209, 213, 219, 0.4)' /* gray-200 with alpha */
                             }
                         },
-                        y: { 
-                            offset: true, 
-                            ticks: { 
-                                autoSkip: false, 
-                                color: '#4b5563', // slate-700
-                                font: { size: 11.5, weight: '500' }, 
+                        y: {
+                            offset: true,
+                            ticks: {
+                                autoSkip: false,
+                                color: 'rgb(75, 85, 99)', /* slate-700 */
+                                font: { size: 11.5, weight: '500' },
                                 callback: function(value, index, values) {
                                     const label = this.getLabelForValue(value);
-                                    const maxLength = 50; 
-                                    if (label.length > maxLength) { 
+                                    const maxLength = 50;
+                                    if (label.length > maxLength) {
                                         return label.substring(0, maxLength) + '...';
                                     }
                                     return label;
                                 }
                             },
                             grid: {
-                                color: 'rgba(209, 213, 219, 0.4)' // gray-200 with alpha
+                                color: 'rgba(209, 213, 219, 0.4)' /* gray-200 with alpha */
                             }
                         }
                     },
@@ -1016,9 +1346,9 @@
                                     return `${context.dataset.label}: ${context.raw}%`;
                                 }
                             },
-                            backgroundColor: 'rgba(30, 41, 59, 0.9)', // slate-800
-                            titleColor: '#f8fafc', // slate-50
-                            bodyColor: '#e2e8f0', // slate-200
+                            backgroundColor: 'rgba(30, 41, 59, 0.9)', /* slate-800 */
+                            titleColor: '#f8fafc', /* slate-50 */
+                            bodyColor: '#e2e8f0', /* slate-200 */
                             padding: 12,
                             cornerRadius: 8,
                             displayColors: false
@@ -1026,6 +1356,32 @@
                     }
                 }
             });
+
+            // Update chart colors based on theme
+            function updateChartColors(isDarkMode) {
+                startupFailureChart.options.scales.x.title.color = isDarkMode ? '#cbd5e0' : 'rgb(75, 85, 99)';
+                startupFailureChart.options.scales.x.ticks.color = isDarkMode ? '#e2e8f0' : 'rgb(75, 85, 99)';
+                startupFailureChart.options.scales.x.grid.color = isDarkMode ? 'rgba(45, 55, 72, 0.4)' : 'rgba(209, 213, 219, 0.4)';
+                startupFailureChart.options.scales.y.ticks.color = isDarkMode ? '#e2e8f0' : 'rgb(75, 85, 99)';
+                startupFailureChart.options.scales.y.grid.color = isDarkMode ? 'rgba(45, 55, 72, 0.4)' : 'rgba(209, 213, 219, 0.4)';
+                startupFailureChart.options.plugins.tooltip.backgroundColor = isDarkMode ? 'rgba(13, 17, 23, 0.9)' : 'rgba(30, 41, 59, 0.9)';
+                startupFailureChart.options.plugins.tooltip.titleColor = isDarkMode ? '#90cdf4' : '#f8fafc';
+                startupFailureChart.options.plugins.tooltip.bodyColor = isDarkMode ? '#e2e8f0' : '#e2e8f0';
+                startupFailureChart.update();
+            }
+
+            // Listen for theme changes to update chart
+            new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'class') {
+                        const isDarkMode = htmlElement.classList.contains('dark');
+                        updateChartColors(isDarkMode);
+                    }
+                });
+            }).observe(htmlElement, { attributes: true });
+
+            // Initial chart color update
+            updateChartColors(htmlElement.classList.contains('dark'));
         }
 
 
@@ -1079,8 +1435,9 @@
                 e.preventDefault(); // Prevent default jump behavior
                 const targetId = this.getAttribute('href'); // Get the href (e.g., "#interactive-tools")
                 const targetSection = document.querySelector(targetId);
+                const targetNavName = targetSection ? (targetSection.dataset.navName || capitalizeFirstLetter(targetSection.id)) : null;
                 if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollToSection(targetId, targetNavName); // Pass targetId (e.g. #waitlist) and its nav name
                 }
             });
         }
@@ -1093,8 +1450,8 @@
         // Variable to track scroll direction
         let lastScrollY = window.scrollY;
 
-        // Function to smoothly scroll to a section
-        function scrollToSection(sectionId) {
+        // Function to smoothly scroll to a section AND update the pill immediately
+        function scrollToSection(sectionId, forceNavName = null) {
             const targetSection = document.querySelector(sectionId);
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1103,6 +1460,11 @@
                     document.getElementById('mobile-menu').classList.add('hidden');
                     document.getElementById('mobile-menu-button').querySelector('svg').innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />`;
                 }
+
+                // Immediately update the pill to the target section's name
+                // This prevents the lag where the observer might not catch up fast enough.
+                const sectionName = forceNavName || targetSection.dataset.navName || capitalizeFirstLetter(targetSection.id);
+                updateActivePill(sectionName, targetSection.id);
             }
         }
 
@@ -1111,7 +1473,9 @@
             currentPagePill.addEventListener('click', () => {
                 const currentSectionId = currentPagePill.dataset.currentSectionId;
                 if (currentSectionId) {
-                    scrollToSection(`#${currentSectionId}`);
+                    // When clicking the pill itself, we are explicitly going to that section
+                    // So we can pass the current text content as the forced name.
+                    scrollToSection(`#${currentSectionId}`, currentPageTextSpan.textContent);
                 }
             });
         }
@@ -1134,80 +1498,102 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                scrollToSection(targetId);
+                const targetNavName = this.textContent; // Get the text from the clicked nav link
+                scrollToSection(targetId, targetNavName);
             });
         });
 
-        // This function will be called on scroll or when intersection observer triggers
-        function updateActivePill() {
+        // This function will be called on scroll or when an explicit update is forced
+        function updateActivePill(forcedSectionName = null, forcedSectionId = null) {
             let currentScrollY = window.scrollY;
-            let activeSectionId = null;
-            let activeSectionName = null;
-            const headerOffset = 170; // Adjusted to match new padding-top/scroll-margin-top
+            let activeSectionId = forcedSectionId;
+            let activeSectionName = forcedSectionName;
+            const headerOffset = 120; // Adjusted to perfectly match scroll-margin-top and hero padding-top
+            
+            // If not forced by a click, determine the active section based on scroll position
+            if (!forcedSectionId) {
+                let currentActiveSection = null;
 
-            // Logic to determine the currently active section
-            // Prioritize the section whose top is closest to the headerOffset and within view
-            for (let i = 0; i < sections.length; i++) {
-                const section = sections[i];
-                const rect = section.getBoundingClientRect();
-
-                // Check if the section's top is at or above the headerOffset
-                // AND the section's bottom is below the headerOffset
-                // This ensures the section is currently "active" at the top of the viewport
-                if (rect.top <= headerOffset && rect.bottom > headerOffset) {
-                    activeSectionId = section.id;
-                    activeSectionName = section.dataset.navName || capitalizeFirstLetter(section.id);
-                    break; // Found the primary active section, exit loop
-                }
-            }
-
-            // If no section perfectly matches the above, it could be at the very top of the page
-            // or scrolled between sections where no single section is definitively "at the top".
-            // In such cases, determine the *first* visible section that is at least partially in view.
-            if (!activeSectionId) {
+                // Iterate through sections from top to bottom
                 for (let i = 0; i < sections.length; i++) {
                     const section = sections[i];
                     const rect = section.getBoundingClientRect();
-                    // If any part of the section is visible in the viewport and its top is not too far down
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        // Special handling for 'hero' section at the very top of the page
-                        if (section.id === 'hero' && window.scrollY < 50) { 
-                            activeSectionId = 'hero';
-                            activeSectionName = 'Home';
+                    
+                    // The activation point is where the section's top crosses the header offset
+                    // Adding a small buffer allows it to activate slightly before hitting the very top
+                    const activationPoint = section.offsetTop - headerOffset + 5; // +5px buffer
+
+                    if (currentScrollY >= activationPoint) {
+                        currentActiveSection = section;
+                    } else {
+                        // If we are before this section's activation point, and we found a previous active section,
+                        // then the last active section found is the correct one. Break.
+                        if (currentActiveSection) {
                             break;
-                        } else if (section.id !== 'hero') { // For other sections, if visible, set as active
-                             activeSectionId = section.id;
-                             activeSectionName = section.dataset.navName || capitalizeFirstLetter(section.id);
-                             break;
                         }
                     }
                 }
+
+                // If a section was identified, use its data. Otherwise, default to 'hero'.
+                if (currentActiveSection) {
+                    activeSectionId = currentActiveSection.id;
+                    activeSectionName = currentActiveSection.dataset.navName || capitalizeFirstLetter(currentActiveSection.id);
+                } else {
+                    activeSectionId = 'hero';
+                    activeSectionName = 'Home';
+                }
+
+                // Special handling for the very bottom of the page
+                // This ensures the last section is highlighted if we're scrolled all the way down
+                const documentHeight = Math.max(
+                    document.body.scrollHeight,
+                    document.documentElement.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.offsetHeight,
+                    document.body.clientHeight,
+                    document.documentElement.clientHeight
+                );
+                const windowHeight = window.innerHeight;
+                const scrollableDistance = documentHeight - windowHeight;
+                const bottomThreshold = 20; // Pixels from the absolute bottom
+
+                if (currentScrollY >= scrollableDistance - bottomThreshold) {
+                    const lastSection = sections[sections.length - 1];
+                    if (lastSection) {
+                        activeSectionId = lastSection.id;
+                        activeSectionName = lastSection.dataset.navName || capitalizeFirstLetter(lastSection.id);
+                    }
+                }
             }
-
-
-            // Default to 'Home' if nothing else is clearly active, especially when at the very top.
-            if (!activeSectionId) {
-                activeSectionId = 'hero';
-                activeSectionName = 'Home';
-            }
-
-
+            
             // Only update if the active section name has actually changed
             if (currentPageTextSpan.textContent !== activeSectionName) {
+                // Determine scroll direction for animation, if applicable
                 const scrollingDown = currentScrollY > lastScrollY;
 
-                currentPageTextSpan.style.transform = scrollingDown ? 'translateY(-100%)' : 'translateY(100%)';
-                currentPageTextSpan.style.opacity = '0';
-
-                setTimeout(() => {
+                // Apply immediate text update for forced changes, or animated for natural scroll
+                if (forcedSectionName) { // Direct update for forced name (e.g., from click)
+                    currentPageTextSpan.style.transition = 'none'; // Temporarily disable transition
                     currentPageTextSpan.textContent = activeSectionName;
                     currentPagePill.dataset.currentSectionId = activeSectionId;
-                    currentPageTextSpan.style.transform = scrollingDown ? 'translateY(100%)' : 'translateY(-100%)';
+                    // Re-enable transition after a very short delay to allow for subsequent natural scroll animations
+                    setTimeout(() => {
+                        currentPageTextSpan.style.transition = 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out';
+                    }, 10);
+                } else { // Animated update for natural scrolling
+                    currentPageTextSpan.style.transform = scrollingDown ? 'translateY(-100%)' : 'translateY(100%)';
                     currentPageTextSpan.style.opacity = '0';
-                    void currentPageTextSpan.offsetWidth; 
-                    currentPageTextSpan.style.transform = 'translateY(0%)';
-                    currentPageTextSpan.style.opacity = '1';
-                }, 300);
+
+                    setTimeout(() => {
+                        currentPageTextSpan.textContent = activeSectionName;
+                        currentPagePill.dataset.currentSectionId = activeSectionId;
+                        currentPageTextSpan.style.transform = scrollingDown ? 'translateY(100%)' : 'translateY(-100%)';
+                        currentPageTextSpan.style.opacity = '0';
+                        void currentPageTextSpan.offsetWidth;
+                        currentPageTextSpan.style.transform = 'translateY(0%)';
+                        currentPageTextSpan.style.opacity = '1';
+                    }, 300);
+                }
             }
 
             // Update mobile menu active state
@@ -1224,13 +1610,22 @@
             lastScrollY = currentScrollY;
         }
 
-        // Intersection Observer to trigger updateActivePill when *any* section enters or leaves
+        // Intersection Observer Callback Wrapper
+        const observerCallback = (entries) => {
+            // This callback is triggered by scroll events detected by the Intersection Observer.
+            // We want updateActivePill to re-evaluate based on the current scroll state,
+            // so we call it without forced arguments.
+            updateActivePill();
+        };
+
+        // Intersection Observer setup
         const observerOptions = {
             root: null, // viewport
-            rootMargin: '-170px 0px 0px 0px', // Adjusted to match new padding-top/scroll-margin-top
+            rootMargin: '-120px 0px 0px 0px', // Adjusted to perfectly match headerOffset (hero padding-top)
             threshold: 0 // Trigger as soon as any part of the section enters the observation area
         };
-        const observer = new IntersectionObserver(updateActivePill, observerOptions); // Pass function directly
+        // Pass the new wrapper function to the IntersectionObserver
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
 
         // Observe all sections
         sections.forEach(section => {
@@ -1303,50 +1698,29 @@
             });
         });
 
-        // Waitlist Form Logic
-        const waitlistForm = document.getElementById('waitlist-form');
-        const joinWaitlistButton = document.getElementById('joinWaitlistButton');
-        const waitlistSpinner = document.getElementById('waitlistSpinner');
-        const waitlistMessage = document.getElementById('waitlistMessage');
+        // Waitlist Form Logic (Perplexity's Snippet)
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('button[type="submit"]'); // Target the specific submit button
+            const originalButtonText = button.textContent; // Store original text
+            const waitlistMessage = document.getElementById('waitlistMessage'); // Get the message div
 
-        waitlistForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
+            // Hide previous messages and clear content
+            waitlistMessage.classList.add('hidden');
+            waitlistMessage.textContent = '';
+            waitlistMessage.classList.remove('text-green-600', 'text-red-600');
 
-            const nameInput = document.getElementById('waitlistName');
-            const emailInput = document.getElementById('waitlistEmail');
-            const challengeInput = document.getElementById('waitlistChallenge');
+            // Add spinner to button
+            let spinner = document.createElement('span');
+            spinner.className = 'loading-spinner'; // Use existing spinner class
+            button.textContent = 'Submitting...';
+            button.appendChild(spinner); // Append spinner to button
+            
+            button.disabled = true;
 
-            const name = nameInput.value.trim();
-            const email = emailInput.value.trim();
-            const challenge = challengeInput.value.trim();
-
-            waitlistMessage.classList.add('hidden'); // Hide previous messages
-            waitlistMessage.textContent = ''; // Clear message
-            waitlistMessage.classList.remove('text-green-600', 'text-red-600'); // Clear previous styling
-
-            if (!name || !email || !challenge) {
-                waitlistMessage.textContent = 'Please fill in all fields (Name, Email, and Challenge).';
-                waitlistMessage.classList.remove('hidden');
-                waitlistMessage.classList.add('text-red-600'); 
-                return;
-            }
-
-            // Basic email validation regex
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                waitlistMessage.textContent = 'Please enter a valid email address.';
-                waitlistMessage.classList.remove('hidden');
-                waitlistMessage.classList.add('text-red-600');
-                return;
-            }
-
-            joinWaitlistButton.textContent = 'Submitting...';
-            waitlistSpinner.classList.remove('hidden');
-            joinWaitlistButton.disabled = true; // Disable button during submission
-
-            fetch(waitlistForm.action, {
+            fetch(this.action, {
                 method: 'POST',
-                body: new FormData(waitlistForm)
+                body: new FormData(this)
             })
             .then(response => {
                 // Check if response is JSON, sometimes Apps Script might return plain text
@@ -1354,6 +1728,7 @@
                 if (contentType && contentType.indexOf("application/json") !== -1) {
                     return response.json();
                 } else {
+                    // If not JSON, try to read as text and assume success/failure based on response.ok
                     return response.text().then(text => ({ result: response.ok ? 'success' : 'error', message: text }));
                 }
             })
@@ -1362,7 +1737,7 @@
                     waitlistMessage.textContent = 'Thanks for joining our waitlist! Check your email soon.';
                     waitlistMessage.classList.remove('hidden');
                     waitlistMessage.classList.add('text-green-600');
-                    waitlistForm.reset(); // Clear form fields
+                    this.reset();
                 } else {
                     waitlistMessage.textContent = `Error submitting form: ${data.message || 'Please try again.'}`;
                     waitlistMessage.classList.remove('hidden');
@@ -1376,9 +1751,11 @@
                 waitlistMessage.classList.add('text-red-600');
             })
             .finally(() => {
-                joinWaitlistButton.textContent = 'Join Waitlist';
-                waitlistSpinner.classList.add('hidden');
-                joinWaitlistButton.disabled = false; // Re-enable button
+                button.textContent = originalButtonText; // Restore original text
+                if (spinner.parentNode) { // Check if spinner is still a child
+                    spinner.parentNode.removeChild(spinner); // Remove spinner
+                }
+                button.disabled = false;
             });
         });
 
